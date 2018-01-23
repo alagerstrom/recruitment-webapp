@@ -8,6 +8,7 @@ public class MainView {
 
     @RequestMapping
     public String mainView(){
+        // Mycket konstigt
         return "index";
     }
 }
