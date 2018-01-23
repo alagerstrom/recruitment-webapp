@@ -1,3 +1,6 @@
+.mvn
+mvnw
+mvnw.cmd
 target/
 !.mvn/wrapper/maven-wrapper.jar
 
@@ -22,3 +25,5 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+web/src/main/resources/static/
+web/src/main/resources/templates/
