@@ -13,10 +13,11 @@
 
 	<modules>
 		<module>web</module>
-		<module>personservice</module>
-		<module>roleservice</module>
-
-
+		<module>person-service</module>
+		<module>role-service</module>
+		<module>competence-service</module>
+		<module>availability-service</module>
+		<module>competence-profile-service</module>
 	</modules>
 
 
