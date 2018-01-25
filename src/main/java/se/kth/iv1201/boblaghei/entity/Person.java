@@ -13,32 +13,39 @@ public class Person {
     @GeneratedValue
     private long id;
 
+    @Column(nullable = false)
     private String firstName;
 
+    @Column(nullable = false)
     private String lastName;
 
+    @Column(nullable = false)
     private String personalNumber;
 
+    @Column(nullable = false)
     private String email;
 
+    @Column(nullable = false)
     private String username;
 
+    @Column(nullable = false)
     private String password;
 
-    @ManyToOne
-    private long roleId;
+    @Column(nullable = false)
+    @ManyToOne(cascade= CascadeType.ALL)
+    private Role role;
 
     public Person() {
     }
 
-    public Person(String firstName, String lastName, String personalNumber, String email, String username, String password, long roleId) {
+    public Person(String firstName, String lastName, String personalNumber, String email, String username, String password, Role role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.personalNumber = personalNumber;
         this.email = email;
         this.username = username;
         this.password = password;
-        this.roleId = roleId;
+        this.role = role;
     }
 
     public long getId() {
@@ -97,11 +104,11 @@ public class Person {
         this.password = password;
     }
 
-    public long getRoleId() {
-        return roleId;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoleId(long roleId) {
-        this.roleId = roleId;
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
