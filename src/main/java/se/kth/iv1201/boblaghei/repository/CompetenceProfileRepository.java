@@ -1,4 +1,8 @@
 package se.kth.iv1201.boblaghei.repository;
 
-public interface CompetenceProfileRepository {
+import org.springframework.data.repository.CrudRepository;
+import se.kth.iv1201.boblaghei.entity.CompetenceProfile;
+
+public interface CompetenceProfileRepository extends CrudRepository<CompetenceProfile, Long> {
+
 }
