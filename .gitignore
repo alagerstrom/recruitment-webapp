@@ -3,6 +3,11 @@
 # Compiled class file
 *.class
 
+.idea
+*.iml
+mvnw
+mvnw.cmd
+
 # Log file
 *.log
 
