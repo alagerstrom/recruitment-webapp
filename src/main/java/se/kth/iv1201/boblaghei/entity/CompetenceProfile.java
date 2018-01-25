@@ -15,11 +15,9 @@ public class CompetenceProfile {
     @Column(nullable = false)
     private double yearsOfExperience;
 
-    @Column(nullable = false)
     @ManyToOne(cascade=CascadeType.ALL)
     private Person person;
 
-    @Column(nullable = false)
     @ManyToOne(cascade=CascadeType.ALL)
     private Competence competence;
 

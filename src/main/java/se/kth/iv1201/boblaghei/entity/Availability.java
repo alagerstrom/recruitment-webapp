@@ -18,7 +18,6 @@ public class Availability {
     @Column(nullable = false)
     private Date to;
 
-    @Column(nullable = false)
     @ManyToOne(cascade= CascadeType.ALL)
     private Person person;
 
