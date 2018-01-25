@@ -1,4 +1,4 @@
 package se.kth.iv1201.boblaghei.repository;
 
-public interface PersonDao {
+public interface CompetenceProfileRepository {
 }
