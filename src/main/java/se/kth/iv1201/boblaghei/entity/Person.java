@@ -31,7 +31,6 @@ public class Person {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
     @ManyToOne(cascade= CascadeType.ALL)
     private Role role;
 
