@@ -1,6 +1,7 @@
 package se.kth.iv1201.boblaghei.entity;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  *  O/R Mapping of the table Person in the database.
@@ -25,22 +26,22 @@ public class Person {
     @Column(nullable = false)
     private String email;
 
-    @OneToOne(cascade= CascadeType.ALL)
+    @OneToOne(cascade= CascadeType.ALL, mappedBy = "person")
     private User user;
 
-    @OneToMany
-    private Application application;
+    @OneToMany(mappedBy = "person")
+    private Set<Application> applications;
 
     public Person() {
     }
 
-    public Person(String firstName, String lastName, String personalNumber, String email, User user, Application application) {
+    public Person(String firstName, String lastName, String personalNumber, String email, User user, Set<Application> applications) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.personalNumber = personalNumber;
         this.email = email;
         this.user = user;
-        this.application = application;
+        this.applications = applications;
     }
 
     public long getId() {
@@ -87,12 +88,12 @@ public class Person {
         return user;
     }
 
-    public Application getApplication() {
-        return application;
+    public Set<Application> getApplications() {
+        return applications;
     }
 
-    public void setApplication(Application application) {
-        this.application = application;
+    public void setApplications(Set<Application> applications) {
+        this.applications = applications;
     }
 
     public void setUser(User user) {
@@ -108,7 +109,7 @@ public class Person {
                 ", personalNumber='" + personalNumber + '\'' +
                 ", email='" + email + '\'' +
                 ", user=" + user +
-                ", application=" + application +
+                ", applications=" + applications +
                 '}';
     }
 }

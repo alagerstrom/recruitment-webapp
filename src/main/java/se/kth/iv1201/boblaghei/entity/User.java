@@ -18,10 +18,10 @@ public class User {
     @Column(nullable = false)
     private boolean enabled;
 
-    @OneToOne
+    @OneToOne(mappedBy = "user")
     private Person person;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     private Set<UserRole> userRoles;
 
     public User() {

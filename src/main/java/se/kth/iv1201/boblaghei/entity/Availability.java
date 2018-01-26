@@ -61,4 +61,14 @@ public class Availability {
     public void setApplication(Application application) {
         this.application = application;
     }
+
+    @Override
+    public String toString() {
+        return "Availability{" +
+                "id=" + id +
+                ", from=" + from +
+                ", to=" + to +
+                ", application=" + application +
+                '}';
+    }
 }

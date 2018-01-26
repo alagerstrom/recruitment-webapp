@@ -61,4 +61,14 @@ public class CompetenceProfile {
     public void setCompetence(Competence competence) {
         this.competence = competence;
     }
+
+    @Override
+    public String toString() {
+        return "CompetenceProfile{" +
+                "id=" + id +
+                ", yearsOfExperience=" + yearsOfExperience +
+                ", application=" + application +
+                ", competence=" + competence +
+                '}';
+    }
 }

@@ -2,6 +2,7 @@ package se.kth.iv1201.boblaghei.entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 /**
  *  O/R Mapping of the table Application in the database.
@@ -21,21 +22,21 @@ public class Application {
     @ManyToOne
     private Person person;
 
-    @OneToMany
-    private Availability availability;
+    @OneToMany(mappedBy = "application")
+    private Set<Availability> availabilities;
 
-    @OneToMany
-    private CompetenceProfile competenceProfile;
+    @OneToMany(mappedBy = "application")
+    private Set<CompetenceProfile> competenceProfiles;
 
     public Application() {
     }
 
-    public Application(Date created, Status status, Person person, Availability availability, CompetenceProfile competenceProfile) {
+    public Application(Date created, Status status, Person person, Set<Availability> availabilities, Set<CompetenceProfile> competenceProfiles) {
         this.created = created;
         this.status = status;
         this.person = person;
-        this.availability = availability;
-        this.competenceProfile = competenceProfile;
+        this.availabilities = availabilities;
+        this.competenceProfiles = competenceProfiles;
     }
 
     public long getId() {
@@ -70,19 +71,31 @@ public class Application {
         this.person = person;
     }
 
-    public Availability getAvailability() {
-        return availability;
+    public Set<Availability> getAvailabilities() {
+        return availabilities;
     }
 
-    public void setAvailability(Availability availability) {
-        this.availability = availability;
+    public void setAvailabilities(Set<Availability> availabilities) {
+        this.availabilities = availabilities;
     }
 
-    public CompetenceProfile getCompetenceProfile() {
-        return competenceProfile;
+    public Set<CompetenceProfile> getCompetenceProfiles() {
+        return competenceProfiles;
     }
 
-    public void setCompetenceProfile(CompetenceProfile competenceProfile) {
-        this.competenceProfile = competenceProfile;
+    public void setCompetenceProfiles(Set<CompetenceProfile> competenceProfiles) {
+        this.competenceProfiles = competenceProfiles;
+    }
+
+    @Override
+    public String toString() {
+        return "Application{" +
+                "id=" + id +
+                ", created=" + created +
+                ", status=" + status +
+                ", person=" + person +
+                ", availabilities=" + availabilities +
+                ", competenceProfiles=" + competenceProfiles +
+                '}';
     }
 }
