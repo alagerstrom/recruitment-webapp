@@ -3,6 +3,8 @@ package se.kth.iv1201.boblaghei.entity;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.Set;
 
 /**
  *  O/R Mapping of the table Status in the database.
@@ -16,11 +18,15 @@ public class Status {
     @Column(nullable = false)
     private String name;
 
+    @OneToMany
+    private Set<Application> applications;
+
     public Status() {
     }
 
-    public Status(String name) {
+    public Status(String name, Set<Application> applications) {
         this.name = name;
+        this.applications = applications;
     }
 
     public long getId() {
@@ -37,5 +43,22 @@ public class Status {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Application> getApplications() {
+        return applications;
+    }
+
+    public void setApplications(Set<Application> applications) {
+        this.applications = applications;
+    }
+
+    @Override
+    public String toString() {
+        return "Status{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", applications=" + applications +
+                '}';
     }
 }
