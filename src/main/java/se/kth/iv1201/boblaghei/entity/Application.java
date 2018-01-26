@@ -7,6 +7,7 @@ import java.util.Set;
 /**
  *  O/R Mapping of the table Application in the database.
  */
+@Entity
 public class Application {
 
     @Id

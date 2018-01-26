@@ -1,14 +1,12 @@
 package se.kth.iv1201.boblaghei.entity;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Set;
 
 /**
  *  O/R Mapping of the table Status in the database.
  */
+@Entity
 public class Status {
 
     @Id
