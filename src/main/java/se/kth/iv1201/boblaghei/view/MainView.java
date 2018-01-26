@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class MainView {
 
-    @RequestMapping
+    @RequestMapping("/")
     public String mainView(){
         return "index";
     }
