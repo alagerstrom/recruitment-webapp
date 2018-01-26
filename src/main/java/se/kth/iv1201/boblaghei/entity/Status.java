@@ -1,24 +1,34 @@
 package se.kth.iv1201.boblaghei.entity;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
- * O/R Mapping of the table Role in the database.
+ *  O/R Mapping of the table Status in the database.
  */
-@Entity
-public class Role {
+public class Status {
 
     @Id
+    @GeneratedValue
+    private long id;
+
+    @Column(nullable = false)
     private String name;
 
-    public Role() {
+    public Status() {
     }
 
-    public Role(String name) {
+    public Status(String name) {
         this.name = name;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {

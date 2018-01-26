@@ -1,9 +1,6 @@
 package se.kth.iv1201.boblaghei.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  *  O/R Mapping of the table Competence in the database.
@@ -17,11 +14,15 @@ public class Competence {
     @Column(nullable = false)
     private String name;
 
+    @OneToMany
+    private CompetenceProfile competenceProfile;
+
     public Competence() {
     }
 
-    public Competence(String name) {
+    public Competence(String name, CompetenceProfile competenceProfile) {
         this.name = name;
+        this.competenceProfile = competenceProfile;
     }
 
     public long getId() {
@@ -38,5 +39,13 @@ public class Competence {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public CompetenceProfile getCompetenceProfile() {
+        return competenceProfile;
+    }
+
+    public void setCompetenceProfile(CompetenceProfile competenceProfile) {
+        this.competenceProfile = competenceProfile;
     }
 }

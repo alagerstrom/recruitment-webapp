@@ -16,7 +16,7 @@ public class CompetenceProfile {
     private double yearsOfExperience;
 
     @ManyToOne(cascade=CascadeType.ALL)
-    private Person person;
+    private Application application;
 
     @ManyToOne(cascade=CascadeType.ALL)
     private Competence competence;
@@ -24,9 +24,9 @@ public class CompetenceProfile {
     public CompetenceProfile() {
     }
 
-    public CompetenceProfile(double yearsOfExperience, Person person, Competence competence) {
+    public CompetenceProfile(double yearsOfExperience, Application application, Competence competence) {
         this.yearsOfExperience = yearsOfExperience;
-        this.person = person;
+        this.application = application;
         this.competence = competence;
     }
 
@@ -46,12 +46,12 @@ public class CompetenceProfile {
         this.yearsOfExperience = yearsOfExperience;
     }
 
-    public Person getPerson() {
-        return person;
+    public Application getApplication() {
+        return application;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setApplication(Application application) {
+        this.application = application;
     }
 
     public Competence getCompetence() {
