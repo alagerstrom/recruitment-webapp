@@ -1,6 +1,7 @@
 package se.kth.iv1201.boblaghei.entity;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  *  O/R Mapping of the table User in the database.
@@ -21,17 +22,17 @@ public class User {
     private Person person;
 
     @OneToMany
-    private UserRole userRole;
+    private Set<UserRole> userRoles;
 
     public User() {
     }
 
-    public User(String username, String password, boolean enabled, Person person, UserRole userRole) {
+    public User(String username, String password, boolean enabled, Person person, Set<UserRole> userRoles) {
         this.username = username;
         this.password = password;
         this.enabled = enabled;
         this.person = person;
-        this.userRole = userRole;
+        this.userRoles = userRoles;
     }
 
     public String getUsername() {
@@ -66,11 +67,22 @@ public class User {
         this.person = person;
     }
 
-    public UserRole getUserRole() {
-        return userRole;
+    public Set<UserRole> getUserRoles() {
+        return userRoles;
     }
 
-    public void setUserRole(UserRole userRole) {
-        this.userRole = userRole;
+    public void setUserRoles(Set<UserRole> userRoles) {
+        this.userRoles = userRoles;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", enabled=" + enabled +
+                ", person=" + person +
+                ", userRoles=" + userRoles +
+                '}';
     }
 }
