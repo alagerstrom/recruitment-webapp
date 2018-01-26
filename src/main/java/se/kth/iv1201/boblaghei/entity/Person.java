@@ -25,26 +25,22 @@ public class Person {
     @Column(nullable = false)
     private String email;
 
-    @Column(nullable = false)
-    private String username;
+    @OneToOne(cascade= CascadeType.ALL)
+    private User user;
 
-    @Column(nullable = false)
-    private String password;
-
-    @ManyToOne(cascade= CascadeType.ALL)
-    private Role role;
+    @OneToMany
+    private Application application;
 
     public Person() {
     }
 
-    public Person(String firstName, String lastName, String personalNumber, String email, String username, String password, Role role) {
+    public Person(String firstName, String lastName, String personalNumber, String email, User user, Application application) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.personalNumber = personalNumber;
         this.email = email;
-        this.username = username;
-        this.password = password;
-        this.role = role;
+        this.user = user;
+        this.application = application;
     }
 
     public long getId() {
@@ -87,28 +83,20 @@ public class Person {
         this.email = email;
     }
 
-    public String getUsername() {
-        return username;
+    public User getUser() {
+        return user;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public Application getApplication() {
+        return application;
     }
 
-    public String getPassword() {
-        return password;
+    public void setApplication(Application application) {
+        this.application = application;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
@@ -119,9 +107,8 @@ public class Person {
                 ", lastName='" + lastName + '\'' +
                 ", personalNumber='" + personalNumber + '\'' +
                 ", email='" + email + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", role=" + role +
+                ", user=" + user +
+                ", application=" + application +
                 '}';
     }
 }

@@ -19,15 +19,15 @@ public class Availability {
     private Date to;
 
     @ManyToOne(cascade= CascadeType.ALL)
-    private Person person;
+    private Application application;
 
     public Availability() {
     }
 
-    public Availability(Date from, Date to, Person person) {
+    public Availability(Date from, Date to, Application application) {
         this.from = from;
         this.to = to;
-        this.person = person;
+        this.application = application;
     }
 
     public long getId() {
@@ -54,11 +54,11 @@ public class Availability {
         this.to = to;
     }
 
-    public Person getPerson() {
-        return person;
+    public Application getApplication() {
+        return application;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setApplication(Application application) {
+        this.application = application;
     }
 }
