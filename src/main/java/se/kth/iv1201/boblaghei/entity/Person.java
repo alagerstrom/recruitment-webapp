@@ -26,7 +26,7 @@ public class Person {
     @Column(nullable = false)
     private String email;
 
-    @OneToOne(mappedBy = "person")
+    @OneToOne
     private User user;
 
     public Person() {
