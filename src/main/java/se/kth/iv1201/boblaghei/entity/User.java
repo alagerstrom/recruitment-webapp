@@ -18,17 +18,14 @@ public class User {
     @Column(nullable = false)
     private boolean enabled;
 
-    @OneToOne
-    private Person person;
-
     public User() {
     }
 
-    public User(String username, String password, boolean enabled, Person person) {
+    public User(String username, String password, boolean enabled) {
         this.username = username;
         this.password = password;
         this.enabled = enabled;
-        this.person = person;}
+    }
 
     public String getUsername() {
         return username;
@@ -54,21 +51,12 @@ public class User {
         this.enabled = enabled;
     }
 
-    public Person getPerson() {
-        return person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
-    }
-
     @Override
     public String toString() {
         return "User{" +
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", enabled=" + enabled +
-                ", person=" + person +
                 '}';
     }
 }
