@@ -8,8 +8,7 @@
 
 <div th:replace="fragments/menu :: menu"> </div>
 
-<h1>Hej hej</h1>
-<p>Hemskt mycket hej</p>
-<p>Det var som fan</p>
+<h1>Welcome</h1>
+<p th:text="${'Welcome ' + personDTO.getFirstName() + ' ' + personDTO.getLastName()}"></p>
 </body>
 </html>
