@@ -15,7 +15,7 @@ public class Role {
     public Role() {
     }
 
-    public Role(String names) {
+    public Role(String name) {
         this.name = name;
     }
 

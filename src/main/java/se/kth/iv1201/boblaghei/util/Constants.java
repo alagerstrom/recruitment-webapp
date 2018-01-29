@@ -1,6 +1,6 @@
 package se.kth.iv1201.boblaghei.util;
 
 public class Constants {
-    public static final String APPLICANT_ROLE = "applicant";
-    public static final String RECRUITER_ROLE = "recruit";
+    public static final String ROLE_APPLICANT = "ROLE_APPLICANT";
+    public static final String ROLE_RECRUITER = "ROLE_RECRUITER";
 }
