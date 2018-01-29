@@ -2,6 +2,7 @@ package se.kth.iv1201.boblaghei.entity;
 
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
@@ -9,6 +10,7 @@ import javax.persistence.ManyToOne;
 public class UserRole {
 
     @Id
+    @GeneratedValue
     private long userRoleid;
 
 
@@ -21,8 +23,7 @@ public class UserRole {
     public UserRole() {
     }
 
-    public UserRole(long userRoleid, User user, Role role) {
-        this.userRoleid = userRoleid;
+    public UserRole(User user, Role role) {
         this.user = user;
         this.role = role;
     }

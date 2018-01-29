@@ -8,15 +8,17 @@ import java.util.Date;
  */
 @Entity
 public class Availability {
+
     @Id
     @GeneratedValue
     private long id;
 
     @Column(nullable = false)
-    private Date from;
+    private Date fromDate;
 
     @Column(nullable = false)
-    private Date to;
+    private Date toDate;
+
 
     @ManyToOne(cascade= CascadeType.ALL)
     private Application application;
@@ -24,9 +26,9 @@ public class Availability {
     public Availability() {
     }
 
-    public Availability(Date from, Date to, Application application) {
-        this.from = from;
-        this.to = to;
+    public Availability(Date fromDate, Date toDate, Application application) {
+        this.fromDate = fromDate;
+        this.toDate = toDate;
         this.application = application;
     }
 
@@ -38,20 +40,20 @@ public class Availability {
         this.id = id;
     }
 
-    public Date getFrom() {
-        return from;
+    public Date getFromDate() {
+        return fromDate;
     }
 
-    public void setFrom(Date from) {
-        this.from = from;
+    public void setFromDate(Date fromDate) {
+        this.fromDate = fromDate;
     }
 
-    public Date getTo() {
-        return to;
+    public Date getToDate() {
+        return toDate;
     }
 
-    public void setTo(Date to) {
-        this.to = to;
+    public void setToDate(Date toDate) {
+        this.toDate = toDate;
     }
 
     public Application getApplication() {
@@ -66,8 +68,8 @@ public class Availability {
     public String toString() {
         return "Availability{" +
                 "id=" + id +
-                ", from=" + from +
-                ", to=" + to +
+                ", fromDate=" + fromDate +
+                ", toDate=" + toDate +
                 ", application=" + application +
                 '}';
     }
