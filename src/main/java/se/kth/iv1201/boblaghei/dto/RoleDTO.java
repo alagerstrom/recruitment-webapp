@@ -8,12 +8,9 @@ import java.util.Set;
 public class RoleDTO {
 
     private String name;
-    private Set<UserRoleDTO> userRoles;
 
-    public RoleDTO(String name, Set<UserRoleDTO> userRoles) {
-        this.name = name;
-        this.userRoles = userRoles;
-    }
+    public RoleDTO(String name) {
+        this.name = name;}
 
     public String getName() {
         return name;
@@ -21,13 +18,5 @@ public class RoleDTO {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Set<UserRoleDTO> getUserRoles() {
-        return userRoles;
-    }
-
-    public void setUserRoles(Set<UserRoleDTO> userRoles) {
-        this.userRoles = userRoles;
     }
 }

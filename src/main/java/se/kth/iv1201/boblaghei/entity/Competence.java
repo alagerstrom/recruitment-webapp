@@ -1,7 +1,6 @@
 package se.kth.iv1201.boblaghei.entity;
 
 import javax.persistence.*;
-import java.util.Set;
 
 /**
  *  O/R Mapping of the table Competence in the database.
@@ -11,28 +10,24 @@ public class Competence {
 
     @Id
     @GeneratedValue
-    private long Id;
+    private long id;
 
     @Column(nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "competence")
-    private Set<CompetenceProfile> competenceProfiles;
-
     public Competence() {
     }
 
-    public Competence(String name, Set<CompetenceProfile> competenceProfiles) {
+    public Competence(String name) {
         this.name = name;
-        this.competenceProfiles = competenceProfiles;
-    }
+        }
 
     public long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(long id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getName() {
@@ -43,20 +38,11 @@ public class Competence {
         this.name = name;
     }
 
-    public Set<CompetenceProfile> getCompetenceProfiles() {
-        return competenceProfiles;
-    }
-
-    public void setCompetenceProfiles(Set<CompetenceProfile> competenceProfiles) {
-        this.competenceProfiles = competenceProfiles;
-    }
-
     @Override
     public String toString() {
         return "Competence{" +
-                "Id=" + Id +
+                "id=" + id +
                 ", name='" + name + '\'' +
-                ", competenceProfiles=" + competenceProfiles +
                 '}';
     }
 }

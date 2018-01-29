@@ -11,15 +11,11 @@ public class ApplicationDTO {
     private Date created;
     private StatusDTO status;
     private PersonDTO person;
-    private Set<AvailabilityDTO> availabilities;
-    private Set<CompetenceProfileDTO> competenceProfiles;
 
-    public ApplicationDTO(Date created, StatusDTO status, PersonDTO person, Set<AvailabilityDTO> availabilities, Set<CompetenceProfileDTO> competenceProfiles) {
+    public ApplicationDTO(Date created, StatusDTO status, PersonDTO person) {
         this.created = created;
         this.status = status;
         this.person = person;
-        this.availabilities = availabilities;
-        this.competenceProfiles = competenceProfiles;
     }
 
     public Date getCreated() {
@@ -44,21 +40,5 @@ public class ApplicationDTO {
 
     public void setPerson(PersonDTO person) {
         this.person = person;
-    }
-
-    public Set<AvailabilityDTO> getAvailabilities() {
-        return availabilities;
-    }
-
-    public void setAvailabilities(Set<AvailabilityDTO> availabilities) {
-        this.availabilities = availabilities;
-    }
-
-    public Set<CompetenceProfileDTO> getCompetenceProfiles() {
-        return competenceProfiles;
-    }
-
-    public void setCompetenceProfiles(Set<CompetenceProfileDTO> competenceProfiles) {
-        this.competenceProfiles = competenceProfiles;
     }
 }

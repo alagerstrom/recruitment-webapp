@@ -12,15 +12,11 @@ public class UserDTO {
     private String username;
     private String password;
     private boolean enabled;
-    private PersonDTO person;
-    private Set<UserRoleDTO> userRoles;
 
-    public UserDTO(String username, String password, boolean enabled, PersonDTO person, Set<UserRoleDTO> userRoles) {
+    public UserDTO(String username, String password, boolean enabled) {
         this.username = username;
         this.password = password;
         this.enabled = enabled;
-        this.person = person;
-        this.userRoles = userRoles;
     }
 
     public String getUsername() {
@@ -45,21 +41,5 @@ public class UserDTO {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
-    }
-
-    public PersonDTO getPerson() {
-        return person;
-    }
-
-    public void setPerson(PersonDTO person) {
-        this.person = person;
-    }
-
-    public Set<UserRoleDTO> getUserRoles() {
-        return userRoles;
-    }
-
-    public void setUserRoles(Set<UserRoleDTO> userRoles) {
-        this.userRoles = userRoles;
     }
 }

@@ -12,15 +12,11 @@ public class Role {
     @Id
     private String name;
 
-    @OneToMany(mappedBy = "role")
-    private Set<UserRole> userRoles;
-
     public Role() {
     }
 
-    public Role(String name, Set<UserRole> userRoles) {
+    public Role(String names) {
         this.name = name;
-        this.userRoles = userRoles;
     }
 
     public String getName() {
@@ -31,19 +27,10 @@ public class Role {
         this.name = name;
     }
 
-    public Set<UserRole> getUserRoles() {
-        return userRoles;
-    }
-
-    public void setUserRoles(Set<UserRole> userRoles) {
-        this.userRoles = userRoles;
-    }
-
     @Override
     public String toString() {
         return "Role{" +
                 "name='" + name + '\'' +
-                ", userRoles=" + userRoles +
                 '}';
     }
 }

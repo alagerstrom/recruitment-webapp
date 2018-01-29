@@ -26,23 +26,18 @@ public class Person {
     @Column(nullable = false)
     private String email;
 
-    @OneToOne(cascade= CascadeType.ALL, mappedBy = "person")
+    @OneToOne(mappedBy = "person")
     private User user;
-
-    @OneToMany(mappedBy = "person")
-    private Set<Application> applications;
 
     public Person() {
     }
 
-    public Person(String firstName, String lastName, String personalNumber, String email, User user, Set<Application> applications) {
+    public Person(String firstName, String lastName, String personalNumber, String email, User user) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.personalNumber = personalNumber;
         this.email = email;
-        this.user = user;
-        this.applications = applications;
-    }
+        this.user = user;}
 
     public long getId() {
         return id;
@@ -88,14 +83,6 @@ public class Person {
         return user;
     }
 
-    public Set<Application> getApplications() {
-        return applications;
-    }
-
-    public void setApplications(Set<Application> applications) {
-        this.applications = applications;
-    }
-
     public void setUser(User user) {
         this.user = user;
     }
@@ -109,7 +96,6 @@ public class Person {
                 ", personalNumber='" + personalNumber + '\'' +
                 ", email='" + email + '\'' +
                 ", user=" + user +
-                ", applications=" + applications +
                 '}';
     }
 }

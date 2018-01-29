@@ -15,18 +15,15 @@ public class PersonDTO {
     private String personalNumber;
     private String email;
     private UserDTO user;
-    private Set<ApplicationDTO> applications;
 
 
 
-    public PersonDTO(String firstName, String lastName, String personalNumber, String email, UserDTO user, Set<ApplicationDTO> applications) {
+    public PersonDTO(String firstName, String lastName, String personalNumber, String email, UserDTO user) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.personalNumber = personalNumber;
         this.email = email;
-        this.user = user;
-        this.applications = applications;
-    }
+        this.user = user;}
 
     public String getFirstName() {
         return firstName;
@@ -66,13 +63,5 @@ public class PersonDTO {
 
     public void setUser(UserDTO user) {
         this.user = user;
-    }
-
-    public Set<ApplicationDTO> getApplications() {
-        return applications;
-    }
-
-    public void setApplications(Set<ApplicationDTO> applications) {
-        this.applications = applications;
     }
 }

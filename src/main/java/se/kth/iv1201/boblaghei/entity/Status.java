@@ -16,16 +16,11 @@ public class Status {
     @Column(nullable = false)
     private String name;
 
-    @OneToMany
-    private Set<Application> applications;
-
     public Status() {
     }
 
-    public Status(String name, Set<Application> applications) {
-        this.name = name;
-        this.applications = applications;
-    }
+    public Status(String name) {
+        this.name = name;}
 
     public long getId() {
         return id;
@@ -43,20 +38,11 @@ public class Status {
         this.name = name;
     }
 
-    public Set<Application> getApplications() {
-        return applications;
-    }
-
-    public void setApplications(Set<Application> applications) {
-        this.applications = applications;
-    }
-
     @Override
     public String toString() {
         return "Status{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", applications=" + applications +
                 '}';
     }
 }
