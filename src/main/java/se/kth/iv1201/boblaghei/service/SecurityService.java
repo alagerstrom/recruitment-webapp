@@ -42,7 +42,7 @@ public class SecurityService implements UserDetailsService {
      *
      * @return The PersonDTO representing the currently logged in user, without password
      */
-    public PersonDTO getLoggedInPerson() {
+    /*public PersonDTO getLoggedInPerson() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         User user = userRepository.findOne(userDetails.getUsername());
@@ -58,7 +58,7 @@ public class SecurityService implements UserDetailsService {
                         person.getUser().isEnabled()
                 )
         );
-    }
+    }*/
 
     @Transactional(readOnly = true)
     @Override

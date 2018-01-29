@@ -1,6 +1,10 @@
 package se.kth.iv1201.boblaghei.entity;
 
 
+import se.kth.iv1201.boblaghei.dto.RoleDTO;
+import se.kth.iv1201.boblaghei.dto.UserDTO;
+import se.kth.iv1201.boblaghei.dto.UserRoleDTO;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -59,5 +63,10 @@ public class UserRole {
                 ", user=" + user +
                 ", role=" + role +
                 '}';
+    }
+
+    public UserRoleDTO getDTO() {
+        return new UserRoleDTO(new UserDTO(user.getUsername(),user.getPassword(),user.isEnabled())
+                ,new RoleDTO(role.getName()));
     }
 }
