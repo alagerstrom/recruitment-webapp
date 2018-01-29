@@ -8,6 +8,7 @@ import java.util.Set;
  */
 @Entity
 public class Competence {
+
     @Id
     @GeneratedValue
     private long Id;
