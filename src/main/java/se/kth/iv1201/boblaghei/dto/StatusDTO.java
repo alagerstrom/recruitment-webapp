@@ -8,11 +8,9 @@ import java.util.Set;
 public class StatusDTO {
 
     private String name;
-    private Set<ApplicationDTO> applications;
 
-    public StatusDTO(String name, Set<ApplicationDTO> applications) {
+    public StatusDTO(String name) {
         this.name = name;
-        this.applications = applications;
     }
 
     public String getName() {
@@ -21,13 +19,5 @@ public class StatusDTO {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Set<ApplicationDTO> getApplications() {
-        return applications;
-    }
-
-    public void setApplications(Set<ApplicationDTO> applications) {
-        this.applications = applications;
     }
 }

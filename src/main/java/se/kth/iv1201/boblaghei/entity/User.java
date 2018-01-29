@@ -21,19 +21,14 @@ public class User {
     @OneToOne
     private Person person;
 
-    @OneToMany(mappedBy = "user")
-    private Set<UserRole> userRoles;
-
     public User() {
     }
 
-    public User(String username, String password, boolean enabled, Person person, Set<UserRole> userRoles) {
+    public User(String username, String password, boolean enabled, Person person) {
         this.username = username;
         this.password = password;
         this.enabled = enabled;
-        this.person = person;
-        this.userRoles = userRoles;
-    }
+        this.person = person;}
 
     public String getUsername() {
         return username;
@@ -67,14 +62,6 @@ public class User {
         this.person = person;
     }
 
-    public Set<UserRole> getUserRoles() {
-        return userRoles;
-    }
-
-    public void setUserRoles(Set<UserRole> userRoles) {
-        this.userRoles = userRoles;
-    }
-
     @Override
     public String toString() {
         return "User{" +
@@ -82,7 +69,6 @@ public class User {
                 ", password='" + password + '\'' +
                 ", enabled=" + enabled +
                 ", person=" + person +
-                ", userRoles=" + userRoles +
                 '}';
     }
 }

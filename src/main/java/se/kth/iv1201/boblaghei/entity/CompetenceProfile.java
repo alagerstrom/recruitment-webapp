@@ -15,10 +15,10 @@ public class CompetenceProfile {
     @Column(nullable = false)
     private double yearsOfExperience;
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne
     private Application application;
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne
     private Competence competence;
 
     public CompetenceProfile() {

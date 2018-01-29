@@ -8,11 +8,9 @@ import java.util.Set;
 public class CompetenceDTO {
 
     private String name;
-    private Set<CompetenceProfileDTO> competenceProfiles;
 
-    public CompetenceDTO(String name, Set<CompetenceProfileDTO> competenceProfiles) {
+    public CompetenceDTO(String name) {
         this.name = name;
-        this.competenceProfiles = competenceProfiles;
     }
 
     public String getName() {
@@ -21,13 +19,5 @@ public class CompetenceDTO {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Set<CompetenceProfileDTO> getCompetenceProfiles() {
-        return competenceProfiles;
-    }
-
-    public void setCompetenceProfiles(Set<CompetenceProfileDTO> competenceProfiles) {
-        this.competenceProfiles = competenceProfiles;
     }
 }
