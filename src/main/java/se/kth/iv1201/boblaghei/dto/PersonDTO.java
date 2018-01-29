@@ -1,31 +1,31 @@
 package se.kth.iv1201.boblaghei.dto;
 
-public class PersonDto {
-    private long id;
+import se.kth.iv1201.boblaghei.entity.Application;
+import se.kth.iv1201.boblaghei.entity.User;
+
+import java.util.Set;
+
+/**
+ * DTO representing entity class <code>Person</code>.
+ */
+public class PersonDTO {
+
     private String firstName;
     private String lastName;
     private String personalNumber;
     private String email;
-    private UserDto user;
+    private UserDTO user;
+    private Set<ApplicationDTO> applications;
 
-    public PersonDto(long id, String firstName, String lastName, String personalNumber, String email, UserDto user) {
-        this.id = id;
+
+
+    public PersonDTO(String firstName, String lastName, String personalNumber, String email, UserDTO user, Set<ApplicationDTO> applications) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.personalNumber = personalNumber;
         this.email = email;
         this.user = user;
-    }
-
-    public PersonDto() {
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+        this.applications = applications;
     }
 
     public String getFirstName() {
@@ -60,23 +60,19 @@ public class PersonDto {
         this.email = email;
     }
 
-    public UserDto getUser() {
+    public UserDTO getUser() {
         return user;
     }
 
-    public void setUser(UserDto user) {
+    public void setUser(UserDTO user) {
         this.user = user;
     }
 
-    @Override
-    public String toString() {
-        return "PersonDto{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", personalNumber='" + personalNumber + '\'' +
-                ", email='" + email + '\'' +
-                ", user=" + user +
-                '}';
+    public Set<ApplicationDTO> getApplications() {
+        return applications;
+    }
+
+    public void setApplications(Set<ApplicationDTO> applications) {
+        this.applications = applications;
     }
 }
