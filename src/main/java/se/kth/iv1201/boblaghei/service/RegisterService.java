@@ -25,12 +25,12 @@ public class RegisterService {
 
     }
 
-    /*private User createUser(UserDTO userDTO) {
+    private User createUser(UserDTO userDTO) {
         return new User(userDTO.getUsername(), userDTO.getPassword(), userDTO.isEnabled(), )
     }
 
     private createPerson(PersonDTO personDTO) {
         Person person = new Person(personDTO.getFirstName(), personDTO.getLastName(),
                 personDTO.getPersonalNumber(), personDTO.getEmail(), );
-    }*/
+    }
 }
