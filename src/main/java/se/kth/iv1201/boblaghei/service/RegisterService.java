@@ -22,16 +22,18 @@ public class RegisterService {
     UserRepository userRepository;
 
     public void register(PersonDTO personDTO) /*throws RegisterException */{
-
+        User user = createUser(personDTO.getUser());
+        personRepository.save(createPerson(personDTO));
+        userRepository.save(user);
     }
 
     private User createUser(UserDTO userDTO) {
         return new User(userDTO.getUsername(), userDTO.getPassword(), userDTO.isEnabled());
     }
 
-    /*private createPerson(PersonDTO personDTO) {
+    private Person createPerson(PersonDTO personDTO) {
         User user = createUser(personDTO.getUser());
         return new Person(personDTO.getFirstName(), personDTO.getLastName(),
-                personDTO.getPersonalNumber(), personDTO.getEmail(), );
-    }*/
+                personDTO.getPersonalNumber(), personDTO.getEmail(), user);
+    }
 }
