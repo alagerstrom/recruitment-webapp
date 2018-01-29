@@ -13,10 +13,10 @@ public class RegisterView {
 
     @GetMapping("/register")
     public String getRegisterView(Model model){
-       // UserDTO user = new UserDTO();
-        //PersonDTO person = new PersonDTO();
-        //person.setUser(user);
-        //model.addAttribute("person", person);
+        UserDTO user = new UserDTO();
+        PersonDTO person = new PersonDTO();
+        person.setUser(user);
+        model.addAttribute("person", person);
         return "register";
     }
 
@@ -24,6 +24,5 @@ public class RegisterView {
     public String postRegistration(@ModelAttribute PersonDTO person, Model model){
         System.out.println("I should register " + person);
         return "index";
-
     }
 }

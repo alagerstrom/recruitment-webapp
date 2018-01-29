@@ -16,7 +16,8 @@ public class PersonDTO {
     private String email;
     private UserDTO user;
 
-
+    public PersonDTO() {
+    }
 
     public PersonDTO(String firstName, String lastName, String personalNumber, String email, UserDTO user) {
         this.firstName = firstName;

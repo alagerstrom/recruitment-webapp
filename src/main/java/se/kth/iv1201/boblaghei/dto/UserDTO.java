@@ -13,6 +13,9 @@ public class UserDTO {
     private String password;
     private boolean enabled;
 
+    public UserDTO() {
+    }
+
     public UserDTO(String username, String password, boolean enabled) {
         this.username = username;
         this.password = password;
