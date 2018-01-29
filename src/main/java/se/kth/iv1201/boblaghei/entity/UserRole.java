@@ -1,35 +1,38 @@
 package se.kth.iv1201.boblaghei.entity;
 
 
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+@Entity
 public class UserRole {
 
     @Id
-    private String username;
+    private long userRoleid;
 
-    @ManyToOne
-    private Role role;
 
     @ManyToOne
     private User user;
 
+    @ManyToOne
+    private Role role;
+
     public UserRole() {
     }
 
-    public UserRole(String username, Role role, User user) {
-        this.username = username;
-        this.role = role;
+    public UserRole(long userRoleid, User user, Role role) {
+        this.userRoleid = userRoleid;
         this.user = user;
+        this.role = role;
     }
 
-    public String getUsername() {
-        return username;
+    public long getUserRoleid() {
+        return userRoleid;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserRoleid(long userRoleid) {
+        this.userRoleid = userRoleid;
     }
 
     public Role getRole() {
@@ -51,9 +54,9 @@ public class UserRole {
     @Override
     public String toString() {
         return "UserRole{" +
-                "username='" + username + '\'' +
-                ", role=" + role +
+                "userRoleid=" + userRoleid +
                 ", user=" + user +
+                ", role=" + role +
                 '}';
     }
 }

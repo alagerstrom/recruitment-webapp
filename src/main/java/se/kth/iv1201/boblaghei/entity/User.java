@@ -18,7 +18,7 @@ public class User {
     @Column(nullable = false)
     private boolean enabled;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne
     private Person person;
 
     @OneToMany(mappedBy = "user")
