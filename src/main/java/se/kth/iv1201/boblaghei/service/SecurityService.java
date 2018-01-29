@@ -1,15 +1,21 @@
 package se.kth.iv1201.boblaghei.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import se.kth.iv1201.boblaghei.dto.PersonDTO;
+import se.kth.iv1201.boblaghei.dto.UserDTO;
+import se.kth.iv1201.boblaghei.entity.Person;
 import se.kth.iv1201.boblaghei.entity.User;
 import se.kth.iv1201.boblaghei.entity.UserRole;
+import se.kth.iv1201.boblaghei.repository.PersonRepository;
 import se.kth.iv1201.boblaghei.repository.UserRepository;
 import se.kth.iv1201.boblaghei.repository.UserRoleRepository;
 
@@ -25,7 +31,34 @@ public class SecurityService implements UserDetailsService {
     UserRepository userRepository;
 
     @Autowired
+    PersonRepository personRepository;
+
+    @Autowired
     UserRoleRepository userRoleRepository;
+
+    /**
+     * getLoggedInPerson() can be used to get information about the currently logged in person
+     * The password in the UserDTO will be empty.
+     *
+     * @return The PersonDTO representing the currently logged in user, without password
+     */
+    public PersonDTO getLoggedInPerson() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        User user = userRepository.findOne(userDetails.getUsername());
+        Person person = personRepository.getPersonByUser(user);
+        return new PersonDTO(
+                person.getFirstName(),
+                person.getLastName(),
+                person.getPersonalNumber(),
+                person.getEmail(),
+                new UserDTO(
+                        person.getUser().getUsername(),
+                        "",
+                        person.getUser().isEnabled()
+                )
+        );
+    }
 
     @Transactional(readOnly = true)
     @Override
