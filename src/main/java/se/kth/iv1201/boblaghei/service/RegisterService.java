@@ -40,8 +40,8 @@ public class RegisterService {
      */
     public void register(PersonDTO personDTO) /*throws RegisterException */{
         User user = createUser(personDTO.getUser());
-        personRepository.save(createPerson(personDTO));
         userRepository.save(user);
+        personRepository.save(createPerson(personDTO));
     }
 
     /**
@@ -55,12 +55,7 @@ public class RegisterService {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         User user = userRepository.findOne(userDetails.getUsername());
         Person person = personRepository.getPersonByUser(user);
-        return new PersonDTO(
-                person.getFirstName(),
-                person.getLastName(),
-                person.getPersonalNumber(),
-                person.getEmail(),
-                person.getUser().getDTO());
+        return person.getDTO();
     }
 
     public Set<UserRoleDTO> getRolesOfLoggedInPerson() {
@@ -74,7 +69,7 @@ public class RegisterService {
     }
 
     private User createUser(UserDTO userDTO) {
-        return new User(userDTO.getUsername(), userDTO.getPassword(), userDTO.isEnabled());
+        return new User(userDTO.getUsername(), userDTO.getPassword(), true);
     }
 
     private Person createPerson(PersonDTO personDTO) {
