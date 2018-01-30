@@ -60,12 +60,7 @@ public class RegisterService {
                 person.getLastName(),
                 person.getPersonalNumber(),
                 person.getEmail(),
-                new UserDTO(
-                        person.getUser().getUsername(),
-                        "",
-                        person.getUser().isEnabled()
-                )
-        );
+                person.getUser().getDTO());
     }
 
     public Set<UserRoleDTO> getRolesOfLoggedInPerson() {
