@@ -1,0 +1,14 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Recruitment</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+
+<div th:replace="fragments/menu :: menu"> </div>
+
+<h1>Welcome</h1>
+<p th:text="${'Welcome ' + personDTO.getFirstName() + ' ' + personDTO.getLastName()}"></p>
+</body>
+</html>
