@@ -49,7 +49,6 @@ public class TestUserAdder implements ApplicationRunner {
         UserRole userRole2 = new UserRole(user2, role2);
         Person person2 = new Person("Kalle", "Kula", "19770915-1234", "kalle@kula.com", user2);
 
-        //roleRepository.save(role2);
         userRepository.save(user2);
         personRepository.save(person2);
         userRoleRepository.save(userRole2);

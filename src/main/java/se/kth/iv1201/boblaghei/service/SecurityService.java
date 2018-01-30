@@ -36,30 +36,6 @@ public class SecurityService implements UserDetailsService {
     @Autowired
     UserRoleRepository userRoleRepository;
 
-    /**
-     * getLoggedInPerson() can be used to get information about the currently logged in person
-     * The password in the UserDTO will be empty.
-     *
-     * @return The PersonDTO representing the currently logged in user, without password
-     */
-    /*public PersonDTO getLoggedInPerson() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        User user = userRepository.findOne(userDetails.getUsername());
-        Person person = personRepository.getPersonByUser(user);
-        return new PersonDTO(
-                person.getFirstName(),
-                person.getLastName(),
-                person.getPersonalNumber(),
-                person.getEmail(),
-                new UserDTO(
-                        person.getUser().getUsername(),
-                        "",
-                        person.getUser().isEnabled()
-                )
-        );
-    }*/
-
     @Transactional(readOnly = true)
     @Override
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
