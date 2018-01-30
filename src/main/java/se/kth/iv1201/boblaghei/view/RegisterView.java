@@ -17,12 +17,6 @@ public class RegisterView {
     @Autowired
     RegisterService registerService;
 
-    @GetMapping("/index")
-    public String getIndex(Model model) {
-        model.addAttribute("person", registerService.getLoggedInPerson());
-        return "index";
-    }
-
     @GetMapping("/register")
     public String getRegisterView(Model model){
         UserDTO user = new UserDTO();
@@ -36,7 +30,7 @@ public class RegisterView {
     public String postRegistration(@ModelAttribute PersonDTO person, Model model){
         System.out.println("I should register " + person);
         registerService.register(person);
-        return getIndex(model);
+        return "redirect:/";
     }
 
     @GetMapping("/listRoles")
