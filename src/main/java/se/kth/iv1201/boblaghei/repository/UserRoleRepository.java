@@ -9,4 +9,5 @@ import java.util.Set;
 public interface UserRoleRepository extends CrudRepository<UserRole, String> {
 
     Set<UserRole> getUserRolesByUser(User user);
+
 }
