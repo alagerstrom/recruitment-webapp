@@ -1,5 +1,7 @@
 package se.kth.iv1201.boblaghei.entity;
 
+import se.kth.iv1201.boblaghei.dto.CompetenceProfileDTO;
+
 import javax.persistence.*;
 
 /**
@@ -70,5 +72,10 @@ public class CompetenceProfile {
                 ", application=" + application +
                 ", competence=" + competence +
                 '}';
+    }
+
+    public CompetenceProfileDTO getDTO() {
+        return new CompetenceProfileDTO(getYearsOfExperience(),
+                getApplication().getDTO(), getCompetence().getDTO());
     }
 }

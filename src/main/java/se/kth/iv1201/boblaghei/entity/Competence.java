@@ -1,5 +1,7 @@
 package se.kth.iv1201.boblaghei.entity;
 
+import se.kth.iv1201.boblaghei.dto.CompetenceDTO;
+
 import javax.persistence.*;
 
 /**
@@ -44,5 +46,9 @@ public class Competence {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    public CompetenceDTO getDTO() {
+        return new CompetenceDTO(getName());
     }
 }

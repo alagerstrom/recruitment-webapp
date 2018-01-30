@@ -1,5 +1,7 @@
 package se.kth.iv1201.boblaghei.entity;
 
+import se.kth.iv1201.boblaghei.dto.ApplicationDTO;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
@@ -72,5 +74,9 @@ public class Application {
                 ", status=" + status +
                 ", person=" + person +
                 '}';
+    }
+
+    public ApplicationDTO getDTO() {
+        return new ApplicationDTO(getCreated(),getStatus().getDTO(),getPerson().getDTO());
     }
 }

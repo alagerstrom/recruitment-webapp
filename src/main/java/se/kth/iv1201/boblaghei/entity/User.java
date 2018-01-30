@@ -1,5 +1,7 @@
 package se.kth.iv1201.boblaghei.entity;
 
+import se.kth.iv1201.boblaghei.dto.UserDTO;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -58,5 +60,13 @@ public class User {
                 ", password='" + password + '\'' +
                 ", enabled=" + enabled +
                 '}';
+    }
+
+    /**
+     * Returns the <code>User</code> as a <code>UserDTO</code> without including password.
+     * @return UserDTO representation excluding password.
+     */
+    public UserDTO getDTO() {
+        return new UserDTO(getUsername(), "", isEnabled());
     }
 }

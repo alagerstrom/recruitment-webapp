@@ -1,5 +1,7 @@
 package se.kth.iv1201.boblaghei.entity;
 
+import se.kth.iv1201.boblaghei.dto.AvailabilityDTO;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -72,5 +74,9 @@ public class Availability {
                 ", toDate=" + toDate +
                 ", application=" + application +
                 '}';
+    }
+
+    public AvailabilityDTO getDTO() {
+        return new AvailabilityDTO(getFromDate(), getToDate(), getApplication().getDTO());
     }
 }

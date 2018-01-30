@@ -1,5 +1,7 @@
 package se.kth.iv1201.boblaghei.entity;
 
+import se.kth.iv1201.boblaghei.dto.StatusDTO;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -44,5 +46,9 @@ public class Status {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    public StatusDTO getDTO() {
+        return new StatusDTO(getName());
     }
 }

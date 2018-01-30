@@ -66,7 +66,6 @@ public class UserRole {
     }
 
     public UserRoleDTO getDTO() {
-        return new UserRoleDTO(new UserDTO(user.getUsername(),user.getPassword(),user.isEnabled())
-                ,new RoleDTO(role.getName()));
+        return new UserRoleDTO(getUser().getDTO(), getRole().getDTO());
     }
 }

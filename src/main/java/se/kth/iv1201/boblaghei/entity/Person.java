@@ -1,5 +1,7 @@
 package se.kth.iv1201.boblaghei.entity;
 
+import se.kth.iv1201.boblaghei.dto.PersonDTO;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -97,5 +99,10 @@ public class Person {
                 ", email='" + email + '\'' +
                 ", user=" + user +
                 '}';
+    }
+
+    public PersonDTO getDTO() {
+        return new PersonDTO(getFirstName(), getLastName(), getPersonalNumber(),
+                getEmail(), getUser().getDTO());
     }
 }
