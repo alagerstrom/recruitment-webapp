@@ -14,7 +14,7 @@ import se.kth.iv1201.boblaghei.entity.UserRole;
 import se.kth.iv1201.boblaghei.repository.PersonRepository;
 import se.kth.iv1201.boblaghei.repository.UserRepository;
 import se.kth.iv1201.boblaghei.repository.UserRoleRepository;
-import se.kth.iv1201.boblaghei.util.exception.DuplicateUsernameException;
+import se.kth.iv1201.boblaghei.exception.DuplicateUsernameException;
 
 import java.util.HashSet;
 import java.util.Set;

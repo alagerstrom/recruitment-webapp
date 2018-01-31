@@ -1,4 +1,4 @@
-package se.kth.iv1201.boblaghei.util.exception;
+package se.kth.iv1201.boblaghei.exception;
 
 public class NoUserLoggedInException extends Exception {
 
