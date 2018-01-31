@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.Set;
 
 /**
- *  O/R Mapping of the table Application in the database.
+ * O/R Mapping of the table Application in the database.
  */
 @Entity
 public class Application {
@@ -77,6 +77,6 @@ public class Application {
     }
 
     public ApplicationDTO getDTO() {
-        return new ApplicationDTO(getCreated(),getStatus().getDTO(),getPerson().getDTO());
+        return new ApplicationDTO(id, getCreated(), getStatus().getDTO(), getPerson().getDTO());
     }
 }

@@ -66,6 +66,6 @@ public class UserRole {
     }
 
     public UserRoleDTO getDTO() {
-        return new UserRoleDTO(getUser().getDTO(), getRole().getDTO());
+        return new UserRoleDTO(userRoleid, getUser().getDTO(), getRole().getDTO());
     }
 }

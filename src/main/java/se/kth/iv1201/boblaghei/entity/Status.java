@@ -49,6 +49,6 @@ public class Status {
     }
 
     public StatusDTO getDTO() {
-        return new StatusDTO(getName());
+        return new StatusDTO(id, getName());
     }
 }

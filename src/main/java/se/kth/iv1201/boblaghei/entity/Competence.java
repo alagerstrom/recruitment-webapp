@@ -49,6 +49,6 @@ public class Competence {
     }
 
     public CompetenceDTO getDTO() {
-        return new CompetenceDTO(getName());
+        return new CompetenceDTO(id, getName());
     }
 }

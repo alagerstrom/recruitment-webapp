@@ -50,7 +50,8 @@ public class CreateApplicationService {
             List<AvailabilityDTO> availabilities)
             throws ApplicationException {
         PersonDTO personDTO = registerService.getLoggedInPerson();
-        Person person = personRepository.findOne(personDTO.get)
+        Person person = personRepository.findOne(personDTO.getId());
+
 
         Application application = new Application()
     }
