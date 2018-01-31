@@ -6,14 +6,13 @@ import se.kth.iv1201.boblaghei.dto.AvailabilityDTO;
 import se.kth.iv1201.boblaghei.dto.CompetenceDTO;
 import se.kth.iv1201.boblaghei.dto.CompetenceProfileDTO;
 import se.kth.iv1201.boblaghei.dto.PersonDTO;
-import se.kth.iv1201.boblaghei.entity.Application;
-import se.kth.iv1201.boblaghei.entity.Competence;
-import se.kth.iv1201.boblaghei.entity.Person;
+import se.kth.iv1201.boblaghei.entity.*;
 import se.kth.iv1201.boblaghei.exception.ApplicationException;
-import se.kth.iv1201.boblaghei.repository.CompetenceRepository;
-import se.kth.iv1201.boblaghei.repository.PersonRepository;
+import se.kth.iv1201.boblaghei.repository.*;
+import se.kth.iv1201.boblaghei.util.Constants;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,13 +25,22 @@ import java.util.List;
 public class CreateApplicationService {
 
     @Autowired
-    RegisterService registerService;
+    private RegisterService registerService;
 
     @Autowired
-    CompetenceRepository competenceRepository;
+    private CompetenceRepository competenceRepository;
 
     @Autowired
-    PersonRepository personRepository;
+    private PersonRepository personRepository;
+
+    @Autowired
+    private StatusRepository statusRepository;
+
+    @Autowired
+    private CompetenceProfileRepository competenceProfileRepository;
+
+    @Autowired
+    private AvailabilityRepository availabilityRepository;
 
     /**
      * createApplicationForCurrentUser
@@ -50,10 +58,33 @@ public class CreateApplicationService {
             List<AvailabilityDTO> availabilities)
             throws ApplicationException {
         PersonDTO personDTO = registerService.getLoggedInPerson();
+        if (personDTO == null)
+            throw new ApplicationException("No user logged in");
         Person person = personRepository.findOne(personDTO.getId());
+        if (person == null)
+            throw new ApplicationException("No user logged in");
+        Status status = getUnhandledStatus();
+        Date date = new Date();
+        Application application = new Application(date, status, person);
 
+        for (CompetenceProfileDTO competenceProfileDTO : competenceProfiles) {
+            Competence competence = competenceRepository.findOne(competenceProfileDTO.getCompetence().getId());
+            CompetenceProfile competenceProfile = new CompetenceProfile(
+                    competenceProfileDTO.getYearsOfExperience(),
+                    application,
+                    competence
+            );
+            competenceProfileRepository.save(competenceProfile);
+        }
 
-        Application application = new Application()
+        for (AvailabilityDTO availabilityDTO : availabilities) {
+            Availability availability = new Availability(
+                    availabilityDTO.getFrom(),
+                    availabilityDTO.getTo(),
+                    application
+            );
+            availabilityRepository.save(availability);
+        }
     }
 
     /**
@@ -70,5 +101,20 @@ public class CreateApplicationService {
             result.add(competence.getDTO());
         }
         return result;
+    }
+
+    /**
+     * Will check if the database contains the status 'unhandled',
+     * and insert it otherwise.
+     *
+     * @return The status 'unhandled'
+     */
+    private Status getUnhandledStatus() {
+        Status status = statusRepository.getByName(Constants.STATUS_UNHANDLED);
+        if (status == null) {
+            status = new Status(Constants.STATUS_UNHANDLED);
+            statusRepository.save(status);
+        }
+        return status;
     }
 }
