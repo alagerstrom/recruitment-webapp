@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Application</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+
+<div th:replace="fragments/menu :: menu"></div>
+
+<h1>Create application</h1>
+
+<th:block th:each="competenceProfile : ${selectedCompetences}">
+    <div>
+        <p th:text="${competenceProfile.getCompetence().getName()}"></p>
+        <p th:text="${competenceProfile.getYearsOfExperience()}"></p>
+    </div>
+</th:block>
+
+
+<form th:action="@{/add-competence}" method="post">
+    <select name="id">
+        <th:block th:each="competence : ${availableCompetences}">
+            <option
+                    th:value="${competence.getId()}"
+                    th:text="${competence.getName()}">
+            </option>
+        </th:block>
+    </select>
+    <input type="text" name="yearsOfExperience"/>
+    <input type="submit" value="Submit"/>
+</form>
+
+
+
+
+</body>
+</html>
