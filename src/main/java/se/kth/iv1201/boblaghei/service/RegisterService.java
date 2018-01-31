@@ -6,7 +6,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import se.kth.iv1201.boblaghei.dto.PersonDTO;
-import se.kth.iv1201.boblaghei.dto.RoleDTO;
 import se.kth.iv1201.boblaghei.dto.UserDTO;
 import se.kth.iv1201.boblaghei.dto.UserRoleDTO;
 import se.kth.iv1201.boblaghei.entity.Person;
@@ -15,6 +14,7 @@ import se.kth.iv1201.boblaghei.entity.UserRole;
 import se.kth.iv1201.boblaghei.repository.PersonRepository;
 import se.kth.iv1201.boblaghei.repository.UserRepository;
 import se.kth.iv1201.boblaghei.repository.UserRoleRepository;
+import se.kth.iv1201.boblaghei.exception.DuplicateUsernameException;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -37,9 +37,13 @@ public class RegisterService {
     /**
      * Registers a new person, both as a person as well as a user.
      * @param personDTO DTO containing data needed for registration.
+     * @throws DuplicateUsernameException if a user is registered with an already existing username.
      */
-    public void register(PersonDTO personDTO) /*throws RegisterException */{
+    public void register(PersonDTO personDTO) throws DuplicateUsernameException {
         User user = createUser(personDTO.getUser());
+        if(userRepository.findOne(user.getUsername()) != null) {
+            throw new DuplicateUsernameException("Username is already in use, please choose another one.");
+        }
         userRepository.save(user);
         personRepository.save(createPerson(personDTO));
     }
