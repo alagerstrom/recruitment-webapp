@@ -8,6 +8,7 @@ import se.kth.iv1201.boblaghei.dto.CompetenceProfileDTO;
 import se.kth.iv1201.boblaghei.dto.PersonDTO;
 import se.kth.iv1201.boblaghei.entity.*;
 import se.kth.iv1201.boblaghei.exception.ApplicationException;
+import se.kth.iv1201.boblaghei.exception.NoUserLoggedInException;
 import se.kth.iv1201.boblaghei.repository.*;
 import se.kth.iv1201.boblaghei.util.Constants;
 
@@ -56,7 +57,7 @@ public class CreateApplicationService {
     public void createApplicationForCurrentUser(
             List<CompetenceProfileDTO> competenceProfiles,
             List<AvailabilityDTO> availabilities)
-            throws ApplicationException {
+            throws ApplicationException, NoUserLoggedInException {
         PersonDTO personDTO = registerService.getLoggedInPerson();
         if (personDTO == null)
             throw new ApplicationException("No user logged in");

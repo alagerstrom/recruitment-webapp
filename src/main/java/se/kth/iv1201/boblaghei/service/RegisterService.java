@@ -11,6 +11,7 @@ import se.kth.iv1201.boblaghei.dto.UserRoleDTO;
 import se.kth.iv1201.boblaghei.entity.Person;
 import se.kth.iv1201.boblaghei.entity.User;
 import se.kth.iv1201.boblaghei.entity.UserRole;
+import se.kth.iv1201.boblaghei.exception.NoUserLoggedInException;
 import se.kth.iv1201.boblaghei.repository.PersonRepository;
 import se.kth.iv1201.boblaghei.repository.UserRepository;
 import se.kth.iv1201.boblaghei.repository.UserRoleRepository;
@@ -54,15 +55,18 @@ public class RegisterService {
      *
      * @return The PersonDTO representing the currently logged in user, without password
      */
-    public PersonDTO getLoggedInPerson() {
+    public PersonDTO getLoggedInPerson() throws NoUserLoggedInException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        if(userDetails == null) {
+            throw new NoUserLoggedInException("No user is logged in, please log in.");
+        }
         User user = userRepository.findOne(userDetails.getUsername());
         Person person = personRepository.getPersonByUser(user);
         return person.getDTO();
     }
 
-    public Set<UserRoleDTO> getRolesOfLoggedInPerson() {
+    public Set<UserRoleDTO> getRolesOfLoggedInPerson() throws NoUserLoggedInException {
         User loggedInUser = userRepository.getUserByUsername(getLoggedInPerson().getUser().getUsername());
         Set<UserRole> userRoles = userRoleRepository.getUserRolesByUser(loggedInUser);
         Set<UserRoleDTO> userRolesDTO = new HashSet<>();
