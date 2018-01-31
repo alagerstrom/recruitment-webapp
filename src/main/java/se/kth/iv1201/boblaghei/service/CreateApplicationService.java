@@ -25,6 +25,9 @@ import java.util.List;
 public class CreateApplicationService {
 
     @Autowired
+    private ApplicationRepository applicationRepository;
+
+    @Autowired
     private RegisterService registerService;
 
     @Autowired
@@ -66,6 +69,8 @@ public class CreateApplicationService {
         Status status = getUnhandledStatus();
         Date date = new Date();
         Application application = new Application(date, status, person);
+
+        applicationRepository.save(application);
 
         for (CompetenceProfileDTO competenceProfileDTO : competenceProfiles) {
             Competence competence = competenceRepository.findOne(competenceProfileDTO.getCompetence().getId());

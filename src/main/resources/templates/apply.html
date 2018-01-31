@@ -10,6 +10,8 @@
 
 <h1>Create application</h1>
 
+<h2>Competences</h2>
+
 <th:block th:each="competenceProfile : ${selectedCompetences}">
     <div>
         <p th:text="${competenceProfile.getCompetence().getName()}"></p>
@@ -28,9 +30,27 @@
         </th:block>
     </select>
     <input type="text" name="yearsOfExperience"/>
-    <input type="submit" value="Submit"/>
+    <input type="submit" value="Add competence"/>
 </form>
 
+<h2>Available</h2>
+
+<th:block th:each="availability : ${availabilities}">
+    <div>
+        <p th:text="${'From: ' + availability.getFrom()}"></p>
+        <p th:text="${'To: ' + availability.getTo()}"></p>
+    </div>
+</th:block>
+
+<form th:action="@{/add-availability}" method="post">
+    <input type="date" name="from"/>
+    <input type="date" name="to"/>
+    <input type="submit" value="Add availability"/>
+</form>
+
+<form th:action="@{/submit-application}" method="post">
+    <input type="submit" value="Submit application"/>
+</form>
 
 
 
