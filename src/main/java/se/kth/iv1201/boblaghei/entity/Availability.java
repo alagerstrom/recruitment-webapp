@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
- *  O/R Mapping of the table Availability in the database.
+ * O/R Mapping of the table Availability in the database.
  */
 @Entity
 public class Availability {
@@ -21,8 +21,7 @@ public class Availability {
     @Column(nullable = false)
     private Date toDate;
 
-
-    @ManyToOne(cascade= CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Application application;
 
     public Availability() {
@@ -77,6 +76,6 @@ public class Availability {
     }
 
     public AvailabilityDTO getDTO() {
-        return new AvailabilityDTO(getFromDate(), getToDate(), getApplication().getDTO());
+        return new AvailabilityDTO(id, getFromDate(), getToDate(), getApplication().getDTO());
     }
 }
