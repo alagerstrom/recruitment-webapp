@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Application</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+
+<div th:replace="fragments/menu :: menu"></div>
+
+<div class="applicationSearchOptions">
+    <h1>Search terms</h1>
+
+    <h2>Competences</h2>
+
+    <th:block th:each="competenceProfile : ${selectedCompetences}">
+        <div>
+            <p th:text="${competenceProfile.getCompetence().getName()}"></p>
+            <p th:text="${competenceProfile.getYearsOfExperience()}"></p>
+        </div>
+    </th:block>
+
+    <form th:action="@{/add-competence}" method="post">
+        <select name="id">
+            <th:block th:each="competence : ${availableCompetences}">
+                <option
+                        th:value="${competence.getId()}"
+                        th:text="${competence.getName()}">
+                </option>
+            </th:block>
+        </select>
+        <input type="text" name="yearsOfExperience"/>
+        <input type="submit" value="Add competence"/>
+    </form>
+
+    <h2>Available</h2>
+
+
+    <th:block th:each="availability : ${availabilities}">
+        <div>
+            <p th:text="${'From: ' + availability.getFrom()}"></p>
+            <p th:text="${'To: ' + availability.getTo()}"></p>
+        </div>
+    </th:block>
+
+    <form th:action="@{/add-availability}" method="post">
+        <input type="date" name="from"/>
+        <input type="date" name="to"/>
+        <input type="submit" value="Add availability"/>
+    </form>
+
+    <form th:action="@{/list-applications}" method="post">
+        <input type="submit" value="submit applicationSearch"/>
+    </form>
+</div>
+
+<div class="listOfApplications">
+    <table class="table" th:if="${listOfApplications}" th:object="${listOfApplications}">
+        <thead>
+        <tr>
+            <th>Applicant firstname</th>
+            <th>Applicant lastname</th>
+            <th>Competence</th>
+            <th>Availability from - to</th>
+            <th>Application created</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="application : ${listOfApplications}">
+            <td scope="row" th:text="${application.getPerson().getFirstName()}"></td>
+            <td th:text="${application.getPerson().getLastName()}"></td>
+            <td th:text="${application.getPerson().getLastName()}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>
