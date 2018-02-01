@@ -1,5 +1,6 @@
 package se.kth.iv1201.boblaghei.service;
 
+import groovy.util.logging.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,6 +16,7 @@ import se.kth.iv1201.boblaghei.repository.PersonRepository;
 import se.kth.iv1201.boblaghei.repository.UserRepository;
 import se.kth.iv1201.boblaghei.repository.UserRoleRepository;
 import se.kth.iv1201.boblaghei.exception.DuplicateUsernameException;
+import se.kth.iv1201.boblaghei.util.logger.SecurityLogger;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -22,6 +24,8 @@ import java.util.Set;
 /**
  * Service responsible for handling registrations.
  */
+
+@Slf4j
 @Service
 public class RegisterService {
 
@@ -34,6 +38,10 @@ public class RegisterService {
     @Autowired
     UserRoleRepository userRoleRepository;
 
+    @Autowired
+    SecurityLogger securityLogger;
+
+
     /**
      * Registers a new person, both as a person as well as a user.
      * @param personDTO DTO containing data needed for registration.
@@ -42,6 +50,7 @@ public class RegisterService {
     public void register(PersonDTO personDTO) throws DuplicateUsernameException {
         User user = createUser(personDTO.getUser());
         if(userRepository.findOne(user.getUsername()) != null) {
+            securityLogger.log("Tried registering the username " + user.getUsername() + " that is already in use.");
             throw new DuplicateUsernameException("Username is already in use, please choose another one.");
         }
         userRepository.save(user);

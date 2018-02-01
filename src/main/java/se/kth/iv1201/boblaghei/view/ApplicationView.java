@@ -12,6 +12,7 @@ import se.kth.iv1201.boblaghei.dto.AvailabilityDTO;
 import se.kth.iv1201.boblaghei.dto.CompetenceDTO;
 import se.kth.iv1201.boblaghei.dto.CompetenceProfileDTO;
 import se.kth.iv1201.boblaghei.entity.Application;
+import se.kth.iv1201.boblaghei.entity.CompetenceProfile;
 import se.kth.iv1201.boblaghei.exception.ApplicationException;
 import se.kth.iv1201.boblaghei.service.CreateApplicationService;
 import se.kth.iv1201.boblaghei.service.ListApplicationService;

@@ -11,12 +11,16 @@ import se.kth.iv1201.boblaghei.dto.PersonDTO;
 import se.kth.iv1201.boblaghei.dto.UserDTO;
 import se.kth.iv1201.boblaghei.service.RegisterService;
 import se.kth.iv1201.boblaghei.exception.DuplicateUsernameException;
+import se.kth.iv1201.boblaghei.util.logger.ErrorLogger;
 
 @Controller
 public class RegisterView {
 
     @Autowired
     RegisterService registerService;
+
+    @Autowired
+    ErrorLogger errorLogger;
 
     @GetMapping("/register")
     public String getRegisterView(Model model){
@@ -33,6 +37,7 @@ public class RegisterView {
         try{
             registerService.register(person);
         } catch (DuplicateKeyException | DuplicateUsernameException e) {
+            errorLogger.log(e.getMessage());
             e.printStackTrace();
         }
         return "redirect:/";
