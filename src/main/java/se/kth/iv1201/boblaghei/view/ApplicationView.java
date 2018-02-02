@@ -11,9 +11,8 @@ import se.kth.iv1201.boblaghei.dto.ApplicationDTO;
 import se.kth.iv1201.boblaghei.dto.AvailabilityDTO;
 import se.kth.iv1201.boblaghei.dto.CompetenceDTO;
 import se.kth.iv1201.boblaghei.dto.CompetenceProfileDTO;
-import se.kth.iv1201.boblaghei.entity.Application;
-import se.kth.iv1201.boblaghei.entity.CompetenceProfile;
 import se.kth.iv1201.boblaghei.exception.ApplicationException;
+import se.kth.iv1201.boblaghei.exception.NoUserLoggedInException;
 import se.kth.iv1201.boblaghei.service.CreateApplicationService;
 import se.kth.iv1201.boblaghei.service.ListApplicationService;
 import se.kth.iv1201.boblaghei.util.ApplicationSearchDTO;
@@ -80,7 +79,7 @@ public class ApplicationView {
     public String submitApplication(Model model){
         try {
             createApplicationService.createApplicationForCurrentUser(selectedCompetences, availabilities);
-        } catch (ApplicationException e) {
+        } catch (NoUserLoggedInException e) {
             e.printStackTrace();
         }
         return "redirect:/";

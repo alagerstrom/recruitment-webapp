@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <property name="LOGS_HOME" value="/home/heimlen/Dropbox/ArchitectureLeif/architecture-course-project/src/main/resources/"/>
+    <property name="LOGS_HOME" value="src/main/resources/"/>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
