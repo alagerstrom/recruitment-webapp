@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <title>Login</title>
 </head>
@@ -8,16 +8,19 @@
 
 <div th:replace="fragments/menu :: menu"> </div>
 
-<div th:if="${param.error}">
+<p th:if="${param.error}">
     Invalid username and password.
-</div>
-<div th:if="${param.logout}">
+</p>
+<p th:if="${param.logout}">
     You have been logged out.
-</div>
+</p>
 <form th:action="@{/login}" method="post">
     <div><label> User Name : <input type="text" name="username"/> </label></div>
     <div><label> Password: <input type="password" name="password"/> </label></div>
     <div><input type="submit" value="Sign In"/></div>
 </form>
+<p>
+    Not registered? <a th:href="@{/register}">Register</a>
+</p>
 </body>
 </html>

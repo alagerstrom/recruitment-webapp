@@ -13,14 +13,7 @@
 
     <h2>Competences</h2>
 
-    <th:block th:each="competenceProfile : ${selectedCompetences}">
-        <div>
-            <p th:text="${competenceProfile.getCompetence().getName()}"></p>
-            <p th:text="${competenceProfile.getYearsOfExperience()}"></p>
-        </div>
-    </th:block>
-
-    <form th:action="@{/add-competence}" method="post">
+    <form th:action="@{/recruiter/applications/add-competence}" method="post">
         <select name="id">
             <th:block th:each="competence : ${availableCompetences}">
                 <option
@@ -33,44 +26,43 @@
         <input type="submit" value="Add competence"/>
     </form>
 
-    <h2>Available</h2>
-
-
-    <th:block th:each="availability : ${availabilities}">
+    <th:block th:each="competenceProfile : ${selectedCompetences}">
         <div>
-            <p th:text="${'From: ' + availability.getFrom()}"></p>
-            <p th:text="${'To: ' + availability.getTo()}"></p>
+            <p th:text="${competenceProfile.getCompetence().getName()}"></p>
+            <p th:text="${competenceProfile.getYearsOfExperience()}"></p>
         </div>
     </th:block>
 
-    <form th:action="@{/add-availability}" method="post">
-        <input type="date" name="from"/>
-        <input type="date" name="to"/>
-        <input type="submit" value="Add availability"/>
+    <form th:action="@{/recruiter/applications}" method="post">
+        <label>First Name: <input type="text" name="firstName"/> </label><br/>
+        <label>Last Name: <input type="text" name="lastName"/> </label><br/>
+        <label>Created: <input type="date" name="created"/></label><br/>
+        <label>Available from: <input type="date" name="from"/></label><br/>
+        <label>Available to: <input type="date" name="to"/></label><br/>
+        <input type="submit" value="Search"/>
     </form>
 
-    <form th:action="@{/list-applications}" method="post">
-        <input type="submit" value="submit applicationSearch"/>
-    </form>
 </div>
 
 <div class="listOfApplications">
     <table class="table" th:if="${listOfApplications}" th:object="${listOfApplications}">
         <thead>
         <tr>
-            <th>Applicant firstname</th>
-            <th>Applicant lastname</th>
-            <th>Competence</th>
-            <th>Availability from - to</th>
-            <th>Application created</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Created</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="application : ${listOfApplications}">
-            <td scope="row" th:text="${application.getPerson().getFirstName()}"></td>
-            <td th:text="${application.getPerson().getLastName()}"></td>
-            <td th:text="${application.getPerson().getLastName()}"></td>
-        </tr>
+        <th:block th:each="application : ${listOfApplications}">
+            <tr>
+                <td scope="row" th:text="${application.getPerson().getFirstName()}"></td>
+                <td th:text="${application.getPerson().getLastName()}"></td>
+                <td th:text="${application.getCreated()}"></td>
+                <td><a th:href="@{/recruiter/applications/{path}(path=${application.id})}">View</a></td>
+            </tr>
+        </th:block>
+
         </tbody>
     </table>
 
