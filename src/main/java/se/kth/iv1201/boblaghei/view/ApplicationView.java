@@ -7,11 +7,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import se.kth.iv1201.boblaghei.dto.ApplicationDTO;
 import se.kth.iv1201.boblaghei.dto.AvailabilityDTO;
 import se.kth.iv1201.boblaghei.dto.CompetenceDTO;
 import se.kth.iv1201.boblaghei.dto.CompetenceProfileDTO;
+import se.kth.iv1201.boblaghei.entity.Application;
+import se.kth.iv1201.boblaghei.entity.CompetenceProfile;
 import se.kth.iv1201.boblaghei.exception.ApplicationException;
 import se.kth.iv1201.boblaghei.service.CreateApplicationService;
+import se.kth.iv1201.boblaghei.service.ListApplicationService;
+import se.kth.iv1201.boblaghei.util.ApplicationSearchDTO;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -24,6 +29,9 @@ public class ApplicationView {
 
     @Autowired
     private CreateApplicationService createApplicationService;
+
+    @Autowired
+    private ListApplicationService listApplicationService;
 
     private List<CompetenceProfileDTO> selectedCompetences = new ArrayList<>();
     private List<CompetenceDTO> availableCompetences;
@@ -76,6 +84,32 @@ public class ApplicationView {
             e.printStackTrace();
         }
         return "redirect:/";
+    }
+
+    @GetMapping("/list-applications")
+    public String listApplications(Model model) {
+        try {
+            availableCompetences = createApplicationService.listAllCompetences();
+        } catch (ApplicationException e) {
+            e.printStackTrace();
+        }
+        model.addAttribute("availabilities", availabilities);
+        model.addAttribute("availableCompetences", availableCompetences);
+        model.addAttribute("selectedCompetences", selectedCompetences);
+        return "listApplications";
+    }
+
+    @PostMapping("/list-applications")
+    public String submitApplicationSearch(Model model) {
+        List<ApplicationDTO> applications = listApplicationService.findApplications(
+                new ApplicationSearchDTO.Builder()
+//                        .setAvailableFrom(availabilities.get(0).getFrom())
+//                        .setAvailableTo(availabilities.get(0).getTo())
+                        .build()
+        );
+        model.addAttribute("listOfApplications", applications);
+        return listApplications(model);
+
     }
 
     private CompetenceDTO getCompetenceById(long id) {
