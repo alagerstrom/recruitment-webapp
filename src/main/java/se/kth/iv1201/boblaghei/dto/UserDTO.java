@@ -1,5 +1,7 @@
 package se.kth.iv1201.boblaghei.dto;
 
+import se.kth.iv1201.boblaghei.entity.User;
+
 /**
  * DTO representing entity class <code>User</code>.
  */
@@ -49,5 +51,9 @@ public class UserDTO {
                 ", password='" + password + '\'' +
                 ", enabled=" + enabled +
                 '}';
+    }
+
+    public User getEntity() {
+        return new User(getUsername(), "", isEnabled());
     }
 }

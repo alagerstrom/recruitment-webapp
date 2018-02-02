@@ -69,4 +69,12 @@ public class User {
     public UserDTO getDTO() {
         return new UserDTO(getUsername(), "", isEnabled());
     }
+
+    /**
+     * Currently only used for testing purposes, not to be used in production code.
+     * @return complete UserDTO representation of User.
+     */
+    public UserDTO getDTOWithPassword() {
+        return new UserDTO(getUsername(), getPassword(), isEnabled());
+    }
 }

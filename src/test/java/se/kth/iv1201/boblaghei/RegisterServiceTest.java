@@ -8,7 +8,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import se.kth.iv1201.boblaghei.dto.PersonDTO;
 import se.kth.iv1201.boblaghei.dto.UserDTO;
 import se.kth.iv1201.boblaghei.entity.User;
+import se.kth.iv1201.boblaghei.exception.NoUserLoggedInException;
 import se.kth.iv1201.boblaghei.repository.PersonRepository;
+import se.kth.iv1201.boblaghei.repository.UserRepository;
 import se.kth.iv1201.boblaghei.service.RegisterService;
 import se.kth.iv1201.boblaghei.exception.DuplicateUsernameException;
 import static org.assertj.core.api.Assertions.*;
@@ -22,6 +24,9 @@ public class RegisterServiceTest {
 
     @Autowired
     PersonRepository personRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @Test(expected = DuplicateUsernameException.class)
     public void testDuplicateUsername() throws DuplicateUsernameException {
@@ -40,20 +45,20 @@ public class RegisterServiceTest {
     }
 
     @Test
-    public void testRegistrationSuccessfull() throws DuplicateUsernameException {
+    public void testRegistrationSuccessful() throws DuplicateUsernameException {
         UserDTO firstUser = new UserDTO("maja", "skunk", true);
         PersonDTO firstRegistrant =
                 new PersonDTO("kalle", "kula",
                         "12345", "e@e.e", firstUser
                 );
         registerService.register(firstRegistrant);
-        assertThat(personRepository.getPersonByUser(
-                new User(firstUser.getUsername(),
-                firstUser.getPassword(), firstUser.isEnabled())).getDTO()).isEqualTo(firstUser);
+        assertThat(userRepository.getUserByUsername(firstRegistrant.getUser().getUsername()).getUsername())
+                .isEqualTo(firstUser.getUsername());
+        assertThat(personRepository.getPersonByUser(firstUser.getEntity()).getFirstName()).isEqualTo(firstRegistrant.getFirstName());
     }
 
-    @Test(expected = NullPointerException.class)
-    public void testGettingUserWithNoneLoggedIn() {
+    @Test(expected = NoUserLoggedInException.class)
+    public void testGettingUserWithNoneLoggedIn() throws NoUserLoggedInException {
         registerService.getLoggedInPerson();
     }
 
