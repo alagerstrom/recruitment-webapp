@@ -20,7 +20,7 @@
 </th:block>
 
 
-<form th:action="@{/add-competence}" method="post">
+<form th:action="@{/apply/add-competence}" method="post">
     <select name="id">
         <th:block th:each="competence : ${availableCompetences}">
             <option
@@ -42,13 +42,13 @@
     </div>
 </th:block>
 
-<form th:action="@{/add-availability}" method="post">
+<form th:action="@{/apply/add-availability}" method="post">
     <input type="date" name="from"/>
     <input type="date" name="to"/>
     <input type="submit" value="Add availability"/>
 </form>
 
-<form th:action="@{/submit-application}" method="post">
+<form th:action="@{/apply/submit-application}" method="post">
     <input type="submit" value="Submit application"/>
 </form>
 

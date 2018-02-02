@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <title>Empty Title</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -8,26 +9,23 @@
 
 <div th:fragment="menu">
     <p>
-        <a th:href="@{/}">Home</a>
+        <a th:href="@{/}">Recruitment</a>
     </p>
-    <p>
+    <p sec:authorize="hasRole('ROLE_APPLICANT')">
         <a th:href="@{/apply}">Create application</a>
     </p>
-    <p>
-        <a th:href="@{/login}">Login</a>
-    </p>
-    <p>
-        <a th:href="@{/register}">Register</a>
-    </p>
-    <p>
-        <a th:href="@{/logout}">Log out</a>
-    </p>
-    <p>
+    <p sec:authorize="hasRole('ROLE_RECRUITER')">
         <a th:href="@{/recruiter/applications}">View all applications</a>
     </p>
-    <p>
-        <a th:href="@{/listRoles}">List all your roles.</a>
+    <p sec:authorize="isAuthenticated()">
+        <a th:href="@{/logout}">Log out</a>
     </p>
+    <p sec:authorize="isAnonymous()">
+        <a th:href="@{/login}">Login</a>
+    </p>
+    <!--<p>-->
+        <!--<a th:href="@{/listRoles}">List all your roles.</a>-->
+    <!--</p>-->
 </div>
 
 
