@@ -16,6 +16,7 @@ import se.kth.iv1201.boblaghei.exception.NoUserLoggedInException;
 import se.kth.iv1201.boblaghei.service.CreateApplicationService;
 import se.kth.iv1201.boblaghei.service.ListApplicationService;
 import se.kth.iv1201.boblaghei.util.ApplicationSearchDTO;
+import se.kth.iv1201.boblaghei.util.logger.ErrorLogger;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -32,6 +33,9 @@ public class ApplicationView {
     @Autowired
     private ListApplicationService listApplicationService;
 
+    @Autowired
+    private ErrorLogger errorLogger;
+
     private List<CompetenceProfileDTO> selectedCompetences = new ArrayList<>();
     private List<CompetenceDTO> availableCompetences;
     private List<AvailabilityDTO> availabilities = new ArrayList<>();
@@ -41,6 +45,7 @@ public class ApplicationView {
         try {
             availableCompetences = createApplicationService.listAllCompetences();
         } catch (ApplicationException e) {
+            errorLogger.log(e.getMessage());
             e.printStackTrace();
         }
         model.addAttribute("availabilities", availabilities);
@@ -80,6 +85,7 @@ public class ApplicationView {
         try {
             createApplicationService.createApplicationForCurrentUser(selectedCompetences, availabilities);
         } catch (NoUserLoggedInException e) {
+            errorLogger.log(e.getMessage());
             e.printStackTrace();
         }
         return "redirect:/";
@@ -90,6 +96,7 @@ public class ApplicationView {
         try {
             availableCompetences = createApplicationService.listAllCompetences();
         } catch (ApplicationException e) {
+            errorLogger.log(e.getMessage());
             e.printStackTrace();
         }
         model.addAttribute("availabilities", availabilities);
