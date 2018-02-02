@@ -84,7 +84,7 @@ public class ApplicationView {
     public String submitApplication(Model model){
         try {
             createApplicationService.createApplicationForCurrentUser(selectedCompetences, availabilities);
-        } catch (ApplicationException | NoUserLoggedInException e) {
+        } catch (NoUserLoggedInException e) {
             errorLogger.log(e.getMessage());
             e.printStackTrace();
         }

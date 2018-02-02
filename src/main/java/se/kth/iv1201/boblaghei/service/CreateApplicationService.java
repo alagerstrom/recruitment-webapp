@@ -55,18 +55,18 @@ public class CreateApplicationService {
      *                           years of experience, the id and application field does not need to be set.
      * @param availabilities     A list of AvailabilityDTO representing when the applicant is available.
      *                           The id and application fields does not need to be set.
-     * @throws ApplicationException If no user is currently logged in.
+     * @throws NoUserLoggedInException If no user is currently logged in.
      */
     public void createApplicationForCurrentUser(
             List<CompetenceProfileDTO> competenceProfiles,
             List<AvailabilityDTO> availabilities)
-            throws ApplicationException, NoUserLoggedInException {
+            throws NoUserLoggedInException {
         PersonDTO personDTO = registerService.getLoggedInPerson();
         if (personDTO == null)
-            throw new ApplicationException("No user logged in");
+            throw new NoUserLoggedInException();
         Person person = personRepository.findOne(personDTO.getId());
         if (person == null)
-            throw new ApplicationException("No user logged in");
+            throw new NoUserLoggedInException();
         Status status = getUnhandledStatus();
         Date date = new Date();
         Application application = new Application(date, status, person);
