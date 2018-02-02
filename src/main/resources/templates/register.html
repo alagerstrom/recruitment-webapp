@@ -3,19 +3,24 @@
 <head th:replace="fragments/head :: head"></head>
 <body>
 
-<div th:replace="fragments/header :: header"> </div>
-
-<h1>Register</h1>
-<p>Fyll i formuläret för att registrera dig</p>
-<form th:action="@{/register}" th:object="${person}" method="post">
-    <div><label>First Name: <input type="text" th:field="*{firstName}"/></label></div>
-    <div><label>Last Name: <input type="text" th:field="*{lastName}"/></label></div>
-    <div><label>Personal Number: <input type="text" th:field="*{personalNumber}"/></label></div>
-    <div><label>Email: <input type="text" th:field="*{email}"/></label></div>
-    <div><label>Username: <input type="text" th:field="*{user.username}"/></label></div>
-    <div><label>Password: <input type="password" th:field="*{user.password}"/></label></div>
-    <div><label>Confirm password: <input type="password" name="confirmPassword"/></label></div>
-    <div><input type="submit" value="Register"/></div>
-</form>
+<div th:replace="fragments/header :: header"></div>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>Register</h1>
+            <p>Fyll i formuläret för att registrera dig</p>
+            <form th:action="@{/register}" th:object="${person}" method="post">
+                <div><label>First Name: <input type="text" th:field="*{firstName}"/></label></div>
+                <div><label>Last Name: <input type="text" th:field="*{lastName}"/></label></div>
+                <div><label>Personal Number: <input type="text" th:field="*{personalNumber}"/></label></div>
+                <div><label>Email: <input type="text" th:field="*{email}"/></label></div>
+                <div><label>Username: <input type="text" th:field="*{user.username}"/></label></div>
+                <div><label>Password: <input type="password" th:field="*{user.password}"/></label></div>
+                <div><label>Confirm password: <input type="password" name="confirmPassword"/></label></div>
+                <div><input type="submit" value="Register"/></div>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 </html>
