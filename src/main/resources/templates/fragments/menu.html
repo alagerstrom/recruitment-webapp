@@ -18,10 +18,10 @@
                 <a class="nav-link" th:href="@{/recruiter/applications}">View all applications</a>
             </li>
             <li class="nav-item" sec:authorize="isAuthenticated()">
-                <a class="nav-link" th:href="@{/logout}">Log out</a>
+                <a class="nav-link" th:href="@{/logout}">Sign out</a>
             </li>
             <li class="nav-item" sec:authorize="isAnonymous()">
-                <a class="nav-link" th:href="@{/login}">Login</a>
+                <a class="nav-link" th:href="@{/login}">Sign in</a>
             </li>
         </ul>
     </nav>

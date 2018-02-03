@@ -5,22 +5,70 @@
 
 <div th:replace="fragments/header :: header"></div>
 <div class="container">
-    <div class="row">
-        <div class="col">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
             <h1>Register</h1>
-            <p>Fyll i formuläret för att registrera dig</p>
             <form th:action="@{/register}" th:object="${person}" method="post">
-                <div><label>First Name: <input type="text" th:field="*{firstName}"/></label></div>
-                <div><label>Last Name: <input type="text" th:field="*{lastName}"/></label></div>
-                <div><label>Personal Number: <input type="text" th:field="*{personalNumber}"/></label></div>
-                <div><label>Email: <input type="text" th:field="*{email}"/></label></div>
-                <div><label>Username: <input type="text" th:field="*{user.username}"/></label></div>
-                <div><label>Password: <input type="password" th:field="*{user.password}"/></label></div>
-                <div><label>Confirm password: <input type="password" name="confirmPassword"/></label></div>
-                <div><input type="submit" value="Register"/></div>
+
+                <div class="form-group text-right">
+                    Already registered? <a th:href="@{/login}">Sign in</a>
+                </div>
+
+                <div class="form-group">
+                    <label for="firstName">First Name:</label>
+                    <input class="form-control" id="firstName" placeholder="Enter your first name" type="text"
+                           th:field="*{firstName}"/>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name:</label>
+                    <input class="form-control" id="lastName" placeholder="Enter your last name" type="text"
+                           th:field="*{lastName}"/>
+                </div>
+
+                <div class="form-group">
+                    <label for="personalNumber">Personal Identity Number:</label>
+                    <input class="form-control" id="personalNumber" placeholder="Enter your personal identity number" type="text"
+                           th:field="*{personalNumber}"/>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input class="form-control" id="email" placeholder="Enter your email address" type="text"
+                           th:field="*{email}"/>
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input class="form-control" id="username" placeholder="Choose a username" type="text"
+                           th:field="*{user.username}"/>
+                    <small id="usernameHelp" class="form-text text-muted">You'll use your username to sign in.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input class="form-control" id="password" placeholder="Choose a password" type="password"
+                           th:field="*{user.password}"/>
+                    <!--<small id="passwordHelp" class="form-text text-muted">A good password is at least 8 characters long.</small>-->
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Confirm password:</label>
+                    <input class="form-control" id="confirmPassword" placeholder="Type your password again"
+                           type="password" name="confirmPassword"/>
+                    <!--<small id="passwordHelp" class="form-text text-muted">A good password is at least 8 characters long.</small>-->
+                </div>
+
+                <div class="form-group text-right">
+                    <small id="submitHint" class="form-text text-muted">All done?</small>
+                    <input type="submit" class="btn btn-primary" value="Register"/>
+                </div>
             </form>
         </div>
     </div>
 </div>
+<div th:replace="fragments/footer :: footer"></div>
+
 </body>
 </html>
