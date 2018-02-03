@@ -3,21 +3,42 @@
 <head th:replace="fragments/head :: head"></head>
 <body>
 
-<div th:replace="fragments/header :: header"> </div>
+<div th:replace="fragments/header :: header"></div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h1>Sign in</h1>
+            <p th:if="${param.error}">
+                Invalid username and password.
+            </p>
+            <p th:if="${param.logout}">
+                You have been logged out.
+            </p>
+            <form th:action="@{/login}" method="post">
 
-<p th:if="${param.error}">
-    Invalid username and password.
-</p>
-<p th:if="${param.logout}">
-    You have been logged out.
-</p>
-<form th:action="@{/login}" method="post">
-    <div><label> User Name : <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <div><input type="submit" value="Sign In"/></div>
-</form>
-<p>
-    Not registered? <a th:href="@{/register}">Register</a>
-</p>
+                <div class="form-group text-right">
+                    Not registered? <a th:href="@{/register}">Register</a>
+                </div>
+
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input class="form-control" id="username" placeholder="Username" type="text" name="username"/>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input class="form-control" id="password" placeholder="Password" type="password" name="password"/>
+                </div>
+
+                <div class="form-group text-right">
+                    <input class="btn btn-primary" type="submit" value="Sign In"/>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+
 </body>
 </html>

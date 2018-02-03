@@ -5,7 +5,17 @@
 
 <div th:replace="fragments/header :: header"> </div>
 
-<h1>Welcome</h1>
-<p th:text="${'Welcome ' + personDTO.getFirstName() + ' ' + personDTO.getLastName()}"></p>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-3 text-center">
+            <h2>Welcome</h2>
+            <p th:text="${'Welcome ' + personDTO.getFirstName() + ' ' + personDTO.getLastName()}"></p>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+
 </body>
 </html>

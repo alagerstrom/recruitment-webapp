@@ -3,50 +3,122 @@
 <head th:replace="fragments/head :: head"></head>
 <body>
 
-<div th:replace="fragments/header :: header"> </div>
+<div th:replace="fragments/header :: header"></div>
 
-<h2>Competences</h2>
 
-<th:block th:each="competenceProfile : ${selectedCompetences}">
-    <div>
-        <p th:text="${competenceProfile.getCompetence().getName()}"></p>
-        <p th:text="${competenceProfile.getYearsOfExperience()}"></p>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1>Create Application</h1>
+
+            <h2>Competences</h2>
+
+            <form th:action="@{/apply/add-competence}" method="post">
+                <div class="form-group">
+                    <th:block th:each="competenceProfile : ${selectedCompetences}">
+                        <div class="bg-success text-white">
+                            <p th:text="${'Competence ' + competenceProfile.getCompetence().getName() + ' with ' + competenceProfile.getYearsOfExperience() + ' years of experience'}"></p>
+                        </div>
+                    </th:block>
+                </div>
+
+                <div class="form-group">
+
+                    <label for="selectCompetence">Select competence</label>
+                    <select id="selectCompetence" name="id" class="form-control">
+                        <th:block th:each="competence : ${availableCompetences}">
+                            <option
+                                    th:value="${competence.getId()}"
+                                    th:text="${competence.getName()}">
+                            </option>
+                        </th:block>
+                    </select>
+
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="yearsOfExperience">Years of experience</label>
+                            <input id="yearsOfExperience" class="form-control" placeholder="Enter years of experience"
+                                   type="text"
+                                   name="yearsOfExperience"/>
+                            <small id="yearsOfExperienceHelp" class="form-text text-muted">
+                                How long experience do you have with that competence?
+                            </small>
+
+
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group text-right">
+                            <!--<small id="submitHint" class="form-text text-muted">Click to add</small>-->
+                            <label for="addCompetenceButton">Click to add</label>
+                            <input id="addCompetenceButton" class="btn btn-primary" type="submit"
+                                   value="Add competence"/>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </form>
+
+
+            <h2>Available</h2>
+
+            <form th:action="@{/apply/add-availability}" method="post">
+                <div class="form-group">
+                    <th:block th:each="availability : ${availabilities}">
+                        <div class="bg-success text-white">
+                            <p th:text="${'Available from ' + availability.getFrom() + ' to ' + availability.getTo()} "></p>
+                        </div>
+                    </th:block>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="from">Available from</label>
+                            <input id="from" class="form-control" type="date" name="from"/>
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="to">Available to</label>
+                            <input id="to" class="form-control" type="date" name="to"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group text-right">
+                            <!--<small id="addAvailabilityHint" class="form-text text-muted">Click to add</small>-->
+                            <label for="addAvaiabilityButton">Click to add</label>
+                            <input id="addAvaiabilityButton" class="btn btn-primary" type="submit"
+                                   value="Add availability"/>
+                        </div>
+                    </div>
+                </div>
+
+
+            </form>
+
+            <form th:action="@{/apply/submit-application}" method="post">
+                <div class="form-group text-right">
+                    <small id="submitApplicationHint" class="form-text text-muted">All done?</small>
+                    <input class="btn btn-primary" type="submit" value="Submit application"/>
+                </div>
+            </form>
+
+
+        </div>
     </div>
-</th:block>
 
+</div>
 
-<form th:action="@{/apply/add-competence}" method="post">
-    <select name="id">
-        <th:block th:each="competence : ${availableCompetences}">
-            <option
-                    th:value="${competence.getId()}"
-                    th:text="${competence.getName()}">
-            </option>
-        </th:block>
-    </select>
-    <input type="text" name="yearsOfExperience"/>
-    <input type="submit" value="Add competence"/>
-</form>
-
-<h2>Available</h2>
-
-<th:block th:each="availability : ${availabilities}">
-    <div>
-        <p th:text="${'From: ' + availability.getFrom()}"></p>
-        <p th:text="${'To: ' + availability.getTo()}"></p>
-    </div>
-</th:block>
-
-<form th:action="@{/apply/add-availability}" method="post">
-    <input type="date" name="from"/>
-    <input type="date" name="to"/>
-    <input type="submit" value="Add availability"/>
-</form>
-
-<form th:action="@{/apply/submit-application}" method="post">
-    <input type="submit" value="Submit application"/>
-</form>
-
+<div th:replace="fragments/footer :: footer"></div>
 
 
 </body>
