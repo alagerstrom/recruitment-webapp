@@ -6,8 +6,6 @@ import se.kth.iv1201.boblaghei.util.ApplicationSearchDTO;
 
 import java.util.List;
 
-public interface ApplicationRepository extends CrudRepository<Application, Long>{
+public interface ApplicationRepository extends CrudRepository<Application, Long> {
 
-    //TODO either add a custom query or a specification here, so that the applicationSearch can be implemented correctly.
-    //Or add it in the ListApplicationService and use several repositories there.
 }

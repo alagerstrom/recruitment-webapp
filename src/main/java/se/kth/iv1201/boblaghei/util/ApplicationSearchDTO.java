@@ -27,6 +27,34 @@ public class ApplicationSearchDTO {
         this.maxNumberOfResults = builder.maxNumberOfResults;
     }
 
+    public Date getAvailableFrom() {
+        return availableFrom;
+    }
+
+    public Date getAvailableTo() {
+        return availableTo;
+    }
+
+    public String getApplicantFirstname() {
+        return applicantFirstname;
+    }
+
+    public String getApplicantLastname() {
+        return applicantLastname;
+    }
+
+    public Date getApplicationCreated() {
+        return applicationCreated;
+    }
+
+    public Set<Competence> getCompetences() {
+        return competences;
+    }
+
+    public int getMaxNumberOfResults() {
+        return maxNumberOfResults;
+    }
+
     @Override
     public String toString() {
         return "ApplicationSearchDTO{" +

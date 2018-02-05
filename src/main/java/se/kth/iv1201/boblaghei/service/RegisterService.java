@@ -66,10 +66,10 @@ public class RegisterService {
      */
     public PersonDTO getLoggedInPerson() throws NoUserLoggedInException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        if(userDetails == null) {
+        if(authentication == null) {
             throw new NoUserLoggedInException("No user is logged in, please log in.");
         }
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         User user = userRepository.findOne(userDetails.getUsername());
         Person person = personRepository.getPersonByUser(user);
         return person.getDTO();
