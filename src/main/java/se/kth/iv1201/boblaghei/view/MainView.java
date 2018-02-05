@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import se.kth.iv1201.boblaghei.dto.PersonDTO;
+import se.kth.iv1201.boblaghei.exception.NoUserLoggedInException;
 import se.kth.iv1201.boblaghei.service.RegisterService;
 import se.kth.iv1201.boblaghei.service.SecurityService;
 
@@ -16,7 +17,7 @@ public class MainView {
     RegisterService registerService;
 
     @GetMapping("/")
-    public String getMainView(Model model){
+    public String getMainView(Model model) throws NoUserLoggedInException {
         PersonDTO personDTO = registerService.getLoggedInPerson();
         model.addAttribute(personDTO);
         return "index";

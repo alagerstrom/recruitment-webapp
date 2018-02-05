@@ -102,7 +102,7 @@ public class Person {
     }
 
     public PersonDTO getDTO() {
-        return new PersonDTO(getFirstName(), getLastName(), getPersonalNumber(),
+        return new PersonDTO(id, getFirstName(), getLastName(), getPersonalNumber(),
                 getEmail(), getUser().getDTO());
     }
 }

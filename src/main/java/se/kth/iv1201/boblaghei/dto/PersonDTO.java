@@ -1,15 +1,11 @@
 package se.kth.iv1201.boblaghei.dto;
 
-import se.kth.iv1201.boblaghei.entity.Application;
-import se.kth.iv1201.boblaghei.entity.User;
-
-import java.util.Set;
-
 /**
  * DTO representing entity class <code>Person</code>.
  */
 public class PersonDTO {
 
+    private long id;
     private String firstName;
     private String lastName;
     private String personalNumber;
@@ -24,7 +20,25 @@ public class PersonDTO {
         this.lastName = lastName;
         this.personalNumber = personalNumber;
         this.email = email;
-        this.user = user;}
+        this.user = user;
+    }
+
+    public PersonDTO(long id, String firstName, String lastName, String personalNumber, String email, UserDTO user) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.personalNumber = personalNumber;
+        this.email = email;
+        this.user = user;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -64,5 +78,17 @@ public class PersonDTO {
 
     public void setUser(UserDTO user) {
         this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "PersonDTO{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", personalNumber='" + personalNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", user=" + user +
+                '}';
     }
 }

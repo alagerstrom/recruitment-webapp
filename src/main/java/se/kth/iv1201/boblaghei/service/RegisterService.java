@@ -1,20 +1,23 @@
 package se.kth.iv1201.boblaghei.service;
 
+import groovy.util.logging.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import se.kth.iv1201.boblaghei.dto.PersonDTO;
-import se.kth.iv1201.boblaghei.dto.RoleDTO;
 import se.kth.iv1201.boblaghei.dto.UserDTO;
 import se.kth.iv1201.boblaghei.dto.UserRoleDTO;
 import se.kth.iv1201.boblaghei.entity.Person;
 import se.kth.iv1201.boblaghei.entity.User;
 import se.kth.iv1201.boblaghei.entity.UserRole;
+import se.kth.iv1201.boblaghei.exception.NoUserLoggedInException;
 import se.kth.iv1201.boblaghei.repository.PersonRepository;
 import se.kth.iv1201.boblaghei.repository.UserRepository;
 import se.kth.iv1201.boblaghei.repository.UserRoleRepository;
+import se.kth.iv1201.boblaghei.exception.DuplicateUsernameException;
+import se.kth.iv1201.boblaghei.util.logger.SecurityLogger;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -22,6 +25,8 @@ import java.util.Set;
 /**
  * Service responsible for handling registrations.
  */
+
+@Slf4j
 @Service
 public class RegisterService {
 
@@ -34,12 +39,21 @@ public class RegisterService {
     @Autowired
     UserRoleRepository userRoleRepository;
 
+    @Autowired
+    SecurityLogger securityLogger;
+
+
     /**
      * Registers a new person, both as a person as well as a user.
      * @param personDTO DTO containing data needed for registration.
+     * @throws DuplicateUsernameException if a user is registered with an already existing username.
      */
-    public void register(PersonDTO personDTO) /*throws RegisterException */{
+    public void register(PersonDTO personDTO) throws DuplicateUsernameException {
         User user = createUser(personDTO.getUser());
+        if(userRepository.findOne(user.getUsername()) != null) {
+            securityLogger.log("Tried registering the username " + user.getUsername() + " that is already in use.");
+            throw new DuplicateUsernameException("Username is already in use, please choose another one.");
+        }
         userRepository.save(user);
         personRepository.save(createPerson(personDTO));
     }
@@ -50,15 +64,18 @@ public class RegisterService {
      *
      * @return The PersonDTO representing the currently logged in user, without password
      */
-    public PersonDTO getLoggedInPerson() {
+    public PersonDTO getLoggedInPerson() throws NoUserLoggedInException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication == null) {
+            throw new NoUserLoggedInException("No user is logged in, please log in.");
+        }
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         User user = userRepository.findOne(userDetails.getUsername());
         Person person = personRepository.getPersonByUser(user);
         return person.getDTO();
     }
 
-    public Set<UserRoleDTO> getRolesOfLoggedInPerson() {
+    public Set<UserRoleDTO> getRolesOfLoggedInPerson() throws NoUserLoggedInException {
         User loggedInUser = userRepository.getUserByUsername(getLoggedInPerson().getUser().getUsername());
         Set<UserRole> userRoles = userRoleRepository.getUserRolesByUser(loggedInUser);
         Set<UserRoleDTO> userRolesDTO = new HashSet<>();

@@ -1,33 +1,33 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Empty Title</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-</head>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:replace="fragments/head :: head"></head>
 <body>
 
 <div th:fragment="menu">
-    <p>
-        <a th:href="@{/}">Home</a>
-    </p>
-    <p>
-        <a th:href="@{/apply}">Create application</a>
-    </p>
-    <p>
-        <a th:href="@{/login}">Login</a>
-    </p>
-    <p>
-        <a th:href="@{/register}">Register</a>
-    </p>
-    <p>
-        <a th:href="@{/logout}">Log out</a>
-    </p>
-    <p>
-        <a th:href="@{/recruiter/applications}">View all applications</a>
-    </p>
-    <p>
-        <a th:href="@{/listRoles}">List all your roles.</a>
-    </p>
+
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+
+        <a class="navbar-brand" th:href="@{/}">Recruitment</a>
+        <!-- Links -->
+        <ul class="navbar-nav">
+            <li class="nav-item" sec:authorize="hasRole('ROLE_APPLICANT')">
+                <a class="nav-link" th:href="@{/apply}">Create application</a>
+            </li>
+            <li class="nav-item" sec:authorize="hasRole('ROLE_RECRUITER')">
+                <a class="nav-link" th:href="@{/recruiter/applications}">View all applications</a>
+            </li>
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+                <a class="nav-link" th:href="@{/logout}">Sign out</a>
+            </li>
+            <li class="nav-item" sec:authorize="isAnonymous()">
+                <a class="nav-link" th:href="@{/login}">Sign in</a>
+            </li>
+        </ul>
+    </nav>
+    <!--<p>-->
+        <!--<a th:href="@{/listRoles}">List all your roles.</a>-->
+    <!--</p>-->
 </div>
 
 

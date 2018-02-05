@@ -1,19 +1,34 @@
 package se.kth.iv1201.boblaghei.dto;
 
-import se.kth.iv1201.boblaghei.entity.Role;
-import se.kth.iv1201.boblaghei.entity.User;
-
 /**
  * DTO representing entity class <code>UserRole</code>.
  */
 public class UserRoleDTO {
 
+    private long id;
     private UserDTO user;
     private RoleDTO role;
 
     public UserRoleDTO(UserDTO user, RoleDTO role) {
         this.user = user;
         this.role = role;
+    }
+
+    public UserRoleDTO() {
+    }
+
+    public UserRoleDTO(long id, UserDTO user, RoleDTO role) {
+        this.id = id;
+        this.user = user;
+        this.role = role;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public UserDTO getUser() {
@@ -30,5 +45,14 @@ public class UserRoleDTO {
 
     public void setRole(RoleDTO role) {
         this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "UserRoleDTO{" +
+                "id=" + id +
+                ", user=" + user +
+                ", role=" + role +
+                '}';
     }
 }

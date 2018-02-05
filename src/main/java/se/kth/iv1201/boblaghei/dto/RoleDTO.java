@@ -1,7 +1,5 @@
 package se.kth.iv1201.boblaghei.dto;
 
-import java.util.Set;
-
 /**
  * DTO representing entity class <code>Role</code>.
  */

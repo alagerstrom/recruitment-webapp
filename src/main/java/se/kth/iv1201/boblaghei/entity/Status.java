@@ -3,10 +3,9 @@ package se.kth.iv1201.boblaghei.entity;
 import se.kth.iv1201.boblaghei.dto.StatusDTO;
 
 import javax.persistence.*;
-import java.util.Set;
 
 /**
- *  O/R Mapping of the table Status in the database.
+ * O/R Mapping of the table Status in the database.
  */
 @Entity
 public class Status {
@@ -15,14 +14,15 @@ public class Status {
     @GeneratedValue
     private long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 
     public Status() {
     }
 
     public Status(String name) {
-        this.name = name;}
+        this.name = name;
+    }
 
     public long getId() {
         return id;
@@ -49,6 +49,6 @@ public class Status {
     }
 
     public StatusDTO getDTO() {
-        return new StatusDTO(getName());
+        return new StatusDTO(id, getName());
     }
 }
