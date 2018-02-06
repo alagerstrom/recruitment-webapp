@@ -95,7 +95,7 @@
 				<configuration>
 					<url>http://localhost:8000/manager/text</url>
 					<server>TomcatServer</server>
-					<path>/myapp</path>
+					<path>/</path>
 				</configuration>
 			</plugin>
 		</plugins>
