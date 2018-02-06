@@ -21,7 +21,7 @@ public class Availability {
     @Column(nullable = false)
     private Date toDate;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Application application;
 
     public Availability() {
