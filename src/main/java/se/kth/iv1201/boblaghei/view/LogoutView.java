@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Controller responsible for providing mappings used when logging out.
+ */
+
 @Controller
 public class LogoutView {
 

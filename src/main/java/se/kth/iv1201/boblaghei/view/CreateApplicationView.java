@@ -16,6 +16,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Controller responsible for providing mappings used for creating applications.
+ */
+
 @Controller
 @RequestMapping("/apply")
 public class CreateApplicationView extends AbstractApplicationView {

@@ -24,6 +24,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Service containing business logic needed for utilizing Spring Security.
+ */
+
 @Service
 public class SecurityService implements UserDetailsService {
 
