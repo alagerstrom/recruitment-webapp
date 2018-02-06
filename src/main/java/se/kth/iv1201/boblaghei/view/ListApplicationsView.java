@@ -37,7 +37,10 @@ public class ListApplicationsView extends AbstractApplicationView {
     @PostMapping
     public String search(Model model,
                          @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
-                         @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to) {
+                         @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to,
+                         @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate created,
+                         @RequestParam String firstName,
+                         @RequestParam String lastName) {
         System.out.println("From: " + from);
         System.out.println("To " + to);
         System.out.println(Arrays.toString(selectedCompetences.toArray()));
@@ -45,6 +48,9 @@ public class ListApplicationsView extends AbstractApplicationView {
                 new ApplicationSearchDTO.Builder()
                         .setAvailableFrom(DateUtil.getDateFrom(from))
                         .setAvailableTo(DateUtil.getDateFrom(to))
+                        .setApplicationCreated(DateUtil.getDateFrom(created))
+                        .setApplicantFirstname(firstName)
+                        .setApplicantLastname(lastName)
                         .build()
         );
         model.addAttribute("listOfApplications", applications);

@@ -25,6 +25,12 @@ public class Application {
     @ManyToOne
     private Person person;
 
+    @OneToMany
+    private Set<CompetenceProfile> competenceProfiles;
+
+    @OneToMany
+    private Set<Availability> availabilities;
+
     public Application() {
     }
 
@@ -32,6 +38,21 @@ public class Application {
         this.created = created;
         this.status = status;
         this.person = person;
+    }
+
+    public Application(Date created, Status status, Person person, Set<CompetenceProfile> competenceProfiles) {
+        this.created = created;
+        this.status = status;
+        this.person = person;
+        this.competenceProfiles = competenceProfiles;
+    }
+
+    public Application(Date created, Status status, Person person, Set<CompetenceProfile> competenceProfiles, Set<Availability> availabilities) {
+        this.created = created;
+        this.status = status;
+        this.person = person;
+        this.competenceProfiles = competenceProfiles;
+        this.availabilities = availabilities;
     }
 
     public long getId() {
@@ -66,6 +87,22 @@ public class Application {
         this.person = person;
     }
 
+    public Set<CompetenceProfile> getCompetenceProfiles() {
+        return competenceProfiles;
+    }
+
+    public void setCompetenceProfiles(Set<CompetenceProfile> competenceProfiles) {
+        this.competenceProfiles = competenceProfiles;
+    }
+
+    public Set<Availability> getAvailabilities() {
+        return availabilities;
+    }
+
+    public void setAvailabilities(Set<Availability> availabilities) {
+        this.availabilities = availabilities;
+    }
+
     @Override
     public String toString() {
         return "Application{" +
@@ -73,6 +110,8 @@ public class Application {
                 ", created=" + created +
                 ", status=" + status +
                 ", person=" + person +
+                ", competenceProfiles=" + competenceProfiles +
+                ", availabilities=" + availabilities +
                 '}';
     }
 

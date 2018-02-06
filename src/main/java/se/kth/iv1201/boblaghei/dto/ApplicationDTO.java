@@ -11,6 +11,8 @@ public class ApplicationDTO {
     private Date created;
     private StatusDTO status;
     private PersonDTO person;
+    private CompetenceProfileDTO competenceProfiles;
+    private AvailabilityDTO availabilities;
 
     public ApplicationDTO() {
     }
@@ -58,6 +60,22 @@ public class ApplicationDTO {
 
     public void setPerson(PersonDTO person) {
         this.person = person;
+    }
+
+    public CompetenceProfileDTO getCompetenceProfiles() {
+        return competenceProfiles;
+    }
+
+    public void setCompetenceProfiles(CompetenceProfileDTO competenceProfiles) {
+        this.competenceProfiles = competenceProfiles;
+    }
+
+    public AvailabilityDTO getAvailabilities() {
+        return availabilities;
+    }
+
+    public void setAvailabilities(AvailabilityDTO availabilities) {
+        this.availabilities = availabilities;
     }
 
     @Override
