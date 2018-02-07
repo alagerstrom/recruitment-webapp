@@ -41,7 +41,7 @@ public abstract class AbstractApplicationView {
 
     @PostMapping("/add-competence")
     public String addCompetence(Model model, @RequestParam long id, @RequestParam int yearsOfExperience) {
-        selectedCompetences.add(new CompetenceProfileDTO(yearsOfExperience, null, getCompetenceById(id)));
+        selectedCompetences.add(new CompetenceProfileDTO(id, yearsOfExperience, getCompetenceById(id)));
         return applicationView(model);
     }
 }

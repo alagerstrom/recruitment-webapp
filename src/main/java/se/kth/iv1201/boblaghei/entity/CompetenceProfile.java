@@ -75,7 +75,6 @@ public class CompetenceProfile {
     }
 
     public CompetenceProfileDTO getDTO() {
-        return new CompetenceProfileDTO(id, getYearsOfExperience(),
-                getApplication().getDTO(), getCompetence().getDTO());
+        return new CompetenceProfileDTO(id, yearsOfExperience, competence.getDTO());
     }
 }

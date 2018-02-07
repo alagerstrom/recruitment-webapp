@@ -2,7 +2,10 @@ package se.kth.iv1201.boblaghei.entity;
 
 import se.kth.iv1201.boblaghei.dto.StatusDTO;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 /**
  * O/R Mapping of the table Status in the database.

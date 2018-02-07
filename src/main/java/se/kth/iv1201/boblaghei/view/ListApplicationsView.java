@@ -3,10 +3,7 @@ package se.kth.iv1201.boblaghei.view;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import se.kth.iv1201.boblaghei.dto.ApplicationDTO;
 import se.kth.iv1201.boblaghei.dto.CompetenceDTO;
 import se.kth.iv1201.boblaghei.dto.CompetenceProfileDTO;
@@ -63,5 +60,12 @@ public class ListApplicationsView extends AbstractApplicationView {
         );
         model.addAttribute("listOfApplications", applications);
         return applicationView(model);
+    }
+
+    @GetMapping("/{id}")
+    public String viewSingleApplication(Model model, @PathVariable("id") long id) {
+        ApplicationDTO application = listApplicationService.findApplicationById(id);
+        model.addAttribute("singleApplication", application);
+        return "singleApplication";
     }
 }

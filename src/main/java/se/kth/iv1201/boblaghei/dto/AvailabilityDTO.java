@@ -8,24 +8,21 @@ import java.util.Date;
 public class AvailabilityDTO {
 
     private long id;
-    private Date from;
-    private Date to;
-    private ApplicationDTO application;
+    private Date fromDate;
+    private Date toDate;
 
     public AvailabilityDTO() {
     }
 
-    public AvailabilityDTO(long id, Date from, Date to, ApplicationDTO application) {
-        this.id = id;
-        this.from = from;
-        this.to = to;
-        this.application = application;
+    public AvailabilityDTO(Date fromDate, Date toDate) {
+        this.fromDate = fromDate;
+        this.toDate = toDate;
     }
 
-    public AvailabilityDTO(Date from, Date to, ApplicationDTO application) {
-        this.from = from;
-        this.to = to;
-        this.application = application;
+    public AvailabilityDTO(long id, Date fromDate, Date toDate) {
+        this.id = id;
+        this.fromDate = fromDate;
+        this.toDate = toDate;
     }
 
     public long getId() {
@@ -36,37 +33,28 @@ public class AvailabilityDTO {
         this.id = id;
     }
 
-    public Date getFrom() {
-        return from;
+    public Date getFromDate() {
+        return fromDate;
     }
 
-    public void setFrom(Date from) {
-        this.from = from;
+    public void setFromDate(Date fromDate) {
+        this.fromDate = fromDate;
     }
 
-    public Date getTo() {
-        return to;
+    public Date getToDate() {
+        return toDate;
     }
 
-    public void setTo(Date to) {
-        this.to = to;
-    }
-
-    public ApplicationDTO getApplication() {
-        return application;
-    }
-
-    public void setApplication(ApplicationDTO application) {
-        this.application = application;
+    public void setToDate(Date toDate) {
+        this.toDate = toDate;
     }
 
     @Override
     public String toString() {
         return "AvailabilityDTO{" +
                 "id=" + id +
-                ", from=" + from +
-                ", to=" + to +
-                ", application=" + application +
+                ", fromDate=" + fromDate +
+                ", toDate=" + toDate +
                 '}';
     }
 }

@@ -3,7 +3,6 @@ package se.kth.iv1201.boblaghei.entity;
 import se.kth.iv1201.boblaghei.dto.PersonDTO;
 
 import javax.persistence.*;
-import java.util.Set;
 
 /**
  *  O/R Mapping of the table Person in the database.

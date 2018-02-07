@@ -1,6 +1,7 @@
 package se.kth.iv1201.boblaghei.dto;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * DTO representing entity class <code>Application</code>.
@@ -11,8 +12,8 @@ public class ApplicationDTO {
     private Date created;
     private StatusDTO status;
     private PersonDTO person;
-    private CompetenceProfileDTO competenceProfiles;
-    private AvailabilityDTO availabilities;
+    private List<CompetenceProfileDTO> competenceProfiles;
+    private List<AvailabilityDTO> availabilities;
 
     public ApplicationDTO() {
     }
@@ -28,6 +29,15 @@ public class ApplicationDTO {
         this.created = created;
         this.status = status;
         this.person = person;
+    }
+
+    public ApplicationDTO(long id, Date created, StatusDTO status, PersonDTO person, List<CompetenceProfileDTO> competenceProfiles, List<AvailabilityDTO> availabilities) {
+        this.id = id;
+        this.created = created;
+        this.status = status;
+        this.person = person;
+        this.competenceProfiles = competenceProfiles;
+        this.availabilities = availabilities;
     }
 
     public long getId() {
@@ -62,19 +72,19 @@ public class ApplicationDTO {
         this.person = person;
     }
 
-    public CompetenceProfileDTO getCompetenceProfiles() {
+    public List<CompetenceProfileDTO> getCompetenceProfiles() {
         return competenceProfiles;
     }
 
-    public void setCompetenceProfiles(CompetenceProfileDTO competenceProfiles) {
+    public void setCompetenceProfiles(List<CompetenceProfileDTO> competenceProfiles) {
         this.competenceProfiles = competenceProfiles;
     }
 
-    public AvailabilityDTO getAvailabilities() {
+    public List<AvailabilityDTO> getAvailabilities() {
         return availabilities;
     }
 
-    public void setAvailabilities(AvailabilityDTO availabilities) {
+    public void setAvailabilities(List<AvailabilityDTO> availabilities) {
         this.availabilities = availabilities;
     }
 

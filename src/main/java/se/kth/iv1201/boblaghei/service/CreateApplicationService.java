@@ -87,8 +87,8 @@ public class CreateApplicationService {
 
         for (AvailabilityDTO availabilityDTO : availabilities) {
             Availability availability = new Availability(
-                    availabilityDTO.getFrom(),
-                    availabilityDTO.getTo(),
+                    availabilityDTO.getFromDate(),
+                    availabilityDTO.getToDate(),
                     application
             );
             availabilityRepository.save(availability);

@@ -1,6 +1,7 @@
 package se.kth.iv1201.boblaghei.util;
 
 import se.kth.iv1201.boblaghei.dto.CompetenceDTO;
+
 import java.util.Date;
 import java.util.Set;
 
