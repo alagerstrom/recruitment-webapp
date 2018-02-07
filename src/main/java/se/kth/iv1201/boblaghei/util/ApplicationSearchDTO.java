@@ -99,7 +99,6 @@ public class ApplicationSearchDTO {
                 (competenceProfiles == null || competenceProfiles.size() == 0) &&
                 maxNumberOfResults == 0;
     }
-
     /**
      * Builder pattern that is responsible for building an <code>ApplicationSearchDTO</code>
      */
