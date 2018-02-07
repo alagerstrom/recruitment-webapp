@@ -9,4 +9,4 @@ EXPOSE 5000
 ENV NAME World
 
 CMD echo 'Starting nice docker program...'
-CMD ls
+CMD java -jar target/web-0.0.1-SNAPSHOT.jar
