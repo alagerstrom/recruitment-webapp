@@ -23,9 +23,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Service responsible for handling registrations.
+ * Service containing business logic for handling registrations.
  */
-
 @Slf4j
 @Service
 public class RegisterService {

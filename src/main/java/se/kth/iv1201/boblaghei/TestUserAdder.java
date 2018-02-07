@@ -11,6 +11,9 @@ import se.kth.iv1201.boblaghei.util.Constants;
 
 import java.util.Date;
 
+/**
+ * ApplicationRunner used for adding some initial users and applications
+ */
 @Component
 public class TestUserAdder implements ApplicationRunner {
 

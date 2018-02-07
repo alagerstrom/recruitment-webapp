@@ -8,27 +8,27 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import se.kth.iv1201.boblaghei.dto.ApplicationDTO;
-import se.kth.iv1201.boblaghei.dto.AvailabilityDTO;
-import se.kth.iv1201.boblaghei.exception.ApplicationException;
+import se.kth.iv1201.boblaghei.dto.CompetenceDTO;
+import se.kth.iv1201.boblaghei.dto.CompetenceProfileDTO;
 import se.kth.iv1201.boblaghei.util.ApplicationSearchDTO;
 import se.kth.iv1201.boblaghei.util.DateUtil;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+/**
+ * Controller responsible for providing mappings used for searching and listing applications.
+ */
 @Controller
 @RequestMapping("/recruiter/applications")
 public class ListApplicationsView extends AbstractApplicationView {
 
     @GetMapping
     public String applicationView(Model model) {
-        try {
-            availableCompetences = createApplicationService.listAllCompetences();
-        } catch (ApplicationException e) {
-            errorLogger.log(e.getMessage());
-            e.printStackTrace();
-        }
+        availableCompetences = createApplicationService.listAllCompetences();
         model.addAttribute("availableCompetences", availableCompetences);
         model.addAttribute("selectedCompetences", selectedCompetences);
         return "listApplications";
@@ -40,10 +40,17 @@ public class ListApplicationsView extends AbstractApplicationView {
                          @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to,
                          @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate created,
                          @RequestParam String firstName,
-                         @RequestParam String lastName) {
+                         @RequestParam String lastName)
+    {
         System.out.println("From: " + from);
         System.out.println("To " + to);
         System.out.println(Arrays.toString(selectedCompetences.toArray()));
+        Set<CompetenceDTO> competences = new HashSet<>();
+
+        for(CompetenceProfileDTO cp : selectedCompetences) {
+            competences.add(cp.getCompetence());
+        }
+
         List<ApplicationDTO> applications = listApplicationService.findApplications(
                 new ApplicationSearchDTO.Builder()
                         .setAvailableFrom(DateUtil.getDateFrom(from))
@@ -51,6 +58,7 @@ public class ListApplicationsView extends AbstractApplicationView {
                         .setApplicationCreated(DateUtil.getDateFrom(created))
                         .setApplicantFirstname(firstName)
                         .setApplicantLastname(lastName)
+                        .setCompetences(competences)
                         .build()
         );
         model.addAttribute("listOfApplications", applications);

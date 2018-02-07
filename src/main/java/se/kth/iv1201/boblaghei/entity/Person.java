@@ -8,7 +8,6 @@ import java.util.Set;
 /**
  *  O/R Mapping of the table Person in the database.
  */
-
 @Entity
 public class Person {
 

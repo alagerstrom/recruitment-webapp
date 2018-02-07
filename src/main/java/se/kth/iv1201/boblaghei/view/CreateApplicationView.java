@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import se.kth.iv1201.boblaghei.dto.AvailabilityDTO;
-import se.kth.iv1201.boblaghei.exception.ApplicationException;
 import se.kth.iv1201.boblaghei.exception.NoUserLoggedInException;
 import se.kth.iv1201.boblaghei.util.DateUtil;
 
@@ -16,6 +15,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Controller responsible for providing mappings used for creating applications.
+ */
 @Controller
 @RequestMapping("/apply")
 public class CreateApplicationView extends AbstractApplicationView {
@@ -25,12 +27,7 @@ public class CreateApplicationView extends AbstractApplicationView {
     @Override
     @GetMapping
     public String applicationView(Model model) {
-        try {
-            availableCompetences = createApplicationService.listAllCompetences();
-        } catch (ApplicationException e) {
-            errorLogger.log(e.getMessage());
-            e.printStackTrace();
-        }
+        availableCompetences = createApplicationService.listAllCompetences();
         model.addAttribute("availabilities", availabilities);
         model.addAttribute("availableCompetences", availableCompetences);
         model.addAttribute("selectedCompetences", selectedCompetences);
