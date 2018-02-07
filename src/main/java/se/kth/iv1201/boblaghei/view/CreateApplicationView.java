@@ -40,7 +40,7 @@ public class CreateApplicationView extends AbstractApplicationView {
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to) {
 
-        AvailabilityDTO availabilityDTO = new AvailabilityDTO(DateUtil.getDateFrom(from), DateUtil.getDateFrom(to), null);
+        AvailabilityDTO availabilityDTO = new AvailabilityDTO(DateUtil.getDateFrom(from), DateUtil.getDateFrom(to));
         availabilities.add(availabilityDTO);
         System.out.println(availabilityDTO);
         return applicationView(model);

@@ -76,6 +76,6 @@ public class Availability {
     }
 
     public AvailabilityDTO getDTO() {
-        return new AvailabilityDTO(id, getFromDate(), getToDate(), getApplication().getDTO());
+        return new AvailabilityDTO(id, fromDate, toDate);
     }
 }
