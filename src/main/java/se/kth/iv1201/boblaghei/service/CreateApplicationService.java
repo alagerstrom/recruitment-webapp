@@ -7,7 +7,6 @@ import se.kth.iv1201.boblaghei.dto.CompetenceDTO;
 import se.kth.iv1201.boblaghei.dto.CompetenceProfileDTO;
 import se.kth.iv1201.boblaghei.dto.PersonDTO;
 import se.kth.iv1201.boblaghei.entity.*;
-import se.kth.iv1201.boblaghei.exception.ApplicationException;
 import se.kth.iv1201.boblaghei.exception.NoUserLoggedInException;
 import se.kth.iv1201.boblaghei.repository.*;
 import se.kth.iv1201.boblaghei.util.Constants;
@@ -18,7 +17,6 @@ import java.util.*;
  * CreateApplicationService
  * Service that can be used to create a new Application.
  */
-
 @Service
 public class CreateApplicationService {
 
@@ -108,9 +106,8 @@ public class CreateApplicationService {
      * Used to get all the competences currently available in the database.
      *
      * @return A List of CompetenceDTO representing all the available competences.
-     * @throws ApplicationException
      */
-    public List<CompetenceDTO> listAllCompetences() throws ApplicationException {
+    public List<CompetenceDTO> listAllCompetences(){
         List<CompetenceDTO> result = new ArrayList<>();
         for (Competence competence : competenceRepository.findAll()) {
             result.add(competence.getDTO());

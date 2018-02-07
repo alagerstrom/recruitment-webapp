@@ -17,7 +17,6 @@ import java.util.List;
  * Controller responsible for providing general mappings used both in <code>ListApplicationsView</code> as well
  * as <code>CreateApplicationView</code>
  */
-
 public abstract class AbstractApplicationView {
     @Autowired
     CreateApplicationService createApplicationService;

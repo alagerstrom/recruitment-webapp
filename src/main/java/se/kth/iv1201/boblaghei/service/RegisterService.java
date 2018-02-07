@@ -25,7 +25,6 @@ import java.util.Set;
 /**
  * Service containing business logic for handling registrations.
  */
-
 @Slf4j
 @Service
 public class RegisterService {

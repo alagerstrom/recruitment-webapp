@@ -6,7 +6,6 @@ import se.kth.iv1201.boblaghei.entity.Status;
 /**
  * Repository responsible for basic CRUD-Operations concerning <code>Status</code> interaction with the database.
  */
-
 public interface StatusRepository extends CrudRepository<Status, Long>{
     Status getByName(String name);
 }

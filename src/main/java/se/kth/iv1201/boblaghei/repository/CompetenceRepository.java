@@ -6,7 +6,6 @@ import se.kth.iv1201.boblaghei.entity.Competence;
 /**
  * Repository responsible for basic CRUD-Operations concerning <code>Competence</code> interaction with the database.
  */
-
 public interface CompetenceRepository extends CrudRepository<Competence, Long>{
 
 }

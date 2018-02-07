@@ -13,7 +13,6 @@ import se.kth.iv1201.boblaghei.service.SecurityService;
 /**
  * Controller responsible for providing mappings used for initial opening of application.
  */
-
 @Controller
 public class MainView {
 

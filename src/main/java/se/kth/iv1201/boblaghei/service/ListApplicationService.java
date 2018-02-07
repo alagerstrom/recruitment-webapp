@@ -1,7 +1,6 @@
 package se.kth.iv1201.boblaghei.service;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import se.kth.iv1201.boblaghei.dto.ApplicationDTO;
@@ -11,14 +10,12 @@ import se.kth.iv1201.boblaghei.repository.CompetenceProfileRepository;
 import se.kth.iv1201.boblaghei.util.ApplicationSearchDTO;
 
 import javax.persistence.EntityManager;
-import javax.security.auth.login.Configuration;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Service containing business logic needed for searching and listing applications.
  */
-
 @Service
 public class ListApplicationService {
 

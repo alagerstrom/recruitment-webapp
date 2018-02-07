@@ -14,7 +14,6 @@ import java.util.Date;
 /**
  * ApplicationRunner used for adding some initial users and applications
  */
-
 @Component
 public class TestUserAdder implements ApplicationRunner {
 

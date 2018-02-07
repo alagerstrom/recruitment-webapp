@@ -1,8 +1,5 @@
 package se.kth.iv1201.boblaghei.entity;
 
-
-import se.kth.iv1201.boblaghei.dto.RoleDTO;
-import se.kth.iv1201.boblaghei.dto.UserDTO;
 import se.kth.iv1201.boblaghei.dto.UserRoleDTO;
 
 import javax.persistence.Entity;
@@ -10,6 +7,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+/**
+ * O/R Mapping of the table UserRole in the database.
+ */
 @Entity
 public class UserRole {
 

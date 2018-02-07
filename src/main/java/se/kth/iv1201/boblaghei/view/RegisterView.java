@@ -17,7 +17,6 @@ import se.kth.iv1201.boblaghei.util.logger.ErrorLogger;
 /**
  * Controller responsible for providing mappings used for registration of a new user.
  */
-
 @Controller
 public class RegisterView {
 

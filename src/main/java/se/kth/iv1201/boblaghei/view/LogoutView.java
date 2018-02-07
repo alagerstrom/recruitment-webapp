@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Controller responsible for providing mappings used when logging out.
  */
-
 @Controller
 public class LogoutView {
 
