@@ -7,21 +7,16 @@ import se.kth.iv1201.boblaghei.dto.CompetenceDTO;
 import se.kth.iv1201.boblaghei.dto.CompetenceProfileDTO;
 import se.kth.iv1201.boblaghei.dto.PersonDTO;
 import se.kth.iv1201.boblaghei.entity.*;
-import se.kth.iv1201.boblaghei.exception.ApplicationException;
 import se.kth.iv1201.boblaghei.exception.NoUserLoggedInException;
 import se.kth.iv1201.boblaghei.repository.*;
 import se.kth.iv1201.boblaghei.util.Constants;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * CreateApplicationService
- * <p>
  * Service that can be used to create a new Application.
  */
-
 @Service
 public class CreateApplicationService {
 
@@ -73,6 +68,8 @@ public class CreateApplicationService {
 
         applicationRepository.save(application);
 
+        Set<CompetenceProfile> competenceProfilesInApplication = new HashSet<>();
+
         for (CompetenceProfileDTO competenceProfileDTO : competenceProfiles) {
             Competence competence = competenceRepository.findOne(competenceProfileDTO.getCompetence().getId());
             CompetenceProfile competenceProfile = new CompetenceProfile(
@@ -81,7 +78,12 @@ public class CreateApplicationService {
                     competence
             );
             competenceProfileRepository.save(competenceProfile);
+            competenceProfilesInApplication.add(competenceProfile);
         }
+
+        application.setCompetenceProfiles(competenceProfilesInApplication);
+
+        Set<Availability> availabilitiesInApplication = new HashSet<>();
 
         for (AvailabilityDTO availabilityDTO : availabilities) {
             Availability availability = new Availability(
@@ -90,7 +92,12 @@ public class CreateApplicationService {
                     application
             );
             availabilityRepository.save(availability);
+            availabilitiesInApplication.add(availability);
         }
+
+        application.setAvailabilities(availabilitiesInApplication);
+        applicationRepository.save(application);
+
     }
 
     /**
@@ -99,9 +106,8 @@ public class CreateApplicationService {
      * Used to get all the competences currently available in the database.
      *
      * @return A List of CompetenceDTO representing all the available competences.
-     * @throws ApplicationException
      */
-    public List<CompetenceDTO> listAllCompetences() throws ApplicationException {
+    public List<CompetenceDTO> listAllCompetences(){
         List<CompetenceDTO> result = new ArrayList<>();
         for (Competence competence : competenceRepository.findAll()) {
             result.add(competence.getDTO());

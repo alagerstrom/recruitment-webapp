@@ -4,6 +4,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+/**
+ * Substitutes view-controllers for classes with no need for any special mappings.
+ */
 @Configuration
 public class MvcConfig extends WebMvcConfigurerAdapter {
 

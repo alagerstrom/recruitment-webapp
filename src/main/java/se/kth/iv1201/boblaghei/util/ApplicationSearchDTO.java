@@ -1,7 +1,6 @@
 package se.kth.iv1201.boblaghei.util;
 
-import se.kth.iv1201.boblaghei.entity.Competence;
-
+import se.kth.iv1201.boblaghei.dto.CompetenceDTO;
 import java.util.Date;
 import java.util.Set;
 
@@ -14,7 +13,7 @@ public class ApplicationSearchDTO {
     private final String applicantFirstname;
     private final String applicantLastname;
     private final Date applicationCreated;
-    private final Set<Competence> competences;
+    private final Set<CompetenceDTO> competences;
     private final int maxNumberOfResults;
 
     private ApplicationSearchDTO(Builder builder) {
@@ -47,7 +46,7 @@ public class ApplicationSearchDTO {
         return applicationCreated;
     }
 
-    public Set<Competence> getCompetences() {
+    public Set<CompetenceDTO> getCompetences() {
         return competences;
     }
 
@@ -68,13 +67,49 @@ public class ApplicationSearchDTO {
                 '}';
     }
 
+    /**
+     * Produces a HQL query depending on which fields are set in the <code>ApplicationSearchDTO</code>.
+     * @return a HQL query in the form of a String.
+     */
+    public String toSQL() {
+        if (!isNullObject()) {
+            StringBuilder sb = new StringBuilder("FROM Application where 2>1 ");
+            if (!applicantFirstname.equals("")) {
+                sb.append("and person.firstName = '" + applicantFirstname + "'");
+            }
+            if (!applicantLastname.equals("")) {
+                sb.append("and person.lastName = '" + applicantLastname + "'");
+            }
+            if (applicationCreated != null) {
+                sb.append("and person.created = " + applicationCreated);
+            }
+            //TODO add availableFrom,availableTo and competenceProfiles check.
+            return sb.toString();
+        } else {
+            return "FROM Application";
+        }
+    }
+
+    private boolean isNullObject() {
+        return applicationCreated == null &&
+                (applicantLastname == null || applicantLastname.equals("")) &&
+                (applicantFirstname == null || applicantFirstname.equals("")) &&
+                availableTo == null &&
+                availableFrom == null &&
+                competences == null &&
+                maxNumberOfResults == 0;
+    }
+
+    /**
+     * Builder pattern that is responsible for building an <code>ApplicationSearchDTO</code>
+     */
     public static class Builder {
         private Date availableFrom;
         private Date availableTo;
         private String applicantFirstname;
         private String applicantLastname;
         private Date applicationCreated;
-        private Set<Competence> competences;
+        private Set<CompetenceDTO> competences;
         private int maxNumberOfResults;
 
         public Builder setAvailableFrom(Date availableFrom) {
@@ -102,7 +137,7 @@ public class ApplicationSearchDTO {
             return this;
         }
 
-        public Builder setCompetences(Set<Competence> competences) {
+        public Builder setCompetences(Set<CompetenceDTO> competences) {
             this.competences = competences;
             return this;
         }

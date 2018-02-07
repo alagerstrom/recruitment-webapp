@@ -8,6 +8,9 @@ import se.kth.iv1201.boblaghei.entity.Competence;
 import se.kth.iv1201.boblaghei.repository.CompetenceRepository;
 import se.kth.iv1201.boblaghei.util.Constants;
 
+/**
+ * ApplicationRunner used for adding some initial competences to the database.
+ */
 @Component
 public class CompetenceAdder implements ApplicationRunner {
 
