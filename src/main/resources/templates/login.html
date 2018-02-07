@@ -8,30 +8,30 @@
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <h1 th:text="#{sign-in}"></h1>
-            <p th:if="${param.error}">
-                Invalid username and password.
+            <p th:if="${param.error}" th:text="#{invalid_credentials}">
+
             </p>
-            <p th:if="${param.logout}">
-                You have been logged out.
+            <p th:if="${param.logout}" th:text="#{logged_out}">
+
             </p>
             <form th:action="@{/login}" method="post">
 
-                <div class="form-group text-right">
-                    Not registered? <a th:href="@{/register}">Register</a>
+                <div class="form-group text-right" th:text="#{not_registered}">
+                     <a th:href="@{/register}" th:text="#{register}"></a>
                 </div>
 
                 <div class="form-group">
-                    <label for="username">Username:</label>
+                    <label for="username" th:text="#{username}">:</label>
                     <input class="form-control" id="username" placeholder="Username" type="text" name="username"/>
                 </div>
 
                 <div class="form-group">
-                    <label for="password">Password:</label>
+                    <label for="password" th:text="#{password}">:</label>
                     <input class="form-control" id="password" placeholder="Password" type="password" name="password"/>
                 </div>
 
                 <div class="form-group text-right">
-                    <input class="btn btn-primary" type="submit" value="Sign In"/>
+                    <input class="btn btn-primary" type="submit" th:value="#{sign_in}"/>
                 </div>
             </form>
         </div>

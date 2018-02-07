@@ -9,16 +9,16 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3 col-md-offset-5">
-            <h2>Welcome</h2>
+            <h2 th:text="#{welcome}"></h2>
             <th:block th:if="${personDTO}">
-                <p th:text="'Logged in as ' + ${personDTO.firstName} + ' ' + ${personDTO.lastName}"></p>
+                <p th:text="${personDTO.firstName} + ' ' + ${personDTO.lastName}"></p>
             </th:block>
             <div th:unless="${personDTO}">
                 <p>
-                    <a th:href="@{/login}">Login</a>
+                    <a th:href="@{/login}" th:text="#{login}"></a>
                 </p>
                 <p>
-                    <a th:href="@{/register}">Register</a>
+                    <a th:href="@{/register}" th:text="#{register}"></a>
                 </p>
             </div>
         </div>
