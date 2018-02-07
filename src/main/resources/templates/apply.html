@@ -73,7 +73,7 @@
                 <div class="form-group">
                     <th:block th:each="availability : ${availabilities}">
                         <div class="bg-success text-white">
-                            <p th:text="${'Available from ' + availability.getFrom() + ' to ' + availability.getTo()} "></p>
+                            <p th:text="${'Available from ' + availability.getFromDate() + ' to ' + availability.getToDate()} "></p>
                         </div>
                     </th:block>
                 </div>
