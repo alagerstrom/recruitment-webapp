@@ -16,7 +16,7 @@ pipeline {
             steps{
                 sh 'docker stop $(docker ps -a -q)'
                 sh 'docker build -t second .'
-                sh 'docker run -p 8000:5000 second'
+                sh 'docker run -d -p 8000:5000 second'
             }
         }
     }
