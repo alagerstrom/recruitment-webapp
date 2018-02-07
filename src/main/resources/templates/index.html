@@ -7,15 +7,24 @@
 
 
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-3 text-center">
+    <div class="row">
+        <div class="col-md-3 col-md-offset-5">
             <h2>Welcome</h2>
-            <p th:text="${'Welcome ' + personDTO.getFirstName() + ' ' + personDTO.getLastName()}"></p>
+            <th:block th:if="${personDTO}">
+                <p th:text="'Logged in as ' + ${personDTO.firstName} + ' ' + ${personDTO.lastName}"></p>
+            </th:block>
+            <div th:unless="${personDTO}">
+                <p>
+                    <a th:href="@{/login}">Login</a>
+                </p>
+                <p>
+                    <a th:href="@{/register}">Register</a>
+                </p>
+            </div>
         </div>
     </div>
 </div>
 
 <div th:replace="fragments/footer :: footer"></div>
-
 </body>
 </html>

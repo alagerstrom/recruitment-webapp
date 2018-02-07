@@ -18,9 +18,14 @@ public class MainView {
     RegisterService registerService;
 
     @GetMapping("/")
-    public String getMainView(Model model) throws NoUserLoggedInException {
-        PersonDTO personDTO = registerService.getLoggedInPerson();
-        model.addAttribute(personDTO);
+    public String getWelcomeView(Model model) {
+
+        PersonDTO personDTO = null;
+        try {
+            personDTO = registerService.getLoggedInPerson();
+            model.addAttribute(personDTO);
+        } catch (NoUserLoggedInException ignored) {
+        }
         return "index";
     }
 }

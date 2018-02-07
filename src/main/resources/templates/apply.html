@@ -7,24 +7,24 @@
 
 
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <h1>Create Application</h1>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h1 th:text="#{create_application}"></h1>
 
-            <h2>Competences</h2>
+            <h2 th:text="#{competences}"></h2>
 
             <form th:action="@{/apply/add-competence}" method="post">
                 <div class="form-group">
                     <th:block th:each="competenceProfile : ${selectedCompetences}">
                         <div class="bg-success text-white">
-                            <p th:text="${'Competence ' + competenceProfile.getCompetence().getName() + ' with ' + competenceProfile.getYearsOfExperience() + ' years of experience'}"></p>
+                            <p th:text="${competenceProfile.getCompetence().getName() + ' ' + competenceProfile.getYearsOfExperience()}"></p>
                         </div>
                     </th:block>
                 </div>
 
                 <div class="form-group">
 
-                    <label for="selectCompetence">Select competence</label>
+                    <label for="selectCompetence" th:text="#{select_competence}"></label>
                     <select id="selectCompetence" name="id" class="form-control">
                         <th:block th:each="competence : ${availableCompetences}">
                             <option
@@ -40,12 +40,11 @@
                 <div class="row">
                     <div class="col-md-8">
                         <div class="form-group">
-                            <label for="yearsOfExperience">Years of experience</label>
-                            <input id="yearsOfExperience" class="form-control" placeholder="Enter years of experience"
+                            <label for="yearsOfExperience" th:text="#{years_of_experience}"></label>
+                            <input id="yearsOfExperience" class="form-control" th:placeholder="#{years_of_experience_placeholder}"
                                    type="text"
                                    name="yearsOfExperience"/>
-                            <small id="yearsOfExperienceHelp" class="form-text text-muted">
-                                How long experience do you have with that competence?
+                            <small id="yearsOfExperienceHelp" class="form-text text-muted" th:text="#{years_of_experience_help}">
                             </small>
 
 
@@ -55,9 +54,9 @@
                     <div class="col-md-4">
                         <div class="form-group text-right">
                             <!--<small id="submitHint" class="form-text text-muted">Click to add</small>-->
-                            <label for="addCompetenceButton">Click to add</label>
+                            <label for="addCompetenceButton" th:text="#{add_competence_button_text}"></label>
                             <input id="addCompetenceButton" class="btn btn-primary" type="submit"
-                                   value="Add competence"/>
+                                   th:value="#{add_competence}"/>
                         </div>
 
                     </div>
@@ -67,13 +66,13 @@
             </form>
 
 
-            <h2>Available</h2>
+            <h2 th:text="#{available}"></h2>
 
             <form th:action="@{/apply/add-availability}" method="post">
                 <div class="form-group">
                     <th:block th:each="availability : ${availabilities}">
                         <div class="bg-success text-white">
-                            <p th:text="${'Available from ' + availability.getFromDate() + ' to ' + availability.getToDate()} "></p>
+                            <p th:text="${availability.getFrom() + ' ' + availability.getTo()} "></p>
                         </div>
                     </th:block>
                 </div>
@@ -81,23 +80,23 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="from">Available from</label>
+                            <label for="from" th:text="#{available_from}"></label>
                             <input id="from" class="form-control" type="date" name="from"/>
                         </div>
 
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="to">Available to</label>
+                            <label for="to" th:text="#{available_to}"></label>
                             <input id="to" class="form-control" type="date" name="to"/>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group text-right">
                             <!--<small id="addAvailabilityHint" class="form-text text-muted">Click to add</small>-->
-                            <label for="addAvaiabilityButton">Click to add</label>
+                            <label for="addAvaiabilityButton" th:text="#{add_availability_button_text}"></label>
                             <input id="addAvaiabilityButton" class="btn btn-primary" type="submit"
-                                   value="Add availability"/>
+                                   th:text="#{add_availability}"/>
                         </div>
                     </div>
                 </div>
@@ -107,19 +106,17 @@
 
             <form th:action="@{/apply/submit-application}" method="post">
                 <div class="form-group text-right">
-                    <small id="submitApplicationHint" class="form-text text-muted">All done?</small>
-                    <input class="btn btn-primary" type="submit" value="Submit application"/>
+                    <small id="submitApplicationHint" class="form-text text-muted" th:text="#{all_done}"></small>
+                    <input class="btn btn-primary" type="submit" th:value="#{submit_application}"/>
                 </div>
             </form>
 
 
         </div>
     </div>
-
 </div>
 
 <div th:replace="fragments/footer :: footer"></div>
-
 
 </body>
 </html>
