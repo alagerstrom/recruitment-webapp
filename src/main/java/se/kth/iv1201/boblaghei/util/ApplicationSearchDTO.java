@@ -1,6 +1,7 @@
 package se.kth.iv1201.boblaghei.util;
 
-import se.kth.iv1201.boblaghei.dto.CompetenceDTO;
+import se.kth.iv1201.boblaghei.dto.CompetenceProfileDTO;
+
 import java.util.Date;
 import java.util.Set;
 
@@ -13,7 +14,7 @@ public class ApplicationSearchDTO {
     private final String applicantFirstname;
     private final String applicantLastname;
     private final Date applicationCreated;
-    private final Set<CompetenceDTO> competences;
+    private final Set<CompetenceProfileDTO> competenceProfiles;
     private final int maxNumberOfResults;
 
     private ApplicationSearchDTO(Builder builder) {
@@ -22,7 +23,7 @@ public class ApplicationSearchDTO {
         this.applicantFirstname = builder.applicantFirstname;
         this.applicantLastname = builder.applicantLastname;
         this.applicationCreated = builder.applicationCreated;
-        this.competences = builder.competences;
+        this.competenceProfiles = builder.competenceProfiles;
         this.maxNumberOfResults = builder.maxNumberOfResults;
     }
 
@@ -46,8 +47,8 @@ public class ApplicationSearchDTO {
         return applicationCreated;
     }
 
-    public Set<CompetenceDTO> getCompetences() {
-        return competences;
+    public Set<CompetenceProfileDTO> getCompetenceProfiles() {
+        return competenceProfiles;
     }
 
     public int getMaxNumberOfResults() {
@@ -62,7 +63,7 @@ public class ApplicationSearchDTO {
                 ", applicantFirstname='" + applicantFirstname + '\'' +
                 ", applicantLastname='" + applicantLastname + '\'' +
                 ", applicationCreated=" + applicationCreated +
-                ", competences=" + competences +
+                ", competenceProfiles=" + competenceProfiles +
                 ", maxNumberOfResults=" + maxNumberOfResults +
                 '}';
     }
@@ -73,17 +74,16 @@ public class ApplicationSearchDTO {
      */
     public String toSQL() {
         if (!isNullObject()) {
-            StringBuilder sb = new StringBuilder("FROM Application where 2>1 ");
+            StringBuilder sb = new StringBuilder("FROM Application where 2>1");
             if (!applicantFirstname.equals("")) {
-                sb.append("and person.firstName = '" + applicantFirstname + "'");
+                sb.append(" and person.firstName = '" + applicantFirstname + "'");
             }
             if (!applicantLastname.equals("")) {
-                sb.append("and person.lastName = '" + applicantLastname + "'");
+                sb.append(" and person.lastName = '" + applicantLastname + "'");
             }
             if (applicationCreated != null) {
-                sb.append("and person.created = " + applicationCreated);
+                sb.append(" and person.created = " + applicationCreated);
             }
-            //TODO add availableFrom,availableTo and competenceProfiles check.
             return sb.toString();
         } else {
             return "FROM Application";
@@ -96,10 +96,9 @@ public class ApplicationSearchDTO {
                 (applicantFirstname == null || applicantFirstname.equals("")) &&
                 availableTo == null &&
                 availableFrom == null &&
-                competences == null &&
+                (competenceProfiles == null || competenceProfiles.size() == 0) &&
                 maxNumberOfResults == 0;
     }
-
     /**
      * Builder pattern that is responsible for building an <code>ApplicationSearchDTO</code>
      */
@@ -109,7 +108,7 @@ public class ApplicationSearchDTO {
         private String applicantFirstname;
         private String applicantLastname;
         private Date applicationCreated;
-        private Set<CompetenceDTO> competences;
+        private Set<CompetenceProfileDTO> competenceProfiles;
         private int maxNumberOfResults;
 
         public Builder setAvailableFrom(Date availableFrom) {
@@ -137,8 +136,8 @@ public class ApplicationSearchDTO {
             return this;
         }
 
-        public Builder setCompetences(Set<CompetenceDTO> competences) {
-            this.competences = competences;
+        public Builder setCompetences(Set<CompetenceProfileDTO> competenceProfiles) {
+            this.competenceProfiles = competenceProfiles;
             return this;
         }
 

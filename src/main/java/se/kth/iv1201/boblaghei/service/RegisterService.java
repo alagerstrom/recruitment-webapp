@@ -12,11 +12,11 @@ import se.kth.iv1201.boblaghei.dto.UserRoleDTO;
 import se.kth.iv1201.boblaghei.entity.Person;
 import se.kth.iv1201.boblaghei.entity.User;
 import se.kth.iv1201.boblaghei.entity.UserRole;
+import se.kth.iv1201.boblaghei.exception.DuplicateUsernameException;
 import se.kth.iv1201.boblaghei.exception.NoUserLoggedInException;
 import se.kth.iv1201.boblaghei.repository.PersonRepository;
 import se.kth.iv1201.boblaghei.repository.UserRepository;
 import se.kth.iv1201.boblaghei.repository.UserRoleRepository;
-import se.kth.iv1201.boblaghei.exception.DuplicateUsernameException;
 import se.kth.iv1201.boblaghei.util.logger.SecurityLogger;
 
 import java.util.HashSet;

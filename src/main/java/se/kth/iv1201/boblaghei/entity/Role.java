@@ -2,8 +2,8 @@ package se.kth.iv1201.boblaghei.entity;
 
 import se.kth.iv1201.boblaghei.dto.RoleDTO;
 
-import javax.persistence.*;
-import java.util.Set;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /**
  * O/R Mapping of the table Role in the database.

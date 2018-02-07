@@ -2,8 +2,9 @@ package se.kth.iv1201.boblaghei.entity;
 
 import se.kth.iv1201.boblaghei.dto.UserDTO;
 
-import javax.persistence.*;
-import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /**
  *  O/R Mapping of the table User in the database.

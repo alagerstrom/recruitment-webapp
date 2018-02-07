@@ -7,22 +7,19 @@ public class CompetenceProfileDTO {
 
     private long id;
     private double yearsOfExperience;
-    private ApplicationDTO application;
     private CompetenceDTO competence;
 
     public CompetenceProfileDTO() {
     }
 
-    public CompetenceProfileDTO(double yearsOfExperience, ApplicationDTO application, CompetenceDTO competence) {
+    public CompetenceProfileDTO(double yearsOfExperience, CompetenceDTO competence) {
         this.yearsOfExperience = yearsOfExperience;
-        this.application = application;
         this.competence = competence;
     }
 
-    public CompetenceProfileDTO(long id, double yearsOfExperience, ApplicationDTO application, CompetenceDTO competence) {
+    public CompetenceProfileDTO(long id, double yearsOfExperience, CompetenceDTO competence) {
         this.id = id;
         this.yearsOfExperience = yearsOfExperience;
-        this.application = application;
         this.competence = competence;
     }
 
@@ -32,14 +29,6 @@ public class CompetenceProfileDTO {
 
     public void setYearsOfExperience(double yearsOfExperience) {
         this.yearsOfExperience = yearsOfExperience;
-    }
-
-    public ApplicationDTO getApplication() {
-        return application;
-    }
-
-    public void setApplication(ApplicationDTO application) {
-        this.application = application;
     }
 
     public CompetenceDTO getCompetence() {
@@ -63,7 +52,6 @@ public class CompetenceProfileDTO {
         return "CompetenceProfileDTO{" +
                 "id=" + id +
                 ", yearsOfExperience=" + yearsOfExperience +
-                ", application=" + application +
                 ", competence=" + competence +
                 '}';
     }
