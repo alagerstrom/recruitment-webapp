@@ -9,3 +9,4 @@ EXPOSE 5000
 ENV NAME World
 
 CMD echo 'Starting nice docker program...'
+CMD ls
