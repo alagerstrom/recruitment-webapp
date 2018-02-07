@@ -1,26 +1,22 @@
 pipeline {
     agent any
     stages{
-        stage('Clean') {
-            steps {
-                sh "pwd"
-                sh "mvn clean"
-                sh "ls"
-            }
-        }
-        stage('Compile'){
-            steps {
-                sh "mvn compile"
-            }
-        }
-        stage('Test'){
+        stage('Docker version'){
             steps{
-                sh "mvn test"
+                sh 'docker version'
             }
         }
-        stage('Package'){
+        stage('Build project'){
             steps{
-                sh "mvn package"
+                sh 'mvn clean'
+                sh 'mvn package'
+            }
+        }
+        stage('Docker build'){
+            steps{
+                sh 'docker stop $(docker ps -a -q)'
+                sh 'docker build -t second .'
+                sh 'docker run -d -p 8000:5000 second'
             }
         }
     }
