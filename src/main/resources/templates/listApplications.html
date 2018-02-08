@@ -81,14 +81,14 @@
             <form th:action="@{/recruiter/applications}" method="post">
 
                 <div class="row">
-                    <div class="col">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label th:text="#{first_name}" for="firstName"></label>
                             <input class="form-control" placeholder="First name" id="firstName" type="text"
                                    name="firstName"/>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label for="lastName" th:text="#{last_name}"></label>
                             <input class="form-control" placeholder="Last name" id="lastName" type="text"
@@ -104,13 +104,13 @@
                 </div>
 
                 <div class="row">
-                    <div class="col">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label for="from" th:text="#{available_from}"></label>
                             <input class="form-control" id="from" type="date" name="from"/>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label for="to" th:text="#{available_to}"></label>
                             <input class="form-control" id="to" type="date" name="to"/>
