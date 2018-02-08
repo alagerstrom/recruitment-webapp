@@ -59,7 +59,7 @@
                     <div class="col-md-8">
                         <div class="form-group">
                             <label for="yearsOfExperience" th:text="#{years_of_experience}"></label>
-                            <input id="yearsOfExperience" class="form-control" placeholder="Enter years of experience"
+                            <input id="yearsOfExperience" class="form-control" th:placeholder="#{years_of_experience}"
                                    type="text"
                                    name="yearsOfExperience"/>
                         </div>
@@ -84,14 +84,14 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label th:text="#{first_name}" for="firstName"></label>
-                            <input class="form-control" placeholder="First name" id="firstName" type="text"
+                            <input class="form-control" th:placeholder="#{first_name}" id="firstName" type="text"
                                    name="firstName"/>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="lastName" th:text="#{last_name}"></label>
-                            <input class="form-control" placeholder="Last name" id="lastName" type="text"
+                            <input class="form-control" th:placeholder="#{last_name}" id="lastName" type="text"
                                    name="lastName"/>
                         </div>
                     </div>
