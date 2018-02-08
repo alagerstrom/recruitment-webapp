@@ -55,7 +55,7 @@ public class ListApplicationsView extends AbstractApplicationView {
                         .setApplicationCreated(DateUtil.getDateFrom(created))
                         .setApplicantFirstname(firstName)
                         .setApplicantLastname(lastName)
-                        .setCompetences(competences)
+//                        .setCompetences(competences)
                         .build()
         );
         model.addAttribute("listOfApplications", applications);
