@@ -17,39 +17,39 @@
         <table class="table">
             <thead class="thead-light">
             <tr>
-                <th scope="col">First name</th>
-                <th scope="col">Last name</th>
-                <th scope="col">Created</th>
-                <th scope="col">Status</th>
+                <th scope="col" th:text="#{first_name}"></th>
+                <th scope="col" th:text="#{last_name}"></th>
+                <th scope="col" th:text="#{created}"></th>
+                <th scope="col" th:text="#{status}"></th>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td th:text="${singleApplication.getPerson().getFirstName()}">First name</td>
-                <td th:text="${singleApplication.getPerson().getLastName()}">Last name</td>
-                <td th:text="${singleApplication.getCreated()}">Created</td>
-                <td th:text="${singleApplication.getStatus().getName().toLowerCase()}">Status</td>
+                <td th:text="${singleApplication.getPerson().getFirstName()}"></td>
+                <td th:text="${singleApplication.getPerson().getLastName()}"></td>
+                <td th:text="${singleApplication.getCreated()}"></td>
+                <td th:text="${singleApplication.getStatus().getName().toLowerCase()}"></td>
             </tr>
             </tbody>
         </table>
     </div>
 
     <div class="row justify-content-center">
-        <h2>Competences</h2>
+        <h2 th:text="#{competences}"></h2>
     </div>
 
     <div class="row justify-content-center">
         <table class="table">
             <thead class="thead-light">
-            <th scope="col">Competence</th>
-            <th scope="col">Years of experience</th>
+            <th scope="col" th:text="#{competence}"></th>
+            <th scope="col" th:text="#{years_of_experience}"></th>
             </thead>
 
             <tbody>
             <th:block th:each="compProfile : ${singleApplication.getCompetenceProfiles()}">
                 <tr>
-                    <td th:text="${compProfile.getCompetence().getName()}">Competence</td>
-                    <td th:text="${compProfile.getYearsOfExperience()}">Years of experience</td>
+                    <td th:text="${compProfile.getCompetence().getName()}"></td>
+                    <td th:text="${compProfile.getYearsOfExperience()}"></td>
                 </tr>
             </th:block>
             </tbody>
@@ -57,20 +57,20 @@
     </div>
 
     <div class="row justify-content-center">
-        <h2>Avalability</h2>
+        <h2 th:text="#{availability}"></h2>
     </div>
 
     <div class="row justify-content-center">
         <table class="table">
             <thead class="thead-light">
-            <th scope="col">From</th>
-            <th scope="col">To</th>
+            <th scope="col" th:text="#{from}"></th>
+            <th scope="col" th:text="#{to}"></th>
             </thead>
             <tbody>
             <th:block th:each="avalability : ${singleApplication.getAvailabilities()}">
                 <tr>
-                    <td th:text="${avalability.getFromDate()}">From</td>
-                    <td th:text="${avalability.getToDate()}">To</td>
+                    <td th:text="${avalability.getFromDate()}"></td>
+                    <td th:text="${avalability.getToDate()}"></td>
                 </tr>
             </th:block>
             </tbody>

@@ -11,58 +11,58 @@
             <form th:action="@{/register}" th:object="${person}" method="post">
 
                 <div class="form-group text-right">
-                    Already registered? <a th:href="@{/login}">Sign in</a>
+                    Already registered? <a th:href="@{/login}" th:text="#{sign_in}"></a>
                 </div>
 
                 <div class="form-group">
-                    <label for="firstName">First Name:</label>
-                    <input class="form-control" id="firstName" placeholder="Enter your first name" type="text"
+                    <label for="firstName" th:text="#{first_name}">:</label>
+                    <input class="form-control" id="firstName" th:placeholder="#{enter_first_name}" type="text"
                            th:field="*{firstName}"/>
                 </div>
                 <div class="form-group">
-                    <label for="lastName">Last Name:</label>
-                    <input class="form-control" id="lastName" placeholder="Enter your last name" type="text"
+                    <label for="lastName" th:text="#{last_name}">:</label>
+                    <input class="form-control" id="lastName" th:placeholder="#{enter_last_name}" type="text"
                            th:field="*{lastName}"/>
                 </div>
 
                 <div class="form-group">
-                    <label for="personalNumber">Personal Identity Number:</label>
-                    <input class="form-control" id="personalNumber" placeholder="Enter your personal identity number" type="text"
+                    <label for="personalNumber" th:text="#{pid}">:</label>
+                    <input class="form-control" id="personalNumber" th:placeholder="#{enter_pid}" type="text"
                            th:field="*{personalNumber}"/>
                 </div>
 
                 <div class="form-group">
                     <label for="email">Email:</label>
-                    <input class="form-control" id="email" placeholder="Enter your email address" type="text"
+                    <input class="form-control" id="email" th:placeholder="#{enter_email}" type="text"
                            th:field="*{email}"/>
-                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.
+                    <small id="emailHelp" class="form-text text-muted" th:text="#{share_email}">
                     </small>
                 </div>
 
                 <div class="form-group">
-                    <label for="username">Username:</label>
-                    <input class="form-control" id="username" placeholder="Choose a username" type="text"
+                    <label for="username" th:text="#{username}">:</label>
+                    <input class="form-control" id="username" th:placeholder="#{choose_username}" type="text"
                            th:field="*{user.username}"/>
-                    <small id="usernameHelp" class="form-text text-muted">You'll use your username toDate sign in.</small>
+                    <small id="usernameHelp" class="form-text text-muted" th:text="#{username_sign_in}" ></small>
                 </div>
 
                 <div class="form-group">
                     <label for="password">Password:</label>
-                    <input class="form-control" id="password" placeholder="Choose a password" type="password"
+                    <input class="form-control" id="password" th:placeholder="#{choose_password}" type="password"
                            th:field="*{user.password}"/>
-                    <!--<small id="passwordHelp" class="form-text text-muted">A good password is at least 8 characters long.</small>-->
+                    <!--<small id="passwordHelp" class="form-text text-muted" th:text="#{strong_password}" ></small>-->
                 </div>
 
                 <div class="form-group">
-                    <label for="password">Confirm password:</label>
-                    <input class="form-control" id="confirmPassword" placeholder="Type your password again"
+                    <label for="password" th:text="#{confirm_password}">:</label>
+                    <input class="form-control" id="confirmPassword" th:placeholder="#{type_password_again}"
                            type="password" name="confirmPassword"/>
-                    <!--<small id="passwordHelp" class="form-text text-muted">A good password is at least 8 characters long.</small>-->
+                    <!--<small id="passwordHelp" class="form-text text-muted" th:text="#{strong_password}"></small>-->
                 </div>
 
                 <div class="form-group text-right">
-                    <small id="submitHint" class="form-text text-muted">All done?</small>
-                    <input type="submit" class="btn btn-primary" value="Register"/>
+                    <small id="submitHint" class="form-text text-muted" th:text="#{all_done}"></small>
+                    <input type="submit" class="btn btn-primary" th:value="#{register}"/>
                 </div>
             </form>
         </div>

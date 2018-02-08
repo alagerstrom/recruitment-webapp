@@ -8,8 +8,8 @@
 <table class="table" th:action="@{/listRoles}" th:object="${listOfRoles}">
     <thead>
     <tr>
-        <th>username</th>
-        <th>Role</th>
+        <th th:text="#{username}"></th>
+        <th th:text="#{role}"></th>
     </tr>
     </thead>
     <tbody>

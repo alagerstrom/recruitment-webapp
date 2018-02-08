@@ -9,14 +9,14 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <h1 th:text="#{list_applications}"></h1>
-            <h2 th:if="${listOfApplications}">Search result</h2>
+            <h2 th:if="${listOfApplications}" th:text="#{search_result}"></h2>
 
             <table class="table" th:if="${listOfApplications}" th:object="${listOfApplications}">
                 <thead>
                 <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Created</th>
+                    <th th:text="#{first_name}"></th>
+                    <th th:text="#{last_name}"></th>
+                    <th th:text="#{created}"></th>
                     <th></th>
                 </tr>
                 </thead>
@@ -26,25 +26,25 @@
                         <td scope="row" th:text="${application.getPerson().getFirstName()}"></td>
                         <td th:text="${application.getPerson().getLastName()}"></td>
                         <td th:text="${application.getCreated()}"></td>
-                        <td><a th:href="@{/recruiter/applications/{path}(path=${application.id})}">View</a></td>
+                        <td><a th:text="#{view}" th:href="@{/recruiter/applications/{path}(path=${application.id})}"></a></td>
                     </tr>
                 </th:block>
                 </tbody>
             </table>
 
-            <h2>Search terms</h2>
+            <h2 th:text="#{search_terms}"></h2>
 
             <form th:action="@{/recruiter/applications/add-competence}" method="post">
                 <div class="form-group">
                     <th:block th:each="competenceProfile : ${selectedCompetences}">
                         <div class="bg-success text-white">
-                            <p th:text="${'Competence ' + competenceProfile.getCompetence().getName() + ' with at least ' + competenceProfile.getYearsOfExperience() + ' years of experience'}"></p>
+                            <p th:text="${competenceProfile.getCompetence().getName() + ' ' + competenceProfile.getYearsOfExperience()}"></p>
                         </div>
                     </th:block>
                 </div>
 
                 <div class="form-group">
-                    <label for="selectCompetence">Select competence</label>
+                    <label for="selectCompetence" th:text="#{select_competence}"></label>
                     <select id="selectCompetence" name="id" class="form-control">
                         <th:block th:each="competence : ${availableCompetences}">
                             <option
@@ -58,7 +58,7 @@
                 <div class="row">
                     <div class="col-md-8">
                         <div class="form-group">
-                            <label for="yearsOfExperience">Years of experience</label>
+                            <label for="yearsOfExperience" th:text="#{years_of_experience}"></label>
                             <input id="yearsOfExperience" class="form-control" placeholder="Enter years of experience"
                                    type="text"
                                    name="yearsOfExperience"/>
@@ -68,9 +68,9 @@
                     <div class="col-md-4">
                         <div class="form-group text-right">
                             <!--<small id="submitHint" class="form-text text-muted">Click to add</small>-->
-                            <label for="addCompetenceButton">Click to add</label>
+                            <label for="addCompetenceButton" th:text="#{click_to_add}"></label>
                             <input id="addCompetenceButton" class="btn btn-primary" type="submit"
-                                   value="Add competence"/>
+                                   th:value="#{add_competence}"/>
                         </div>
 
                     </div>
@@ -83,14 +83,14 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <label for="firstName">First name</label>
+                            <label th:text="#{first_name}" for="firstName"></label>
                             <input class="form-control" placeholder="First name" id="firstName" type="text"
                                    name="firstName"/>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
-                            <label for="lastName">Last name</label>
+                            <label for="lastName" th:text="#{last_name}"></label>
                             <input class="form-control" placeholder="Last name" id="lastName" type="text"
                                    name="lastName"/>
                         </div>
@@ -98,7 +98,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="created">Created</label>
+                    <label for="created" th:text="#{created}"></label>
                     <input class="form-control" placeholder="Application created" id="created" type="date"
                            name="created"/>
                 </div>
@@ -106,20 +106,20 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <label for="from">Available from</label>
+                            <label for="from" th:text="#{available_from}"></label>
                             <input class="form-control" id="from" type="date" name="from"/>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
-                            <label for="to">Available to</label>
+                            <label for="to" th:text="#{available_to}"></label>
                             <input class="form-control" id="to" type="date" name="to"/>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group text-right">
-                    <input class="btn btn-primary" id="search" type="submit" value="Search"/>
+                    <input class="btn btn-primary" id="search" type="submit" th:value="#{search}"/>
                 </div>
             </form>
 
