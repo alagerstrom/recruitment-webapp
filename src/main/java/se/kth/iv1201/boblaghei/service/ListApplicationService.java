@@ -1,6 +1,10 @@
 package se.kth.iv1201.boblaghei.service;
 
+import org.hibernate.Criteria;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.CriteriaSpecification;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import se.kth.iv1201.boblaghei.dto.ApplicationDTO;
@@ -11,7 +15,6 @@ import se.kth.iv1201.boblaghei.repository.CompetenceProfileRepository;
 import se.kth.iv1201.boblaghei.util.ApplicationSearchDTO;
 
 import javax.persistence.EntityManager;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,32 +24,50 @@ import java.util.List;
 public class ListApplicationService {
 
     @Autowired
-    ApplicationRepository applicationRepository;
+    private ApplicationRepository applicationRepository;
 
     @Autowired
-    CompetenceProfileRepository competenceProfileRepository;
+    private CompetenceProfileRepository competenceProfileRepository;
 
     @Autowired
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
     /**
      * findApplication finds applications matching the parameters stated in the <code>ApplicationSearchDTO</code> and
      * returns these applications in a list.
-     * @param applicationSearchDTO holds search criterias based on what the user has requested.
+     * @param dto holds search criterias based on what the user has requested.
      * @return a list of <code>ApplicationDTO</code> containing the matching applications.
      */
-    public List<ApplicationDTO> findApplications(ApplicationSearchDTO applicationSearchDTO) {
-        Session session = entityManager.unwrap(Session.class);
 
-        List<Application> foundApplications = new ArrayList<>(session.createQuery(applicationSearchDTO.toSQL()).list());
-
-        List<ApplicationDTO> foundApplicationDTOs = new ArrayList<>();
-
-        for (Application a : foundApplications) {
-            foundApplicationDTOs.add(a.getDTO());
+    @SuppressWarnings("unchecked")
+    public List<ApplicationDTO> findApplications(ApplicationSearchDTO dto) {
+        Criteria criteria = entityManager.unwrap(Session.class).createCriteria(Application.class, "a");
+        if (hasPersonPropertiesSet(dto)) {
+            criteria.createAlias("a.person", "p");
+            if (dto.getApplicantFirstname() != null && !dto.getApplicantFirstname().equals(""))
+                criteria.add(Restrictions.eq("p.firstName", dto.getApplicantFirstname()));
+            if (dto.getApplicantLastname() != null && !dto.getApplicantLastname().equals(""))
+                criteria.add(Restrictions.eq("p.lastName", dto.getApplicantLastname()));
         }
 
-        return foundApplicationDTOs;
+        if (dto.getApplicationCreated() != null)
+            criteria.add(Restrictions.eq("a.created", dto.getApplicationCreated()));
+
+        if (hasAvailabilitiesSet(dto)) {
+            criteria.createAlias("a.availabilities", "ava");
+            if (dto.getAvailableFrom() != null)
+                criteria.add(Restrictions.le("ava.fromDate", dto.getAvailableFrom()));
+            if (dto.getAvailableTo() != null)
+                criteria.add(Restrictions.ge("ava.toDate", dto.getAvailableTo()));
+        }
+
+        if (dto.getCompetence() != null) {
+            criteria.createAlias("a.competenceProfiles", "cp");
+            criteria.createAlias("cp.competence", "competence");
+            criteria.add(Restrictions.eq("competence.name", dto.getCompetence()));
+        }
+
+        return (List<ApplicationDTO>) criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
     }
 
     /**
@@ -60,5 +81,15 @@ public class ListApplicationService {
         if (application == null)
             throw new ResourceNotFoundException("Could not find application with id " + id);
         return application.getDTO();
+    }
+
+
+    private boolean hasAvailabilitiesSet(ApplicationSearchDTO dto) {
+        return dto.getAvailableFrom() != null || dto.getAvailableTo() != null;
+    }
+
+    private boolean hasPersonPropertiesSet(ApplicationSearchDTO dto) {
+        return (dto.getApplicantFirstname() != null && !dto.getApplicantFirstname().equals("")) ||
+                (dto.getApplicantLastname() != null && !dto.getApplicantLastname().equals(""));
     }
 }
