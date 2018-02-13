@@ -18,13 +18,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                <th:block th:each="application : ${listOfApplications}">
+                <th:block th:each="app : ${listOfApplications}">
                     <tr>
-                        <td scope="row" th:text="${application.getPerson().getFirstName()}"></td>
-                        <td th:text="${application.getPerson().getLastName()}"></td>
-                        <td th:text="${application.getCreated()}"></td>
+                        <td scope="row" th:text="${app.getPerson().getFirstName()}"></td>
+                        <td th:text="${app.getPerson().getLastName()}"></td>
+                        <td th:text="${app.getCreated()}"></td>
                         <td><a th:text="#{view}"
-                               th:href="@{/recruiter/applications/{path}(path=${application.id})}"></a></td>
+                               th:href="@{/recruiter/applications/{path}(path=${app.id})}"></a></td>
                     </tr>
                 </th:block>
                 </tbody>
