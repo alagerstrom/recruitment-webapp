@@ -30,10 +30,10 @@ public class Application {
     @ManyToOne
     private Person person;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "application")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "application", cascade = CascadeType.ALL)
     private Set<CompetenceProfile> competenceProfiles = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "application")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "application", cascade = CascadeType.ALL)
     private Set<Availability> availabilities = new HashSet<>();
 
     public Application() {

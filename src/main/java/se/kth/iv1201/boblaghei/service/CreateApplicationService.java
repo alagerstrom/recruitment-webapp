@@ -53,6 +53,7 @@ public class CreateApplicationService {
      *                           The id and application fields does not need to be set.
      * @throws NoUserLoggedInException If no user is currently logged in.
      */
+    @Transactional
     public void createApplicationForCurrentUser(
             List<CompetenceProfileDTO> competenceProfiles,
             List<AvailabilityDTO> availabilities)
@@ -108,6 +109,8 @@ public class CreateApplicationService {
      *
      * @return A List of CompetenceDTO representing all the available competences.
      */
+
+    @Transactional
     public List<CompetenceDTO> listAllCompetences(){
         List<CompetenceDTO> result = new ArrayList<>();
         for (Competence competence : competenceRepository.findAll()) {
