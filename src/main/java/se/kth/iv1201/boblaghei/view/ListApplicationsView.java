@@ -34,6 +34,7 @@ public class ListApplicationsView extends AbstractApplicationView {
         availableCompetences = createApplicationService.listAllCompetences();
         model.addAttribute("availableCompetences", availableCompetences);
         model.addAttribute("selectedCompetences", selectedCompetences);
+        model.addAttribute("applicationSearchDto", new ApplicationSearchDTO());
         return "listApplications";
     }
 
@@ -42,42 +43,14 @@ public class ListApplicationsView extends AbstractApplicationView {
      * builds an <code>ApplicationSearchDTO</code> that is used in <code>findApplications</code> to return all applications
      * matching the search parameters. These are then loaded into the model and the view is loaded.
      * @param model is responsible for making data available in the view.
-     * @param from date from which the applicant should be available.
-     * @param to date to which the applicant should be available.
-     * @param created date on which application should be created.
-     * @param firstName applicants first name.
-     * @param lastName applicants last name.
+     * @param dto contains the search criteria
      * @return the return value from the applicationView method, see @applicationView.
      */
     @PostMapping
-    public String search(Model model,
-                         @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
-                         @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to,
-                         @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate created,
-                         @RequestParam String firstName,
-                         @RequestParam String lastName)
-    {
-        System.out.println("From: " + from);
-        System.out.println("To " + to);
-        System.out.println(Arrays.toString(selectedCompetences.toArray()));
-        Set<CompetenceDTO> competences = new HashSet<>();
-
-        for(CompetenceProfileDTO cp : selectedCompetences) {
-            competences.add(cp.getCompetence());
-        }
-
-        List<ApplicationDTO> applications = listApplicationService.findApplications(
-                new ApplicationSearchDTO.Builder()
-                        .setAvailableFrom(DateUtil.getDateFrom(from))
-                        .setAvailableTo(DateUtil.getDateFrom(to))
-                        .setApplicationCreated(DateUtil.getDateFrom(created))
-                        .setApplicantFirstname(firstName)
-                        .setApplicantLastname(lastName)
-//                        .setCompetences(competences)
-                        .build()
-        );
+    public String search(Model model, @ModelAttribute ApplicationSearchDTO dto) {
+        System.out.println(dto);
+        List<ApplicationDTO> applications = listApplicationService.findApplications(dto);
         model.addAttribute("listOfApplications", applications);
-        System.out.println(applications);
         return applicationView(model);
     }
 
