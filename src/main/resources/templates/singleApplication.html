@@ -1,13 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head">
-    <link rel="stylesheet" href="/css/bootstrap-reboot.min.css"/>
-    <link rel="stylesheet" href="/css/bootstrap-grid.min.css"/>
-    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
-</head>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="fragments/layout :: page(~{::body})">
 <body>
-
-<div th:replace="fragments/header :: header"></div>
 
 <div class="container">
     <div class="row justify-content-center">
@@ -79,7 +72,6 @@
 
     <div class="container"></div>
 </div>
-<div th:replace="fragments/footer :: footer"></div>
 
 </body>
 </html>

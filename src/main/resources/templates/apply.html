@@ -1,122 +1,119 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head"></head>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="fragments/layout :: page(~{::body})">
 <body>
 
-<div th:replace="fragments/header :: header"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h1 th:text="#{create_application}"></h1>
 
+                <h2 th:text="#{competences}"></h2>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <h1 th:text="#{create_application}"></h1>
-
-            <h2 th:text="#{competences}"></h2>
-
-            <form th:action="@{/apply/add-competence}" method="post">
-                <div class="form-group">
-                    <th:block th:each="competenceProfile : ${selectedCompetences}">
-                        <div class="bg-success text-white">
-                            <p th:text="${competenceProfile.getCompetence().getName() + ' ' + competenceProfile.getYearsOfExperience()}"></p>
-                        </div>
-                    </th:block>
-                </div>
-
-                <div class="form-group">
-
-                    <label for="selectCompetence" th:text="#{select_competence}"></label>
-                    <select id="selectCompetence" name="id" class="form-control">
-                        <th:block th:each="competence : ${availableCompetences}">
-                            <option
-                                    th:value="${competence.getId()}"
-                                    th:text="${competence.getName()}">
-                            </option>
+                <form th:action="@{/apply/add-competence}" method="post">
+                    <div class="form-group">
+                        <th:block th:each="competenceProfile : ${selectedCompetences}">
+                            <div class="bg-success text-white">
+                                <p th:text="${competenceProfile.getCompetence().getName() + ' ' + competenceProfile.getYearsOfExperience()}"></p>
+                            </div>
                         </th:block>
-                    </select>
+                    </div>
 
-                </div>
+                    <div class="form-group">
 
-
-                <div class="row">
-                    <div class="col-md-8">
-                        <div class="form-group">
-                            <label for="yearsOfExperience" th:text="#{years_of_experience}"></label>
-                            <input id="yearsOfExperience" class="form-control" th:placeholder="#{years_of_experience_placeholder}"
-                                   type="text"
-                                   name="yearsOfExperience"/>
-                            <small id="yearsOfExperienceHelp" class="form-text text-muted" th:text="#{years_of_experience_help}">
-                            </small>
-
-
-                        </div>
+                        <label for="selectCompetence" th:text="#{select_competence}"></label>
+                        <select id="selectCompetence" name="id" class="form-control">
+                            <th:block th:each="competence : ${availableCompetences}">
+                                <option
+                                        th:value="${competence.getId()}"
+                                        th:text="${competence.getName()}">
+                                </option>
+                            </th:block>
+                        </select>
 
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group text-right">
-                            <!--<small id="submitHint" class="form-text text-muted">Click to add</small>-->
-                            <label for="addCompetenceButton" th:text="#{add_competence_button_text}"></label>
-                            <input id="addCompetenceButton" class="btn btn-primary" type="submit"
-                                   th:value="#{add_competence}"/>
+
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="yearsOfExperience" th:text="#{years_of_experience}"></label>
+                                <input id="yearsOfExperience" class="form-control"
+                                       th:placeholder="#{years_of_experience_placeholder}"
+                                       type="text"
+                                       name="yearsOfExperience"/>
+                                <small id="yearsOfExperienceHelp" class="form-text text-muted"
+                                       th:text="#{years_of_experience_help}">
+                                </small>
+
+
+                            </div>
+
                         </div>
+                        <div class="col-md-4">
+                            <div class="form-group text-right">
+                                <!--<small id="submitHint" class="form-text text-muted">Click to add</small>-->
+                                <label for="addCompetenceButton" th:text="#{add_competence_button_text}"></label>
+                                <input id="addCompetenceButton" class="btn btn-primary" type="submit"
+                                       th:value="#{add_competence}"/>
+                            </div>
 
-                    </div>
-                </div>
-
-
-            </form>
-
-
-            <h2 th:text="#{available}"></h2>
-
-            <form th:action="@{/apply/add-availability}" method="post">
-                <div class="form-group">
-                    <th:block th:each="availability : ${availabilities}">
-                        <div class="bg-success text-white">
-                            <p th:text="${availability.getFromDate() + ' ' + availability.getToDate()} "></p>
-                        </div>
-                    </th:block>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="from" th:text="#{available_from}"></label>
-                            <input id="from" class="form-control" type="date" name="from"/>
-                        </div>
-
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="to" th:text="#{available_to}"></label>
-                            <input id="to" class="form-control" type="date" name="to"/>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group text-right">
-                            <!--<small id="addAvailabilityHint" class="form-text text-muted">Click to add</small>-->
-                            <label for="addAvaiabilityButton" th:text="#{add_availability_button_text}"></label>
-                            <input id="addAvaiabilityButton" class="btn btn-primary" type="submit"
-                                   th:value="#{add_availability}"/>
+
+
+                </form>
+
+
+                <h2 th:text="#{available}"></h2>
+
+                <form th:action="@{/apply/add-availability}" method="post">
+                    <div class="form-group">
+                        <th:block th:each="availability : ${availabilities}">
+                            <div class="bg-success text-white">
+                                <p th:text="${availability.getFromDate() + ' ' + availability.getToDate()} "></p>
+                            </div>
+                        </th:block>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="from" th:text="#{available_from}"></label>
+                                <input id="from" class="form-control" type="date" name="from"/>
+                            </div>
+
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="to" th:text="#{available_to}"></label>
+                                <input id="to" class="form-control" type="date" name="to"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group text-right">
+                                <!--<small id="addAvailabilityHint" class="form-text text-muted">Click to add</small>-->
+                                <label for="addAvaiabilityButton" th:text="#{add_availability_button_text}"></label>
+                                <input id="addAvaiabilityButton" class="btn btn-primary" type="submit"
+                                       th:value="#{add_availability}"/>
+                            </div>
                         </div>
                     </div>
-                </div>
 
 
-            </form>
+                </form>
 
-            <form th:action="@{/apply/submit-application}" method="post">
-                <div class="form-group text-right">
-                    <small id="submitApplicationHint" class="form-text text-muted" th:text="#{all_done}"></small>
-                    <input class="btn btn-primary" type="submit" th:value="#{submit_application}"/>
-                </div>
-            </form>
+                <form th:action="@{/apply/submit-application}" method="post">
+                    <div class="form-group text-right">
+                        <small id="submitApplicationHint" class="form-text text-muted" th:text="#{all_done}"></small>
+                        <input class="btn btn-primary" type="submit" th:value="#{submit_application}"/>
+                    </div>
+                </form>
 
 
+            </div>
         </div>
     </div>
-</div>
-
-<div th:replace="fragments/footer :: footer"></div>
 
 </body>
 </html>
