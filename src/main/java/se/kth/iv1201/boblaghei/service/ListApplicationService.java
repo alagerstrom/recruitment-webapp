@@ -7,6 +7,7 @@ import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import se.kth.iv1201.boblaghei.dto.ApplicationDTO;
 import se.kth.iv1201.boblaghei.entity.Application;
 import se.kth.iv1201.boblaghei.exception.ResourceNotFoundException;
@@ -40,6 +41,7 @@ public class ListApplicationService {
      */
 
     @SuppressWarnings("unchecked")
+    @Transactional(readOnly = true)
     public List<ApplicationDTO> findApplications(ApplicationSearchDTO dto) {
         Criteria criteria = entityManager.unwrap(Session.class).createCriteria(Application.class, "a");
         if (hasPersonPropertiesSet(dto)) {
@@ -76,6 +78,8 @@ public class ListApplicationService {
      * @return the application with the given id in the form of a <code>ApplicationDTO</code>.
      * @throws ResourceNotFoundException if there is no application with the given id.
      */
+
+    @Transactional(readOnly = true)
     public ApplicationDTO findApplicationById(long id) {
         Application application = applicationRepository.findOne(id);
         if (application == null)
