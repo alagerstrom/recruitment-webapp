@@ -10,6 +10,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 public class MvcConfig extends WebMvcConfigurerAdapter {
 
+    /**
+     * Adds basic View-Controllers without the need to create a class for each of them, convenience code.
+     * @param registry the registry to which the View-Controller is to be added.
+     */
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/login").setViewName("login");

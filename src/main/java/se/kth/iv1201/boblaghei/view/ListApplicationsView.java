@@ -23,6 +23,12 @@ import java.util.Set;
 @RequestMapping("/recruiter/applications")
 public class ListApplicationsView extends AbstractApplicationView {
 
+    /**
+     * Invocated when a GET request is sent to "/recruiter/applications". Loads all competences from the database as well
+     * as the competences that the user has chosen for search.
+     * @param model is responsible for making data available in the view.
+     * @return the listApplications.html page
+     */
     @GetMapping
     public String applicationView(Model model) {
         availableCompetences = createApplicationService.listAllCompetences();
@@ -31,6 +37,18 @@ public class ListApplicationsView extends AbstractApplicationView {
         return "listApplications";
     }
 
+    /**
+     * Invocated when a POST request is sent to "/recruiter/applications". Takes parameters from the search fields and
+     * builds an <code>ApplicationSearchDTO</code> that is used in <code>findApplications</code> to return all applications
+     * matching the search parameters. These are then loaded into the model and the view is loaded.
+     * @param model is responsible for making data available in the view.
+     * @param from date from which the applicant should be available.
+     * @param to date to which the applicant should be available.
+     * @param created date on which application should be created.
+     * @param firstName applicants first name.
+     * @param lastName applicants last name.
+     * @return the return value from the applicationView method, see @applicationView.
+     */
     @PostMapping
     public String search(Model model,
                          @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
@@ -59,9 +77,17 @@ public class ListApplicationsView extends AbstractApplicationView {
                         .build()
         );
         model.addAttribute("listOfApplications", applications);
+        System.out.println(applications);
         return applicationView(model);
     }
 
+    /**
+     * Invocated when a GET-request is sent to "/recruiter/applications/id". Responsible for loading a single application
+     * view
+     * @param model responsible for making data available in the view
+     * @param id the id of the application to show
+     * @return the singleApplication.html page
+     */
     @GetMapping("/{id}")
     public String viewSingleApplication(Model model, @PathVariable("id") long id) {
         ApplicationDTO application = listApplicationService.findApplicationById(id);
