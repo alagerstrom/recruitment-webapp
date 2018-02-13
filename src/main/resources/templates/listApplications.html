@@ -1,9 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head"></head>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="fragments/layout :: page(~{::body})">
 <body>
-
-<div th:replace="fragments/header :: header"></div>
 
 <div class="container">
     <div class="row">
@@ -26,7 +23,8 @@
                         <td scope="row" th:text="${application.getPerson().getFirstName()}"></td>
                         <td th:text="${application.getPerson().getLastName()}"></td>
                         <td th:text="${application.getCreated()}"></td>
-                        <td><a th:text="#{view}" th:href="@{/recruiter/applications/{path}(path=${application.id})}"></a></td>
+                        <td><a th:text="#{view}"
+                               th:href="@{/recruiter/applications/{path}(path=${application.id})}"></a></td>
                     </tr>
                 </th:block>
                 </tbody>
@@ -125,9 +123,7 @@
 
         </div>
     </div>
-
 </div>
-<div th:replace="fragments/footer :: footer"></div>
 
 </body>
 </html>
