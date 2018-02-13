@@ -58,19 +58,10 @@ public class CreateApplicationService {
             List<CompetenceProfileDTO> competenceProfiles,
             List<AvailabilityDTO> availabilities)
             throws NoUserLoggedInException {
-        PersonDTO personDTO = registerService.getLoggedInPerson();
-        if (personDTO == null)
-            throw new NoUserLoggedInException();
-        Person person = personRepository.findOne(personDTO.getId());
-        if (person == null)
-            throw new NoUserLoggedInException();
+        Person person = registerService.getLoggedInPerson();
         Status status = getUnhandledStatus();
         Date date = new Date();
         Application application = new Application(date, status, person);
-
-        applicationRepository.save(application);
-
-        Set<CompetenceProfile> competenceProfilesInApplication = new HashSet<>();
 
         for (CompetenceProfileDTO competenceProfileDTO : competenceProfiles) {
             Competence competence = competenceRepository.findOne(competenceProfileDTO.getCompetence().getId());
@@ -79,13 +70,9 @@ public class CreateApplicationService {
                     application,
                     competence
             );
-            competenceProfileRepository.save(competenceProfile);
-            competenceProfilesInApplication.add(competenceProfile);
+            application.getCompetenceProfiles().add(competenceProfile);
         }
 
-        application.setCompetenceProfiles(competenceProfilesInApplication);
-
-        Set<Availability> availabilitiesInApplication = new HashSet<>();
 
         for (AvailabilityDTO availabilityDTO : availabilities) {
             Availability availability = new Availability(
@@ -93,13 +80,10 @@ public class CreateApplicationService {
                     availabilityDTO.getToDate(),
                     application
             );
-            availabilityRepository.save(availability);
-            availabilitiesInApplication.add(availability);
+            application.getAvailabilities().add(availability);
         }
 
-        application.setAvailabilities(availabilitiesInApplication);
         applicationRepository.save(application);
-
     }
 
     /**

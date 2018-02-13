@@ -1,12 +1,8 @@
 package se.kth.iv1201.boblaghei.util;
 
 import org.springframework.format.annotation.DateTimeFormat;
-import se.kth.iv1201.boblaghei.dto.CompetenceDTO;
-import se.kth.iv1201.boblaghei.dto.CompetenceProfileDTO;
-import se.kth.iv1201.boblaghei.entity.Competence;
 
 import java.util.Date;
-import java.util.Set;
 
 /**
  * Class to ease the process of searching for applications, contains a builder pattern to avoid problem of long parameter-list.

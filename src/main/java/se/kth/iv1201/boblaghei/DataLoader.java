@@ -8,6 +8,7 @@ import se.kth.iv1201.boblaghei.entity.*;
 import se.kth.iv1201.boblaghei.repository.*;
 import se.kth.iv1201.boblaghei.util.Constants;
 
+import java.util.Arrays;
 import java.util.Date;
 
 @Component
@@ -15,12 +16,6 @@ public class DataLoader implements ApplicationRunner {
 
     @Autowired
     private UserRepository userRepository;
-
-    @Autowired
-    private RoleRepository roleRepository;
-
-    @Autowired
-    private UserRoleRepository userRoleRepository;
 
     @Autowired
     private PersonRepository personRepository;
@@ -42,34 +37,31 @@ public class DataLoader implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments applicationArguments) {
-        // Roles
-        Role recruiterRole = new Role(Constants.ROLE_RECRUITER);
-        Role applicantRole = new Role(Constants.ROLE_APPLICANT);
-        roleRepository.save(recruiterRole);
-        roleRepository.save(applicantRole);
 
+        personRepository.deleteAll();
+        // Roles
         // Users and Persons
         User user1 = new User("admin", "admin", true);
-        UserRole user1Role1 = new UserRole(user1, recruiterRole);
-        UserRole user1Role2 = new UserRole(user1, applicantRole);
+        user1.getRoles().add(Role.ROLE_RECRUITER);
         Person person1 = new Person("Admin-Stina", "Stinasson", "19670915-1234", "admin@stina.com", user1);
-        userRepository.save(user1);
-        userRoleRepository.save(user1Role1);
-        userRoleRepository.save(user1Role2);
-        personRepository.save(person1);
+        user1.setPerson(person1);
+        person1.setUser(user1);
+
 
         User user2 = new User("kalle", "kula", true);
-        UserRole user2Role1 = new UserRole(user2, applicantRole);
+        user2.getRoles().add(Role.ROLE_APPLICANT);
         Person person2 = new Person("Kalle", "Kula", "19770915-1234", "kalle@kula.com", user2);
-        userRepository.save(user2);
-        userRoleRepository.save(user2Role1);
-        personRepository.save(person2);
+        user2.setPerson(person2);
+        person2.setUser(user2);
 
         User user3 = new User("bertil", "bertil", true);
-        UserRole user3Role1 = new UserRole(user3, applicantRole);
+        user3.getRoles().add(Role.ROLE_APPLICANT);
         Person person3 = new Person("Bertil", "Svensson", "19771212-1234", "bertil@svensson.com", user3);
-        userRepository.save(user3);
-        userRoleRepository.save(user3Role1);
+        user3.setPerson(person3);
+        person3.setUser(user3);
+
+        personRepository.save(person1);
+        personRepository.save(person2);
         personRepository.save(person3);
 
         // Statuses
@@ -94,24 +86,21 @@ public class DataLoader implements ApplicationRunner {
         CompetenceProfile competenceProfile12 = new CompetenceProfile(3, application1, competence2);
         CompetenceProfile competenceProfile13 = new CompetenceProfile(3, application1, competence3);
         Availability availability1 = new Availability(new Date(), new Date(), application1);
-
+        application1.getCompetenceProfiles().add(competenceProfile11);
+        application1.getCompetenceProfiles().add(competenceProfile12);
+        application1.getCompetenceProfiles().add(competenceProfile13);
+        application1.getAvailabilities().add(availability1);
         applicationRepository.save(application1);
-        competenceProfileRepository.save(competenceProfile11);
-        competenceProfileRepository.save(competenceProfile12);
-        competenceProfileRepository.save(competenceProfile13);
-        availabilityRepository.save(availability1);
 
         Application application2 = new Application(new Date(), status, person3);
         CompetenceProfile competenceProfile21 = new CompetenceProfile(3, application2, competence1);
         CompetenceProfile competenceProfile22= new CompetenceProfile(3, application2, competence2);
         CompetenceProfile competenceProfile23 = new CompetenceProfile(3, application2, competence3);
         Availability availability2 = new Availability(new Date(), new Date(), application2);
-
-
+        application2.getCompetenceProfiles().add(competenceProfile21);
+        application2.getCompetenceProfiles().add(competenceProfile22);
+        application2.getCompetenceProfiles().add(competenceProfile23);
+        application2.getAvailabilities().add(availability2);
         applicationRepository.save(application2);
-        competenceProfileRepository.save(competenceProfile21);
-        competenceProfileRepository.save(competenceProfile22);
-        competenceProfileRepository.save(competenceProfile23);
-        availabilityRepository.save(availability2);
     }
 }

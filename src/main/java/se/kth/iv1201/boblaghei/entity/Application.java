@@ -119,10 +119,4 @@ public class Application {
                 ", availabilities=" + availabilities +
                 '}';
     }
-
-    public ApplicationDTO getDTO() {
-        List<CompetenceProfileDTO> competenceProfiles = getCompetenceProfiles().stream().map(CompetenceProfile::getDTO).collect(Collectors.toList());
-        List<AvailabilityDTO> availabilities = getAvailabilities().stream().map(Availability::getDTO).collect(Collectors.toList());
-        return new ApplicationDTO(id, created, status.getDTO(), person.getDTO(), competenceProfiles, availabilities);
-    }
 }

@@ -1,20 +1,12 @@
 package se.kth.iv1201.boblaghei.view;
 
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import se.kth.iv1201.boblaghei.dto.ApplicationDTO;
-import se.kth.iv1201.boblaghei.dto.CompetenceDTO;
-import se.kth.iv1201.boblaghei.dto.CompetenceProfileDTO;
 import se.kth.iv1201.boblaghei.util.ApplicationSearchDTO;
-import se.kth.iv1201.boblaghei.util.DateUtil;
 
-import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Controller responsible for providing mappings used for searching and listing applications.

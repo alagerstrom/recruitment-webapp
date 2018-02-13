@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import se.kth.iv1201.boblaghei.dto.PersonDTO;
+import se.kth.iv1201.boblaghei.entity.Person;
 import se.kth.iv1201.boblaghei.exception.NoUserLoggedInException;
 import se.kth.iv1201.boblaghei.service.RegisterService;
 
@@ -19,16 +19,16 @@ public class MainView {
 
     /**
      * Invocated on a GET-request to "/". Loads a welcome message for the currently logged on user.
+     *
      * @param model responsible for making data available in the view
      * @return the index.html page
      */
     @GetMapping("/")
     public String getWelcomeView(Model model) {
 
-        PersonDTO personDTO = null;
         try {
-            personDTO = registerService.getLoggedInPerson();
-            model.addAttribute(personDTO);
+            Person person = registerService.getLoggedInPerson();
+            model.addAttribute("person", person);
         } catch (NoUserLoggedInException ignored) {
         }
         return "index";
