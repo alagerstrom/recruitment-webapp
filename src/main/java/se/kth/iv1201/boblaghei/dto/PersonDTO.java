@@ -10,7 +10,7 @@ public class PersonDTO {
     private String lastName;
     private String personalNumber;
     private String email;
-    private UserDTO user;
+    private UserDTO user = new UserDTO();
 
     public PersonDTO() {
     }

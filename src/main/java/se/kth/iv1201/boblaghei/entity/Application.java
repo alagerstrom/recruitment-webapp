@@ -1,15 +1,9 @@
 package se.kth.iv1201.boblaghei.entity;
 
-import se.kth.iv1201.boblaghei.dto.ApplicationDTO;
-import se.kth.iv1201.boblaghei.dto.AvailabilityDTO;
-import se.kth.iv1201.boblaghei.dto.CompetenceProfileDTO;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * O/R Mapping of the table Application in the database.

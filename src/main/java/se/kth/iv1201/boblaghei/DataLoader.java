@@ -15,9 +15,6 @@ import java.util.Date;
 public class DataLoader implements ApplicationRunner {
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     private PersonRepository personRepository;
 
     @Autowired
@@ -29,12 +26,6 @@ public class DataLoader implements ApplicationRunner {
     @Autowired
     private CompetenceRepository competenceRepository;
 
-    @Autowired
-    private CompetenceProfileRepository competenceProfileRepository;
-
-    @Autowired
-    private AvailabilityRepository availabilityRepository;
-
     @Override
     public void run(ApplicationArguments applicationArguments) {
 
@@ -42,7 +33,7 @@ public class DataLoader implements ApplicationRunner {
         // Roles
         // Users and Persons
         User user1 = new User("admin", "admin", true);
-        user1.getRoles().add(Role.ROLE_RECRUITER);
+        Arrays.asList(Role.ROLE_APPLICANT, Role.ROLE_RECRUITER).forEach(role -> user1.getRoles().add(role));
         Person person1 = new Person("Admin-Stina", "Stinasson", "19670915-1234", "admin@stina.com", user1);
         user1.setPerson(person1);
         person1.setUser(user1);

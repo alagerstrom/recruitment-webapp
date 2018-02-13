@@ -50,21 +50,6 @@ public class RegisterService {
         personRepository.save(person);
     }
 
-    /**
-     * getLoggedInPerson() is used to get information about the currently logged in person
-     * The password in the UserDTO will be empty.
-     *
-     * @return The PersonDTO representing the currently logged in user, without password
-     */
-    public Person getLoggedInPerson() throws NoUserLoggedInException {
-
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof User) {
-            return ((User) principal).getPerson();
-        }
-        throw new NoUserLoggedInException("User is not logged in");
-    }
-
     private Person createPerson(PersonDTO personDTO) {
         User user = createUser(personDTO.getUser());
         return new Person(personDTO.getFirstName(), personDTO.getLastName(),

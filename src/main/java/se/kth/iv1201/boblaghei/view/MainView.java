@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import se.kth.iv1201.boblaghei.entity.Person;
 import se.kth.iv1201.boblaghei.exception.NoUserLoggedInException;
-import se.kth.iv1201.boblaghei.service.RegisterService;
+import se.kth.iv1201.boblaghei.service.SecurityService;
 
 /**
  * Controller responsible for providing mappings used for initial opening of application.
@@ -15,7 +15,7 @@ import se.kth.iv1201.boblaghei.service.RegisterService;
 public class MainView {
 
     @Autowired
-    RegisterService registerService;
+    SecurityService securityService;
 
     /**
      * Invocated on a GET-request to "/". Loads a welcome message for the currently logged on user.
@@ -27,7 +27,7 @@ public class MainView {
     public String getWelcomeView(Model model) {
 
         try {
-            Person person = registerService.getLoggedInPerson();
+            Person person = securityService.getLoggedInPerson();
             model.addAttribute("person", person);
         } catch (NoUserLoggedInException ignored) {
         }

@@ -25,22 +25,13 @@ public class CreateApplicationService {
     private ApplicationRepository applicationRepository;
 
     @Autowired
-    private RegisterService registerService;
-
-    @Autowired
     private CompetenceRepository competenceRepository;
-
-    @Autowired
-    private PersonRepository personRepository;
 
     @Autowired
     private StatusRepository statusRepository;
 
     @Autowired
-    private CompetenceProfileRepository competenceProfileRepository;
-
-    @Autowired
-    private AvailabilityRepository availabilityRepository;
+    private SecurityService securityService;
 
     /**
      * createApplicationForCurrentUser
@@ -58,13 +49,14 @@ public class CreateApplicationService {
             List<CompetenceProfileDTO> competenceProfiles,
             List<AvailabilityDTO> availabilities)
             throws NoUserLoggedInException {
-        Person person = registerService.getLoggedInPerson();
+        Person person = securityService.getLoggedInPerson();
         Status status = getUnhandledStatus();
         Date date = new Date();
         Application application = new Application(date, status, person);
 
         for (CompetenceProfileDTO competenceProfileDTO : competenceProfiles) {
-            Competence competence = competenceRepository.findOne(competenceProfileDTO.getCompetence().getId());
+            Competence competence = new Competence();
+            competence.setId(competenceProfileDTO.getCompetence().getId());
             CompetenceProfile competenceProfile = new CompetenceProfile(
                     competenceProfileDTO.getYearsOfExperience(),
                     application,

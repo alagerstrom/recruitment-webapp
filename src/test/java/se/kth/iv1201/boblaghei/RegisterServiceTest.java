@@ -13,6 +13,8 @@ import se.kth.iv1201.boblaghei.repository.PersonRepository;
 import se.kth.iv1201.boblaghei.repository.UserRepository;
 import se.kth.iv1201.boblaghei.service.RegisterService;
 import se.kth.iv1201.boblaghei.exception.DuplicateUsernameException;
+import se.kth.iv1201.boblaghei.service.SecurityService;
+
 import static org.assertj.core.api.Assertions.*;
 
 @RunWith(SpringRunner.class)
@@ -55,11 +57,6 @@ public class RegisterServiceTest {
         assertThat(userRepository.getUserByUsername(firstRegistrant.getUser().getUsername()).getUsername())
                 .isEqualTo(firstUser.getUsername());
         assertThat(personRepository.getPersonByUser(firstUser.getEntity()).getFirstName()).isEqualTo(firstRegistrant.getFirstName());
-    }
-
-    @Test(expected = NoUserLoggedInException.class)
-    public void testGettingUserWithNoneLoggedIn() throws NoUserLoggedInException {
-        registerService.getLoggedInPerson();
     }
 
 }
