@@ -44,7 +44,7 @@ public class CreateApplicationService {
 
     /**
      * createApplicationForCurrentUser
-     * <p>
+     *
      * Method to be used to create a new Application for the currently logged in user.
      *
      * @param competenceProfiles A list of CompetenceProfileDTO that identifies the applicants different competences and

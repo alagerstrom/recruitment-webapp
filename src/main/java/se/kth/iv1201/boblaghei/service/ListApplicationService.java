@@ -29,9 +29,12 @@ public class ListApplicationService {
     @Autowired
     EntityManager entityManager;
 
-
-    //TODO Decide if specification should be done here by calling several repositories and creating the parameters here
-    //or in the applicationRepository, and create a specific query that can handle the param applicationSearchDTO directly.
+    /**
+     * findApplication finds applications matching the parameters stated in the <code>ApplicationSearchDTO</code> and
+     * returns these applications in a list.
+     * @param applicationSearchDTO holds search criterias based on what the user has requested.
+     * @return a list of <code>ApplicationDTO</code> containing the matching applications.
+     */
     public List<ApplicationDTO> findApplications(ApplicationSearchDTO applicationSearchDTO) {
         Session session = entityManager.unwrap(Session.class);
 
@@ -46,7 +49,12 @@ public class ListApplicationService {
         return foundApplicationDTOs;
     }
 
-
+    /**
+     * Finds an application given the applications id.
+     * @param id the id of the application.
+     * @return the application with the given id in the form of a <code>ApplicationDTO</code>.
+     * @throws ResourceNotFoundException if there is no application with the given id.
+     */
     public ApplicationDTO findApplicationById(long id) {
         Application application = applicationRepository.findOne(id);
         if (application == null)

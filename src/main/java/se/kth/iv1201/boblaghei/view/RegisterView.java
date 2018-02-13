@@ -26,6 +26,11 @@ public class RegisterView {
     @Autowired
     ErrorLogger errorLogger;
 
+    /**
+     * Invocated on a GET-request to "/register". Loads the register view which enables a person to register on the website.
+     * @param model responsible for making data available in the view
+     * @return the register.html page
+     */
     @GetMapping("/register")
     public String getRegisterView(Model model){
         UserDTO user = new UserDTO();
@@ -35,6 +40,12 @@ public class RegisterView {
         return "register";
     }
 
+    /**
+     * Invocated on a POST-request to "/register". Tries to register the entered data
+     * @param person contains the data to be registered
+     * @param model responsible for making data available in the view
+     * @return the index.html page
+     */
     @PostMapping("/register")
     public String postRegistration(@ModelAttribute PersonDTO person, Model model){
         System.out.println("I should register " + person);
@@ -45,11 +56,5 @@ public class RegisterView {
             e.printStackTrace();
         }
         return "redirect:/";
-    }
-
-    @GetMapping("/listRoles")
-    public String getListRolesView(Model model) throws NoUserLoggedInException {
-        model.addAttribute("listOfRoles", registerService.getRolesOfLoggedInPerson());
-        return "listRoles";
     }
 }

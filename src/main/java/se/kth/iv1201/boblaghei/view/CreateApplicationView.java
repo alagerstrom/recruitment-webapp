@@ -24,6 +24,11 @@ public class CreateApplicationView extends AbstractApplicationView {
 
     private List<AvailabilityDTO> availabilities = new ArrayList<>();
 
+    /**
+     * Invocated when a GET-request is sent to "/apply". Loads the resources needed for creating an application.
+     * @param model responsible for making data available in the view
+     * @return the apply.html page
+     */
     @Override
     @GetMapping
     public String applicationView(Model model) {
@@ -34,6 +39,14 @@ public class CreateApplicationView extends AbstractApplicationView {
         return "apply";
     }
 
+    /**
+     * Invocated when a POST-request is sent to "/add_availability". Creates a new <code>AvailabilityDTO</code> that is
+     * added to the list availabilities.
+     * @param model responsible for making data available in the view
+     * @param from date from which applicant should be available
+     * @param to date to which applicant should be available
+     * @return return-value of applicationView method, see @applicationView
+     */
     @PostMapping("/add-availability")
     public String addAvailability(
             Model model,
@@ -42,10 +55,15 @@ public class CreateApplicationView extends AbstractApplicationView {
 
         AvailabilityDTO availabilityDTO = new AvailabilityDTO(DateUtil.getDateFrom(from), DateUtil.getDateFrom(to));
         availabilities.add(availabilityDTO);
-        System.out.println(availabilityDTO);
         return applicationView(model);
     }
 
+    /**
+     * Invocated when a POST-request is sent to "/submit-application". Creates an application based on the data the user
+     * has added and saves this application to the database by using <code>CreateApplicationService</code>
+     * @param model responsible for making data available in the view
+     * @return redirects the user to the index.html page
+     */
     @PostMapping("/submit-application")
     public String submitApplication(Model model) {
         try {
