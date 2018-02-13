@@ -25,22 +25,13 @@ public class CreateApplicationService {
     private ApplicationRepository applicationRepository;
 
     @Autowired
-    private RegisterService registerService;
-
-    @Autowired
     private CompetenceRepository competenceRepository;
-
-    @Autowired
-    private PersonRepository personRepository;
 
     @Autowired
     private StatusRepository statusRepository;
 
     @Autowired
-    private CompetenceProfileRepository competenceProfileRepository;
-
-    @Autowired
-    private AvailabilityRepository availabilityRepository;
+    private SecurityService securityService;
 
     /**
      * createApplicationForCurrentUser
@@ -58,34 +49,22 @@ public class CreateApplicationService {
             List<CompetenceProfileDTO> competenceProfiles,
             List<AvailabilityDTO> availabilities)
             throws NoUserLoggedInException {
-        PersonDTO personDTO = registerService.getLoggedInPerson();
-        if (personDTO == null)
-            throw new NoUserLoggedInException();
-        Person person = personRepository.findOne(personDTO.getId());
-        if (person == null)
-            throw new NoUserLoggedInException();
+        Person person = securityService.getLoggedInPerson();
         Status status = getUnhandledStatus();
         Date date = new Date();
         Application application = new Application(date, status, person);
 
-        applicationRepository.save(application);
-
-        Set<CompetenceProfile> competenceProfilesInApplication = new HashSet<>();
-
         for (CompetenceProfileDTO competenceProfileDTO : competenceProfiles) {
-            Competence competence = competenceRepository.findOne(competenceProfileDTO.getCompetence().getId());
+            Competence competence = new Competence();
+            competence.setId(competenceProfileDTO.getCompetence().getId());
             CompetenceProfile competenceProfile = new CompetenceProfile(
                     competenceProfileDTO.getYearsOfExperience(),
                     application,
                     competence
             );
-            competenceProfileRepository.save(competenceProfile);
-            competenceProfilesInApplication.add(competenceProfile);
+            application.getCompetenceProfiles().add(competenceProfile);
         }
 
-        application.setCompetenceProfiles(competenceProfilesInApplication);
-
-        Set<Availability> availabilitiesInApplication = new HashSet<>();
 
         for (AvailabilityDTO availabilityDTO : availabilities) {
             Availability availability = new Availability(
@@ -93,13 +72,10 @@ public class CreateApplicationService {
                     availabilityDTO.getToDate(),
                     application
             );
-            availabilityRepository.save(availability);
-            availabilitiesInApplication.add(availability);
+            application.getAvailabilities().add(availability);
         }
 
-        application.setAvailabilities(availabilitiesInApplication);
         applicationRepository.save(application);
-
     }
 
     /**

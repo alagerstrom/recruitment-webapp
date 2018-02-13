@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import se.kth.iv1201.boblaghei.dto.PersonDTO;
 import se.kth.iv1201.boblaghei.dto.UserDTO;
 import se.kth.iv1201.boblaghei.exception.DuplicateUsernameException;
-import se.kth.iv1201.boblaghei.exception.NoUserLoggedInException;
 import se.kth.iv1201.boblaghei.service.RegisterService;
 import se.kth.iv1201.boblaghei.util.logger.ErrorLogger;
 

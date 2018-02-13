@@ -1,7 +1,5 @@
 package se.kth.iv1201.boblaghei.entity;
 
-import se.kth.iv1201.boblaghei.dto.PersonDTO;
-
 import javax.persistence.*;
 
 /**
@@ -26,7 +24,7 @@ public class Person {
     @Column(nullable = false)
     private String email;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "person")
     private User user;
 
     public Person() {
@@ -97,10 +95,5 @@ public class Person {
                 ", email='" + email + '\'' +
                 ", user=" + user +
                 '}';
-    }
-
-    public PersonDTO getDTO() {
-        return new PersonDTO(id, getFirstName(), getLastName(), getPersonalNumber(),
-                getEmail(), getUser().getDTO());
     }
 }

@@ -1,15 +1,9 @@
 package se.kth.iv1201.boblaghei.entity;
 
-import se.kth.iv1201.boblaghei.dto.ApplicationDTO;
-import se.kth.iv1201.boblaghei.dto.AvailabilityDTO;
-import se.kth.iv1201.boblaghei.dto.CompetenceProfileDTO;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * O/R Mapping of the table Application in the database.
@@ -118,11 +112,5 @@ public class Application {
                 ", competenceProfiles=" + competenceProfiles +
                 ", availabilities=" + availabilities +
                 '}';
-    }
-
-    public ApplicationDTO getDTO() {
-        List<CompetenceProfileDTO> competenceProfiles = getCompetenceProfiles().stream().map(CompetenceProfile::getDTO).collect(Collectors.toList());
-        List<AvailabilityDTO> availabilities = getAvailabilities().stream().map(Availability::getDTO).collect(Collectors.toList());
-        return new ApplicationDTO(id, created, status.getDTO(), person.getDTO(), competenceProfiles, availabilities);
     }
 }

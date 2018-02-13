@@ -6,10 +6,10 @@
     <div class="row">
         <div class="col-md-3 col-md-offset-5">
             <h2 th:text="#{welcome}"></h2>
-            <th:block th:if="${personDTO}">
-                <p th:text="${personDTO.firstName} + ' ' + ${personDTO.lastName}"></p>
+            <th:block th:if="${person}">
+                <p th:text="${person.firstName} + ' ' + ${person.lastName}"></p>
             </th:block>
-            <div th:unless="${personDTO}">
+            <div th:unless="${person}">
                 <p>
                     <a th:href="@{/login}" th:text="#{login}"></a>
                 </p>

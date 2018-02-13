@@ -10,9 +10,17 @@ public class PersonDTO {
     private String lastName;
     private String personalNumber;
     private String email;
-    private UserDTO user;
+    private UserDTO user = new UserDTO();
 
     public PersonDTO() {
+    }
+
+    public PersonDTO(long id, String firstName, String lastName, String personalNumber, String email) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.personalNumber = personalNumber;
+        this.email = email;
     }
 
     public PersonDTO(String firstName, String lastName, String personalNumber, String email, UserDTO user) {
