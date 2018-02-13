@@ -58,7 +58,7 @@ public class RegisterService {
     }
 
     /**
-     * getLoggedInPerson() can be used to get information about the currently logged in person
+     * getLoggedInPerson() is used to get information about the currently logged in person
      * The password in the UserDTO will be empty.
      *
      * @return The PersonDTO representing the currently logged in user, without password
@@ -76,6 +76,11 @@ public class RegisterService {
         return person.getDTO();
     }
 
+    /**
+     * getRolesOfLoggedInPerson() returns a set of roles for the currently logged in person.
+     * @return a set of <code>UserRoleDTO</code> containing the roles of the logged in person.
+     * @throws NoUserLoggedInException is thrown if no user is logged in.
+     */
     public Set<UserRoleDTO> getRolesOfLoggedInPerson() throws NoUserLoggedInException {
         User loggedInUser = userRepository.getUserByUsername(getLoggedInPerson().getUser().getUsername());
         Set<UserRole> userRoles = userRoleRepository.getUserRolesByUser(loggedInUser);

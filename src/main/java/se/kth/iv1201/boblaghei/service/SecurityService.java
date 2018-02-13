@@ -34,6 +34,13 @@ public class SecurityService implements UserDetailsService {
     @Autowired
     UserRoleRepository userRoleRepository;
 
+
+    /**
+     *
+     * @param username
+     * @return
+     * @throws UsernameNotFoundException
+     */
     @Transactional(readOnly = true)
     @Override
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {

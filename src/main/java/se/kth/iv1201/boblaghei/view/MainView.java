@@ -17,6 +17,11 @@ public class MainView {
     @Autowired
     RegisterService registerService;
 
+    /**
+     * Invocated on a GET-request to "/". Loads a welcome message for the currently logged on user.
+     * @param model responsible for making data available in the view
+     * @return the index.html page
+     */
     @GetMapping("/")
     public String getWelcomeView(Model model) {
 
