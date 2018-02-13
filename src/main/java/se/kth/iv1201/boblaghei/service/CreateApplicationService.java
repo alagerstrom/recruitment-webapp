@@ -2,6 +2,7 @@ package se.kth.iv1201.boblaghei.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import se.kth.iv1201.boblaghei.dto.AvailabilityDTO;
 import se.kth.iv1201.boblaghei.dto.CompetenceDTO;
 import se.kth.iv1201.boblaghei.dto.CompetenceProfileDTO;
