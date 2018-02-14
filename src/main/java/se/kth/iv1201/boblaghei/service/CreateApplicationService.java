@@ -34,10 +34,7 @@ public class CreateApplicationService {
      *
      * Method to be used to create a new Application for the currently logged in user.
      *
-     * @param  A list of CompetenceProfileDTO that identifies the applicants different competences and
-     *                           years of experience, the id and application field does not need to be set.
-     * @param availalities     A list of AvailabilityDTO representing when the applicant is available.
-     *                           The id and application fields does not need to be set.
+     * @param newApplication, the new application to be saved
      * @throws NoUserLoggedInException If no user is currently logged in.
      */
     @Transactional
