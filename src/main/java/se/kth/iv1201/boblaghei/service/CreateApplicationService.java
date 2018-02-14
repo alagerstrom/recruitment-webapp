@@ -34,34 +34,23 @@ public class CreateApplicationService {
      *
      * Method to be used to create a new Application for the currently logged in user.
      *
-     * @param competenceProfiles A list of CompetenceProfileDTO that identifies the applicants different competences and
+     * @param  A list of CompetenceProfileDTO that identifies the applicants different competences and
      *                           years of experience, the id and application field does not need to be set.
-     * @param availabilities     A list of AvailabilityDTO representing when the applicant is available.
+     * @param availalities     A list of AvailabilityDTO representing when the applicant is available.
      *                           The id and application fields does not need to be set.
      * @throws NoUserLoggedInException If no user is currently logged in.
      */
     @Transactional
-    public void createApplicationForCurrentUser(
-            Set<CompetenceProfile> competenceProfiles,
-            Set<Availability> availabilities)
-            throws NoUserLoggedInException {
-        Person person = securityService.getLoggedInPerson();
+    public void createApplicationForCurrentUser(Application newApplication) throws NoUserLoggedInException {
+        newApplication.getCompetenceProfiles().forEach(competenceProfile -> competenceProfile.setApplication(newApplication));
+        newApplication.getAvailabilities().forEach(availability -> availability.setApplication(newApplication));
+        Person getLoggedInPerson = securityService.getLoggedInPerson();
         Status status = getUnhandledStatus();
         Date date = new Date();
-        Application application = new Application(date, status, person);
-        application.setCompetenceProfiles(competenceProfiles);
-        application.setAvailabilities(availabilities);
-
-        for (CompetenceProfile competenceProfile : application.getCompetenceProfiles()) {
-            competenceProfile.setApplication(application);
-        }
-
-
-        for (Availability availability : application.getAvailabilities()) {
-            availability.setApplication(application);
-        }
-
-        applicationRepository.save(application);
+        newApplication.setPerson(getLoggedInPerson);
+        newApplication.setStatus(status);
+        newApplication.setCreated(date);
+        applicationRepository.save(newApplication);
     }
 
     /**

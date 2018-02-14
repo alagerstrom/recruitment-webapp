@@ -1,22 +1,29 @@
 package se.kth.iv1201.boblaghei.view;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import se.kth.iv1201.boblaghei.entity.Availability;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import se.kth.iv1201.boblaghei.entity.Application;
 import se.kth.iv1201.boblaghei.exception.NoUserLoggedInException;
-
-import java.util.HashSet;
-import java.util.Set;
+import se.kth.iv1201.boblaghei.service.CreateApplicationService;
+import se.kth.iv1201.boblaghei.util.logger.ErrorLogger;
 
 /**
  * Controller responsible for providing mappings used for creating applications.
  */
 @Controller
 @RequestMapping("/apply")
-public class CreateApplicationView extends AbstractApplicationView {
+public class CreateApplicationView {
 
-    private Set<Availability> availabilities = new HashSet<>();
+    @Autowired
+    private CreateApplicationService createApplicationService;
+
+    @Autowired
+    private ErrorLogger errorLogger;
 
     /**
      * Invocated when a GET-request is sent to "/apply". Loads the resources needed for creating an application.
@@ -24,13 +31,9 @@ public class CreateApplicationView extends AbstractApplicationView {
      * @param model responsible for making data available in the view
      * @return the apply.html page
      */
-    @Override
     @GetMapping
     public String applicationView(Model model) {
-        availableCompetences = createApplicationService.listAllCompetences();
-        model.addAttribute("availabilities", availabilities);
-        model.addAttribute("availableCompetences", availableCompetences);
-        model.addAttribute("selectedCompetences", selectedCompetences);
+        model.addAttribute("competences", createApplicationService.listAllCompetences());
         return "apply";
     }
 
@@ -42,27 +45,21 @@ public class CreateApplicationView extends AbstractApplicationView {
      * @param availability entity that represents when the applicant is available
      * @return return-value of applicationView method, see @applicationView
      */
-    @PostMapping("/add-availability")
-    public String addAvailability(Model model, @ModelAttribute Availability availability) {
-        availabilities.add(availability);
-        return applicationView(model);
-    }
 
     /**
      * Invocated when a POST-request is sent to "/submit-application". Creates an application based on the data the user
      * has added and saves this application to the database by using <code>CreateApplicationService</code>
      *
-     * @param model responsible for making data available in the view
      * @return redirects the user to the index.html page
      */
     @PostMapping("/submit-application")
-    public String submitApplication(Model model) {
-//        try {
-//            createApplicationService.createApplicationForCurrentUser(selectedCompetences, availabilities);
-//        } catch (NoUserLoggedInException e) {
-//            errorLogger.log(e.getMessage());
-//            e.printStackTrace();
-//        }
+    public String submitApplication(@RequestBody Application application) {
+        try {
+            createApplicationService.createApplicationForCurrentUser(application);
+        } catch (NoUserLoggedInException e) {
+            errorLogger.log(e.getMessage());
+            e.printStackTrace();
+        }
         return "redirect:/";
     }
 }

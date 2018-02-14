@@ -101,16 +101,4 @@ public class Application {
     public void setAvailabilities(Set<Availability> availabilities) {
         this.availabilities = availabilities;
     }
-
-    @Override
-    public String toString() {
-        return "Application{" +
-                "id=" + id +
-                ", created=" + created +
-                ", status=" + status +
-                ", person=" + person +
-                ", competenceProfiles=" + competenceProfiles +
-                ", availabilities=" + availabilities +
-                '}';
-    }
 }
