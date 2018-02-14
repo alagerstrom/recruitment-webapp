@@ -7,8 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import se.kth.iv1201.boblaghei.dto.PersonDTO;
-import se.kth.iv1201.boblaghei.dto.UserDTO;
+import se.kth.iv1201.boblaghei.entity.Person;
+import se.kth.iv1201.boblaghei.entity.User;
 import se.kth.iv1201.boblaghei.exception.DuplicateUsernameException;
 import se.kth.iv1201.boblaghei.service.RegisterService;
 import se.kth.iv1201.boblaghei.util.logger.ErrorLogger;
@@ -32,8 +32,8 @@ public class RegisterView {
      */
     @GetMapping("/register")
     public String getRegisterView(Model model){
-        UserDTO user = new UserDTO();
-        PersonDTO person = new PersonDTO();
+        User user = new User();
+        Person person = new Person();
         person.setUser(user);
         model.addAttribute("person", person);
         return "register";
@@ -46,7 +46,7 @@ public class RegisterView {
      * @return the index.html page
      */
     @PostMapping("/register")
-    public String postRegistration(@ModelAttribute PersonDTO person, Model model){
+    public String postRegistration(@ModelAttribute Person person, Model model){
         System.out.println("I should register " + person);
         try{
             registerService.register(person);

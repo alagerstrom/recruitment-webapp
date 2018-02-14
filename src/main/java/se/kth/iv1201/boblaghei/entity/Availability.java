@@ -1,9 +1,10 @@
 package se.kth.iv1201.boblaghei.entity;
 
-import se.kth.iv1201.boblaghei.dto.AvailabilityDTO;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * O/R Mapping of the table Availability in the database.
@@ -16,9 +17,11 @@ public class Availability {
     private long id;
 
     @Column(nullable = false)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date fromDate;
 
     @Column(nullable = false)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date toDate;
 
     @ManyToOne
@@ -75,7 +78,20 @@ public class Availability {
                 '}';
     }
 
-    public AvailabilityDTO getDTO() {
-        return new AvailabilityDTO(id, fromDate, toDate);
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Availability that = (Availability) o;
+        return id == that.id &&
+                Objects.equals(fromDate, that.fromDate) &&
+                Objects.equals(toDate, that.toDate) &&
+                Objects.equals(application, that.application);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, fromDate, toDate, application);
     }
 }
