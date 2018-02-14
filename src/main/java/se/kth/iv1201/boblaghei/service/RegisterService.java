@@ -2,16 +2,9 @@ package se.kth.iv1201.boblaghei.service;
 
 import groovy.util.logging.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-import se.kth.iv1201.boblaghei.dto.PersonDTO;
-import se.kth.iv1201.boblaghei.dto.UserDTO;
 import se.kth.iv1201.boblaghei.entity.Person;
-import se.kth.iv1201.boblaghei.entity.Role;
-import se.kth.iv1201.boblaghei.entity.User;
 import se.kth.iv1201.boblaghei.exception.DuplicateUsernameException;
-import se.kth.iv1201.boblaghei.exception.NoUserLoggedInException;
 import se.kth.iv1201.boblaghei.repository.PersonRepository;
 import se.kth.iv1201.boblaghei.repository.UserRepository;
 import se.kth.iv1201.boblaghei.util.logger.SecurityLogger;
@@ -37,28 +30,14 @@ public class RegisterService {
     /**
      * Registers a new person, both as a person as well as a user.
      *
-     * @param personDTO DTO containing data needed for registration.
+     * @param person entity containing data needed for registration.
      * @throws DuplicateUsernameException if a user is registered with an already existing username.
      */
-    public void register(PersonDTO personDTO) throws DuplicateUsernameException {
-        if (userRepository.findOne(personDTO.getUser().getUsername()) != null) {
-            securityLogger.log("Tried registering the username " + personDTO.getUser().getUsername() + " that is already in use.");
+    public void register(Person person) throws DuplicateUsernameException {
+        if (userRepository.findOne(person.getUser().getUsername()) != null) {
+            securityLogger.log("Tried registering the username " + person.getUser().getUsername() + " that is already in use.");
             throw new DuplicateUsernameException("Username is already in use, please choose another one.");
         }
-
-        Person person = createPerson(personDTO);
         personRepository.save(person);
-    }
-
-    private Person createPerson(PersonDTO personDTO) {
-        User user = createUser(personDTO.getUser());
-        return new Person(personDTO.getFirstName(), personDTO.getLastName(),
-                personDTO.getPersonalNumber(), personDTO.getEmail(), user);
-    }
-
-    private User createUser(UserDTO userDTO) {
-        User user = new User(userDTO.getUsername(), userDTO.getPassword(), true);
-        user.getRoles().add(Role.ROLE_APPLICANT);
-        return user;
     }
 }

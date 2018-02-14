@@ -1,7 +1,5 @@
 package se.kth.iv1201.boblaghei.entity;
 
-import se.kth.iv1201.boblaghei.dto.StatusDTO;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -49,9 +47,5 @@ public class Status {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
-    }
-
-    public StatusDTO getDTO() {
-        return new StatusDTO(id, getName());
     }
 }

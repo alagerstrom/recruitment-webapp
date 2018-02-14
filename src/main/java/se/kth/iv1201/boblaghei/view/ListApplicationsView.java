@@ -3,7 +3,7 @@ package se.kth.iv1201.boblaghei.view;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import se.kth.iv1201.boblaghei.dto.ApplicationDTO;
+import se.kth.iv1201.boblaghei.entity.Application;
 import se.kth.iv1201.boblaghei.util.ApplicationSearchDTO;
 
 import java.util.List;
@@ -41,7 +41,7 @@ public class ListApplicationsView extends AbstractApplicationView {
     @PostMapping
     public String search(Model model, @ModelAttribute ApplicationSearchDTO dto) {
         System.out.println(dto);
-        List<ApplicationDTO> applications = listApplicationService.findApplications(dto);
+        List<Application> applications = listApplicationService.findApplications(dto);
         model.addAttribute("listOfApplications", applications);
         return applicationView(model);
     }
@@ -55,7 +55,7 @@ public class ListApplicationsView extends AbstractApplicationView {
      */
     @GetMapping("/{id}")
     public String viewSingleApplication(Model model, @PathVariable("id") long id) {
-        ApplicationDTO application = listApplicationService.findApplicationById(id);
+        Application application = listApplicationService.findApplicationById(id);
         model.addAttribute("singleApplication", application);
         return "singleApplication";
     }

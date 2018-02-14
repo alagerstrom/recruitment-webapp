@@ -9,5 +9,4 @@ import se.kth.iv1201.boblaghei.entity.User;
  */
 public interface PersonRepository extends CrudRepository<Person, Long> {
 
-    Person getPersonByUser(User user);
 }

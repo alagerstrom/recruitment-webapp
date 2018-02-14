@@ -3,10 +3,6 @@ package se.kth.iv1201.boblaghei.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import se.kth.iv1201.boblaghei.dto.AvailabilityDTO;
-import se.kth.iv1201.boblaghei.dto.CompetenceDTO;
-import se.kth.iv1201.boblaghei.dto.CompetenceProfileDTO;
-import se.kth.iv1201.boblaghei.dto.PersonDTO;
 import se.kth.iv1201.boblaghei.entity.*;
 import se.kth.iv1201.boblaghei.exception.NoUserLoggedInException;
 import se.kth.iv1201.boblaghei.repository.*;
@@ -46,33 +42,23 @@ public class CreateApplicationService {
      */
     @Transactional
     public void createApplicationForCurrentUser(
-            List<CompetenceProfileDTO> competenceProfiles,
-            List<AvailabilityDTO> availabilities)
+            Set<CompetenceProfile> competenceProfiles,
+            Set<Availability> availabilities)
             throws NoUserLoggedInException {
         Person person = securityService.getLoggedInPerson();
         Status status = getUnhandledStatus();
         Date date = new Date();
         Application application = new Application(date, status, person);
+        application.setCompetenceProfiles(competenceProfiles);
+        application.setAvailabilities(availabilities);
 
-        for (CompetenceProfileDTO competenceProfileDTO : competenceProfiles) {
-            Competence competence = new Competence();
-            competence.setId(competenceProfileDTO.getCompetence().getId());
-            CompetenceProfile competenceProfile = new CompetenceProfile(
-                    competenceProfileDTO.getYearsOfExperience(),
-                    application,
-                    competence
-            );
-            application.getCompetenceProfiles().add(competenceProfile);
+        for (CompetenceProfile competenceProfile : application.getCompetenceProfiles()) {
+            competenceProfile.setApplication(application);
         }
 
 
-        for (AvailabilityDTO availabilityDTO : availabilities) {
-            Availability availability = new Availability(
-                    availabilityDTO.getFromDate(),
-                    availabilityDTO.getToDate(),
-                    application
-            );
-            application.getAvailabilities().add(availability);
+        for (Availability availability : application.getAvailabilities()) {
+            availability.setApplication(application);
         }
 
         applicationRepository.save(application);
@@ -87,12 +73,10 @@ public class CreateApplicationService {
      */
 
     @Transactional
-    public List<CompetenceDTO> listAllCompetences(){
-        List<CompetenceDTO> result = new ArrayList<>();
-        for (Competence competence : competenceRepository.findAll()) {
-            result.add(competence.getDTO());
-        }
-        return result;
+    public Set<Competence> listAllCompetences(){
+        Set<Competence> listOfCompetences = new HashSet<>();
+        competenceRepository.findAll().forEach(listOfCompetences::add);
+        return listOfCompetences;
     }
 
     /**
