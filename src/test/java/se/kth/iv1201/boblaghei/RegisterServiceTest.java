@@ -7,7 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import se.kth.iv1201.boblaghei.dto.PersonDTO;
 import se.kth.iv1201.boblaghei.dto.UserDTO;
-import se.kth.iv1201.boblaghei.entity.User;
 import se.kth.iv1201.boblaghei.exception.NoUserLoggedInException;
 import se.kth.iv1201.boblaghei.repository.PersonRepository;
 import se.kth.iv1201.boblaghei.repository.UserRepository;

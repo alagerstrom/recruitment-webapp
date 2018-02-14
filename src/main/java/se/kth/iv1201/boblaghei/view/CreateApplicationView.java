@@ -66,12 +66,12 @@ public class CreateApplicationView extends AbstractApplicationView {
      */
     @PostMapping("/submit-application")
     public String submitApplication(Model model) {
-        try {
-            createApplicationService.createApplicationForCurrentUser(selectedCompetences, availabilities);
-        } catch (NoUserLoggedInException e) {
-            errorLogger.log(e.getMessage());
-            e.printStackTrace();
-        }
+//        try {
+//            createApplicationService.createApplicationForCurrentUser(selectedCompetences, availabilities);
+//        } catch (NoUserLoggedInException e) {
+//            errorLogger.log(e.getMessage());
+//            e.printStackTrace();
+//        }
         return "redirect:/";
     }
 }
