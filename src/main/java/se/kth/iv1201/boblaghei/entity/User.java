@@ -1,5 +1,6 @@
 package se.kth.iv1201.boblaghei.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -29,6 +30,7 @@ public class User implements UserDetails {
 
     @OneToOne
     @JoinColumn(name = "person_id")
+    @JsonIgnore
     private Person person;
 
     public User() {

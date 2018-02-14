@@ -31,17 +31,15 @@ public class CreateApplicationService {
 
     /**
      * createApplicationForCurrentUser
-     *
+     * <p>
      * Method to be used to create a new Application for the currently logged in user.
      *
-     * @param  A list of CompetenceProfileDTO that identifies the applicants different competences and
-     *                           years of experience, the id and application field does not need to be set.
-     * @param availalities     A list of AvailabilityDTO representing when the applicant is available.
-     *                           The id and application fields does not need to be set.
+     * @param newApplication The application to create
+     * @return The created Application
      * @throws NoUserLoggedInException If no user is currently logged in.
      */
     @Transactional
-    public void createApplicationForCurrentUser(Application newApplication) throws NoUserLoggedInException {
+    public Application createApplicationForCurrentUser(Application newApplication) throws NoUserLoggedInException {
         newApplication.getCompetenceProfiles().forEach(competenceProfile -> competenceProfile.setApplication(newApplication));
         newApplication.getAvailabilities().forEach(availability -> availability.setApplication(newApplication));
         Person getLoggedInPerson = securityService.getLoggedInPerson();
@@ -50,7 +48,7 @@ public class CreateApplicationService {
         newApplication.setPerson(getLoggedInPerson);
         newApplication.setStatus(status);
         newApplication.setCreated(date);
-        applicationRepository.save(newApplication);
+        return applicationRepository.save(newApplication);
     }
 
     /**
@@ -62,7 +60,7 @@ public class CreateApplicationService {
      */
 
     @Transactional
-    public Set<Competence> listAllCompetences(){
+    public Set<Competence> listAllCompetences() {
         Set<Competence> listOfCompetences = new HashSet<>();
         competenceRepository.findAll().forEach(listOfCompetences::add);
         return listOfCompetences;
