@@ -25,11 +25,10 @@ public class MainView {
      */
     @GetMapping("/")
     public String getWelcomeView(Model model) {
-
         try {
             Person person = securityService.getLoggedInPerson();
             model.addAttribute("person", person);
-        } catch (NoUserLoggedInException ignored) {
+        } catch (Exception ignored) {
         }
         return "index";
     }
