@@ -135,6 +135,10 @@
             alert("you need to set from and to dates");
             return
         }
+        if (fromDateInput.value > toDateInput.value) {
+            alert("From date can not be after to date");
+            return
+        }
 
         const newAvailability = {
             fromDate : fromDateInput.value,
