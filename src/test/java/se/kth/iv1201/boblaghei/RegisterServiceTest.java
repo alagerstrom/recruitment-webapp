@@ -11,6 +11,7 @@ import se.kth.iv1201.boblaghei.repository.PersonRepository;
 import se.kth.iv1201.boblaghei.repository.UserRepository;
 import se.kth.iv1201.boblaghei.service.RegisterService;
 import se.kth.iv1201.boblaghei.exception.DuplicateUsernameException;
+import se.kth.iv1201.boblaghei.service.SecurityService;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -53,6 +54,5 @@ public class RegisterServiceTest {
         registerService.register(firstRegistrant);
         assertThat(userRepository.getUserByUsername(firstRegistrant.getUser().getUsername()).getUsername())
                 .isEqualTo(firstUser.getUsername());
-        assertThat(firstUser.getPerson().getFirstName()).isEqualTo(firstRegistrant.getFirstName());
     }
 }
