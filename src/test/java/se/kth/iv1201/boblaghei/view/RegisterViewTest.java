@@ -1,5 +1,4 @@
 package se.kth.iv1201.boblaghei.view;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,10 +8,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import se.kth.iv1201.boblaghei.entity.Availability;
-
-import java.time.LocalDate;
-import java.util.Date;
+import se.kth.iv1201.boblaghei.entity.Person;
+import se.kth.iv1201.boblaghei.entity.User;
+import se.kth.iv1201.boblaghei.service.RegisterService;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -20,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class CreateApplicationViewTest {
+public class RegisterViewTest {
 
     @Autowired
     WebApplicationContext wac;
@@ -34,18 +32,20 @@ public class CreateApplicationViewTest {
     }
 
     @Test
-    public void testGetApplicationView() throws Exception {
-        this.mockMvc.perform(get("/apply"))
+    public void testGetRegisterView() throws Exception {
+        this.mockMvc.perform(get("/register"))
                 .andExpect(status().isOk())
-                .andExpect(model().attributeExists("competences"))
-                .andExpect(view().name("apply"));
+                .andExpect(model().attributeExists("person"))
+                .andExpect(view().name("register"));
     }
 
-//TODO add test when method is refactored with JS.
-//    @Test
-//    public void testPostSubmitApplication() throws Exception {
-//        this.mockMvc.perform(post("/apply/submit-application"))
-//                .andExpect(status().is3xxRedirection())
-//                .andExpect(redirectedUrl("/"));
-//    }
+    @Test
+    public void testPostRegistration() throws Exception {
+        User user = new User("testUN", "testPW", true);
+        Person person = new Person("test","test","123456789","test@test.test", user);
+
+        this.mockMvc.perform(post("/register").flashAttr("person", person))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/"));
+    }
 }

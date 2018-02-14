@@ -54,6 +54,6 @@ public class RegisterServiceTest {
         registerService.register(firstRegistrant);
         assertThat(userRepository.getUserByUsername(firstRegistrant.getUser().getUsername()).getUsername())
                 .isEqualTo(firstUser.getUsername());
-        assertThat(firstUser.getPerson().getFirstName()).isEqualTo(firstRegistrant.getFirstName());
+//        assertThat(userRepository.getUserByUsername(firstRegistrant.getUser().getUsername()))
     }
 }

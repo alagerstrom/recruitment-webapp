@@ -32,6 +32,7 @@ public class LogoutViewTest {
     @Test
     public void testLogout() throws Exception {
         this.mockMvc.perform(get("/logout"))
+                .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/login?logout"));
     }
 
