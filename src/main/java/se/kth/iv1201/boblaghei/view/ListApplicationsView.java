@@ -1,9 +1,12 @@
 package se.kth.iv1201.boblaghei.view;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import se.kth.iv1201.boblaghei.entity.Application;
+import se.kth.iv1201.boblaghei.service.CreateApplicationService;
+import se.kth.iv1201.boblaghei.service.ListApplicationService;
 import se.kth.iv1201.boblaghei.util.ApplicationSearchDTO;
 
 import java.util.List;
@@ -13,7 +16,13 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/recruiter/applications")
-public class ListApplicationsView extends AbstractApplicationView {
+public class ListApplicationsView  {
+
+    @Autowired
+    private CreateApplicationService createApplicationService;
+
+    @Autowired
+    private ListApplicationService listApplicationService;
 
     /**
      * Invocated when a GET request is sent to "/recruiter/applications". Loads all competences from the database as well
@@ -23,9 +32,7 @@ public class ListApplicationsView extends AbstractApplicationView {
      */
     @GetMapping
     public String applicationView(Model model) {
-        availableCompetences = createApplicationService.listAllCompetences();
-        model.addAttribute("availableCompetences", availableCompetences);
-        model.addAttribute("selectedCompetences", selectedCompetences);
+        model.addAttribute("availableCompetences", createApplicationService.listAllCompetences());
         model.addAttribute("applicationSearchDto", new ApplicationSearchDTO());
         return "listApplications";
     }
