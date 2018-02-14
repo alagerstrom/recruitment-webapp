@@ -1,11 +1,11 @@
 package se.kth.iv1201.boblaghei.entity;
 
-import se.kth.iv1201.boblaghei.dto.CompetenceDTO;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.Objects;
 
 /**
  *  O/R Mapping of the table Competence in the database.
@@ -51,7 +51,18 @@ public class Competence {
                 '}';
     }
 
-    public CompetenceDTO getDTO() {
-        return new CompetenceDTO(id, getName());
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Competence that = (Competence) o;
+        return id == that.id &&
+                Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, name);
     }
 }

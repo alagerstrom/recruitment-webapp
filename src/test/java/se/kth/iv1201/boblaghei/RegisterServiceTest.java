@@ -5,9 +5,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import se.kth.iv1201.boblaghei.dto.PersonDTO;
-import se.kth.iv1201.boblaghei.dto.UserDTO;
-import se.kth.iv1201.boblaghei.exception.NoUserLoggedInException;
+import se.kth.iv1201.boblaghei.entity.Person;
+import se.kth.iv1201.boblaghei.entity.User;
 import se.kth.iv1201.boblaghei.repository.PersonRepository;
 import se.kth.iv1201.boblaghei.repository.UserRepository;
 import se.kth.iv1201.boblaghei.service.RegisterService;
@@ -31,31 +30,30 @@ public class RegisterServiceTest {
 
     @Test(expected = DuplicateUsernameException.class)
     public void testDuplicateUsername() throws DuplicateUsernameException {
-        UserDTO firstUser = new UserDTO("kalle", "kula", true);
-        PersonDTO firstRegistrant =
-                new PersonDTO("kalle", "kula",
+        User firstUser = new User("kalle", "kula", true);
+        Person firstRegistrant =
+                new Person("kalle", "kula",
                         "12345", "e@e.e", firstUser
                 );
-        UserDTO secondUser = new UserDTO("kalle", "kula", true);
-        PersonDTO secondRegistrant =
-                new PersonDTO("hubert", "Nilsson",
+        User secondUser = new User("kalle", "kula", true);
+        Person secondRegistrant =
+                new Person("hubert", "Nilsson",
                         "12345", "e@e.e", secondUser
                 );
         registerService.register(firstRegistrant);
-         registerService.register(secondRegistrant);
+        registerService.register(secondRegistrant);
     }
 
     @Test
     public void testRegistrationSuccessful() throws DuplicateUsernameException {
-        UserDTO firstUser = new UserDTO("maja", "skunk", true);
-        PersonDTO firstRegistrant =
-                new PersonDTO("kalle", "kula",
+        User firstUser = new User("maja", "skunk", true);
+        Person firstRegistrant =
+                new Person("kalle", "kula",
                         "12345", "e@e.e", firstUser
                 );
         registerService.register(firstRegistrant);
         assertThat(userRepository.getUserByUsername(firstRegistrant.getUser().getUsername()).getUsername())
                 .isEqualTo(firstUser.getUsername());
-        assertThat(personRepository.getPersonByUser(firstUser.getEntity()).getFirstName()).isEqualTo(firstRegistrant.getFirstName());
+        assertThat(firstUser.getPerson().getFirstName()).isEqualTo(firstRegistrant.getFirstName());
     }
-
 }
