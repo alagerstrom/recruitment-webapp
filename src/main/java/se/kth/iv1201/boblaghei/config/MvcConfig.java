@@ -26,6 +26,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         registry.addViewController("/login").setViewName("login");
         registry.addViewController("/error").setViewName("error");
         registry.addViewController("/forbidden").setViewName("forbidden");
+        registry.addViewController("/sign_out").setViewName("logout");
     }
 
     @Bean

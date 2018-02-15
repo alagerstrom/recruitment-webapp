@@ -5,14 +5,14 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <h1 th:text="#{sign-in}"></h1>
+            <h1 th:text="#{sign_in}"></h1>
             <p th:if="${param.error}" th:text="#{invalid_credentials}">
 
             </p>
             <p th:if="${param.logout}" th:text="#{logged_out}">
 
             </p>
-            <form th:action="@{/login}" method="post">
+            <form onsubmit="login()" method="post">
 
                 <div class="form-group text-right" th:text="#{not_registered}">
                      <a th:href="@{/register}" th:text="#{register}"></a>
@@ -37,5 +37,36 @@
 
 </div>
 
+<script>
+
+    function login() {
+
+        var user = {
+            username: document.getElementById("username").value,
+            password: document.getElementById("password").value,
+        };
+
+        const xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4){
+                if (this.status == 200){
+                    var token = xhttp.getResponseHeader("Authorization")
+                    document.cookie = "Authorization=" + token;
+                    window.location.replace("/");
+                }else{
+                    alert("Wrong username or password");
+                    console.log("Response status: " + xhttp.status);
+                    console.log(xhttp.response);
+                }
+            }
+        };
+        xhttp.open("POST", "/api/users/login", true);
+        xhttp.send(JSON.stringify(user));
+
+        return false;
+    }
+</script>
+
 </body>
 </html>
+

@@ -16,7 +16,6 @@ import se.kth.iv1201.boblaghei.service.SecurityService;
  * Configuration of authorization by authentication via Spring Security.
  */
 @Configuration
-@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -42,9 +41,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login").failureUrl("/login?error")
-                .permitAll()
-                .and()
-                .logout().logoutSuccessUrl("/login?logout")
                 .permitAll()
                 .and().exceptionHandling().accessDeniedPage("/forbidden");
     }

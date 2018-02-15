@@ -16,11 +16,11 @@
                 <li class="nav-item" sec:authorize="hasRole('ROLE_APPLICANT')">
                     <a class="nav-link" th:href="@{/apply}" th:text="#{create_application}"></a>
                 </li>
-                <li class="nav-item" sec:authorize="hasRole('ROLE_RECRUITER')">
+                <li class="nav-item" sec:authorize="hasAuthority('ROLE_RECRUITER')">
                     <a class="nav-link" th:href="@{/recruiter/applications}" th:text="#{view_all_applications}"></a>
                 </li>
                 <li class="nav-item" sec:authorize="isAuthenticated()">
-                    <a class="nav-link" th:href="@{/logout}" th:text="#{sign_out}"></a>
+                    <a class="nav-link" th:href="@{/sign_out}" th:text="#{sign_out}"></a>
                 </li>
                 <li class="nav-item" sec:authorize="isAnonymous()">
                     <a class="nav-link" th:href="@{/login}" th:text="#{sign_in}"></a>
