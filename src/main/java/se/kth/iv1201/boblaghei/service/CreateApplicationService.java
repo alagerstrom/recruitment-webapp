@@ -5,10 +5,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import se.kth.iv1201.boblaghei.entity.*;
 import se.kth.iv1201.boblaghei.exception.NoUserLoggedInException;
+import se.kth.iv1201.boblaghei.exception.ResourceNotFoundException;
 import se.kth.iv1201.boblaghei.repository.*;
 import se.kth.iv1201.boblaghei.util.Constants;
+import se.kth.iv1201.boblaghei.util.PdfGenerator;
 
-import java.util.*;
+import java.io.ByteArrayInputStream;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * CreateApplicationService
@@ -31,7 +36,7 @@ public class CreateApplicationService {
 
     /**
      * createApplicationForCurrentUser
-     *
+     * <p>
      * Method to be used to create a new Application for the currently logged in user.
      *
      * @param newApplication, the new application to be saved
@@ -59,7 +64,7 @@ public class CreateApplicationService {
      */
 
     @Transactional
-    public Set<Competence> listAllCompetences(){
+    public Set<Competence> listAllCompetences() {
         Set<Competence> listOfCompetences = new HashSet<>();
         competenceRepository.findAll().forEach(listOfCompetences::add);
         return listOfCompetences;
@@ -78,5 +83,12 @@ public class CreateApplicationService {
             statusRepository.save(status);
         }
         return status;
+    }
+
+    public ByteArrayInputStream generatePdfFor(long applicationId) {
+        Application application = applicationRepository.findOne(applicationId);
+        if (application == null)
+            throw new ResourceNotFoundException("Application with id " + applicationId + " does noe exist");
+        return PdfGenerator.generateApplicationPdf(application);
     }
 }

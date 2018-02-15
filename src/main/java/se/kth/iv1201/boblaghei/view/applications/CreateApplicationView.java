@@ -1,4 +1,4 @@
-package se.kth.iv1201.boblaghei.view;
+package se.kth.iv1201.boblaghei.view.applications;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

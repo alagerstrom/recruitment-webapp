@@ -1,6 +1,10 @@
-package se.kth.iv1201.boblaghei.view;
+package se.kth.iv1201.boblaghei.view.applications;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +13,7 @@ import se.kth.iv1201.boblaghei.service.CreateApplicationService;
 import se.kth.iv1201.boblaghei.service.ListApplicationService;
 import se.kth.iv1201.boblaghei.util.ApplicationSearchDTO;
 
+import java.io.ByteArrayInputStream;
 import java.util.List;
 
 /**
@@ -65,5 +70,13 @@ public class ListApplicationsView  {
         Application application = listApplicationService.findApplicationById(id);
         model.addAttribute("singleApplication", application);
         return "singleApplication";
+    }
+
+    @GetMapping(value = "/{id}/pdf", produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<InputStreamResource> getApplicationAsPDF(@PathVariable("id") long applicationId){
+        ByteArrayInputStream bis = createApplicationService.generatePdfFor(applicationId);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("Content-disposition", "inline: filename=application.pdf");
+        return ResponseEntity.ok().headers(httpHeaders).contentType(MediaType.APPLICATION_PDF).body(new InputStreamResource(bis));
     }
 }

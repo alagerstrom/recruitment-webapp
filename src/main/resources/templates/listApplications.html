@@ -24,8 +24,8 @@
                         <td scope="row" th:text="${app.getPerson().getFirstName()}"></td>
                         <td th:text="${app.getPerson().getLastName()}"></td>
                         <td th:text="${app.getCreated()}"></td>
-                        <td><a th:text="#{view}"
-                               th:href="@{/recruiter/applications/{path}(path=${app.id})}"></a></td>
+                        <td><a th:text="#{view}" th:href="@{/recruiter/applications/{path}(path=${app.id})}"></a></td>
+                        <td><a th:text="#{download_pdf}" th:href="@{/recruiter/applications/{id}/pdf (id=${app.id})}"></a></td>
                     </tr>
                 </th:block>
                 </tbody>
