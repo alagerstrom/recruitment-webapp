@@ -24,9 +24,15 @@ public class NavbarTest {
 
     private String base;
 
+    //TODO Remove this duplicated code by moving it out from specific tests and running the same code in all tests.
     @Before
     public void setup() {
-        System.setProperty("webdriver.chrome.driver", "chromedriver");
+        String osName = System.getProperty("os.name");
+        if(osName.equals("Linux")) {
+            System.setProperty("webdriver.chrome.driver", "chromedriverLinux");
+        } else {
+            System.setProperty("webdriver.chrome.driver", "chromedriverMac");
+        }
         driver = new ChromeDriver();
         this.base = "http://localhost:" + port;
         System.out.println(port);

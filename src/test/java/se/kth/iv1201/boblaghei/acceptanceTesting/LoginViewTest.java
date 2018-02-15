@@ -28,7 +28,12 @@ public class LoginViewTest {
 
     @Before
     public void setup() {
-        System.setProperty("webdriver.chrome.driver", "chromedriver");
+        String osName = System.getProperty("os.name");
+        if(osName.equals("Linux")) {
+            System.setProperty("webdriver.chrome.driver", "chromedriverLinux");
+        } else {
+            System.setProperty("webdriver.chrome.driver", "chromedriverMac");
+        }
         driver = new ChromeDriver();
         this.base = "http://localhost:" + port;
         System.out.println(port);
