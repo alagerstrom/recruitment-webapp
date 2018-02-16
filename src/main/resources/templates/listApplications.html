@@ -1,4 +1,5 @@
 <!DOCTYPE HTML>
+<!--suppress CheckTagEmptyBody -->
 <html xmlns:th="http://www.thymeleaf.org" th:replace="fragments/layout :: page(~{::body})">
 <body>
 
@@ -23,8 +24,8 @@
                         <td scope="row" th:text="${app.getPerson().getFirstName()}"></td>
                         <td th:text="${app.getPerson().getLastName()}"></td>
                         <td th:text="${app.getCreated()}"></td>
-                        <td><a th:text="#{view}"
-                               th:href="@{/recruiter/applications/{path}(path=${app.id})}"></a></td>
+                        <td><a th:text="#{view}" th:href="@{/recruiter/applications/{path}(path=${app.id})}"></a></td>
+                        <td><a th:text="#{download_pdf}" th:href="@{/recruiter/applications/{id}/pdf (id=${app.id})}"></a></td>
                     </tr>
                 </th:block>
                 </tbody>
@@ -32,7 +33,7 @@
 
             <h2 th:text="#{search_terms}"></h2>
 
-            <form th:action="@{/recruiter/applications}" method="post" th:object="${applicationSearchDto}">
+            <form id="searchForm" th:action="@{/recruiter/applications}" method="post" th:object="${applicationSearchDto}" onsubmit="return validateForm()">
 
                 <div class="form-group">
                     <label for="selectCompetence">Select competence</label>
@@ -72,14 +73,14 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="from" th:text="#{available_from}"></label>
-                            <input class="form-control" id="from" type="date" name="from" th:field="*{availableFrom}"/>
+                            <label for="fromDate" th:text="#{available_from}"></label>
+                            <input class="form-control" id="fromDate" type="date" th:field="*{availableFrom}"/>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="to" th:text="#{available_to}"></label>
-                            <input class="form-control" id="to" type="date" name="to" th:field="*{availableTo}"/>
+                            <label for="toDate" th:text="#{available_to}"></label>
+                            <input class="form-control" id="toDate" type="date" th:field="*{availableTo}"/>
                         </div>
                     </div>
                 </div>
@@ -92,6 +93,20 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
 
+    function validateForm() {
+        const form = document.getElementById('searchForm');
+        const fromDate = form.fromDate.value;
+        const toDate = form.toDate.value;
+        if (fromDate && toDate) {
+            if (fromDate >= toDate) {
+                alert("From date can not be after to date");
+                return fromDate <= toDate;
+            }
+        }
+        return true
+    }
+</script>
 </body>
 </html>
