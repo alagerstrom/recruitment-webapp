@@ -1,7 +1,7 @@
 package se.kth.iv1201.boblaghei.exception;
 
 /**
- * Exception thrown when a resource is searched for but not found.
+ * Exception thrown when a rest is searched for but not found.
  */
 public class ResourceNotFoundException extends RuntimeException {
 

@@ -1,4 +1,4 @@
-package se.kth.iv1201.boblaghei.util;
+package se.kth.iv1201.boblaghei.dto;
 
 import org.springframework.format.annotation.DateTimeFormat;
 

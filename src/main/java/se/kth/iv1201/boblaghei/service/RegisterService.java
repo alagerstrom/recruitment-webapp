@@ -4,10 +4,15 @@ import groovy.util.logging.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import se.kth.iv1201.boblaghei.entity.Person;
+import se.kth.iv1201.boblaghei.entity.Role;
 import se.kth.iv1201.boblaghei.exception.DuplicateUsernameException;
 import se.kth.iv1201.boblaghei.repository.PersonRepository;
 import se.kth.iv1201.boblaghei.repository.UserRepository;
 import se.kth.iv1201.boblaghei.util.logger.SecurityLogger;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Service containing business logic for handling registrations.
@@ -38,6 +43,10 @@ public class RegisterService {
             securityLogger.log("Tried registering the username " + person.getUser().getUsername() + " that is already in use.");
             throw new DuplicateUsernameException("Username is already in use, please choose another one.");
         }
+        Set<Role> roles = new HashSet<>();
+        roles.add(Role.ROLE_APPLICANT);
+        person.getUser().setRoles(roles);
+        person.getUser().setEnabled(true);
         personRepository.save(person);
     }
 }

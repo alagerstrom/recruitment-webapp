@@ -11,7 +11,7 @@ import se.kth.iv1201.boblaghei.entity.Application;
 import se.kth.iv1201.boblaghei.exception.ResourceNotFoundException;
 import se.kth.iv1201.boblaghei.repository.ApplicationRepository;
 import se.kth.iv1201.boblaghei.repository.CompetenceProfileRepository;
-import se.kth.iv1201.boblaghei.util.ApplicationSearchDTO;
+import se.kth.iv1201.boblaghei.dto.ApplicationSearchDTO;
 
 import javax.persistence.EntityManager;
 import java.util.List;

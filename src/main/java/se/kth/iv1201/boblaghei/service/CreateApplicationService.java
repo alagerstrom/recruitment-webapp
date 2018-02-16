@@ -40,10 +40,11 @@ public class CreateApplicationService {
      * Method to be used to create a new Application for the currently logged in user.
      *
      * @param newApplication, the new application to be saved
+     * @return The created Application
      * @throws NoUserLoggedInException If no user is currently logged in.
      */
     @Transactional
-    public void createApplicationForCurrentUser(Application newApplication) throws NoUserLoggedInException {
+    public Application createApplicationForCurrentUser(Application newApplication) throws NoUserLoggedInException {
         newApplication.getCompetenceProfiles().forEach(competenceProfile -> competenceProfile.setApplication(newApplication));
         newApplication.getAvailabilities().forEach(availability -> availability.setApplication(newApplication));
         Person getLoggedInPerson = securityService.getLoggedInPerson();
@@ -52,7 +53,7 @@ public class CreateApplicationService {
         newApplication.setPerson(getLoggedInPerson);
         newApplication.setStatus(status);
         newApplication.setCreated(date);
-        applicationRepository.save(newApplication);
+        return applicationRepository.save(newApplication);
     }
 
     /**
