@@ -1,24 +1,15 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
       th:replace="fragments/layout :: page(~{::body})">
 <body>
-<div class="container">
-    <div class="row">
-        <div class="col-md-3 col-md-offset-5">
-            <h2 th:text="#{welcome}"></h2>
-            <th:block th:if="${person}">
-                <p th:text="${person.firstName} + ' ' + ${person.lastName}"></p>
-            </th:block>
-            <div th:unless="${person}">
-                <p>
-                    <a th:href="@{/login}" th:text="#{login}"></a>
-                </p>
-                <p>
-                    <a th:href="@{/register}" th:text="#{register}"></a>
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
+<th:block sec:authorize="isAuthenticated()">
+    <script sec:authorize="hasRole('ROLE_RECRUITER')">
+        window.location.replace("/recruiter/applications");
+    </script>
+    <script sec:authorize="hasRole('ROLE_APPLICANT')">
+        window.location.replace("/apply");
+    </script>
+</th:block>
 </body>
 </html>

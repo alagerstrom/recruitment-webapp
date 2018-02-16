@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import se.kth.iv1201.boblaghei.entity.Application;
 import se.kth.iv1201.boblaghei.service.CreateApplicationService;
 import se.kth.iv1201.boblaghei.service.ListApplicationService;
-import se.kth.iv1201.boblaghei.util.ApplicationSearchDTO;
+import se.kth.iv1201.boblaghei.dto.ApplicationSearchDTO;
 
 import java.io.ByteArrayInputStream;
 import java.util.List;

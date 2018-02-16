@@ -7,7 +7,7 @@ import se.kth.iv1201.boblaghei.exception.NoUserLoggedInException;
 import se.kth.iv1201.boblaghei.rest.util.HttpPath;
 import se.kth.iv1201.boblaghei.service.CreateApplicationService;
 import se.kth.iv1201.boblaghei.service.ListApplicationService;
-import se.kth.iv1201.boblaghei.util.ApplicationSearchDTO;
+import se.kth.iv1201.boblaghei.dto.ApplicationSearchDTO;
 
 import java.util.List;
 

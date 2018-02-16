@@ -9,7 +9,7 @@
             <form th:action="@{/register}" th:object="${person}" method="post">
 
                 <div class="form-group text-right">
-                    Already registered? <a th:href="@{/login}" th:text="#{sign_in}"></a>
+                    <div th:text="#{already_registered}"></div> <a th:href="@{/login}" th:text="#{sign_in}"></a>
                 </div>
 
                 <div class="form-group">

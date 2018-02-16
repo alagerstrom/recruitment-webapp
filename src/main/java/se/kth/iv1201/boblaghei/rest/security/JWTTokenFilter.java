@@ -1,5 +1,6 @@
 package se.kth.iv1201.boblaghei.rest.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -13,12 +14,18 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 @Component
-public class JWTAuthenticationFilter extends GenericFilterBean {
+public class JWTTokenFilter extends GenericFilterBean {
+
+    @Autowired
+    TokenService tokenService;
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        Authentication authentication = new TokenAuthenticationService().getAuthentication((HttpServletRequest) servletRequest);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String token = tokenService.resolveToken((HttpServletRequest) servletRequest);
+        if (token != null && tokenService.isValidToken(token)){
+            Authentication authentication = tokenService.getAuthentication(token);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+        }
         filterChain.doFilter(servletRequest, servletResponse);
     }
 }

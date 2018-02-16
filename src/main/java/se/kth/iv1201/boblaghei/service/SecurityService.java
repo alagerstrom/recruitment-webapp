@@ -1,17 +1,22 @@
 package se.kth.iv1201.boblaghei.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import se.kth.iv1201.boblaghei.dto.LoginRequest;
+import se.kth.iv1201.boblaghei.dto.LoginResponse;
 import se.kth.iv1201.boblaghei.entity.Person;
 import se.kth.iv1201.boblaghei.entity.User;
 import se.kth.iv1201.boblaghei.exception.NoUserLoggedInException;
 import se.kth.iv1201.boblaghei.repository.PersonRepository;
 import se.kth.iv1201.boblaghei.repository.UserRepository;
+import se.kth.iv1201.boblaghei.rest.security.TokenService;
 
 /**
  * Service containing business logic needed for utilizing Spring Security.
@@ -25,13 +30,19 @@ public class SecurityService implements UserDetailsService {
     @Autowired
     PersonRepository personRepository;
 
+    @Autowired
+    AuthenticationManager authenticationManager;
+
+    @Autowired
+    TokenService tokenService;
+
 
     /**
      * @param username
      * @return
      * @throws UsernameNotFoundException
      */
-    @Transactional(readOnly = true)
+//    @Transactional(readOnly = true)
     @Override
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
         User user = userRepository.findOne(username);
@@ -53,6 +64,20 @@ public class SecurityService implements UserDetailsService {
             return ((User) principal).getPerson();
         }
         throw new NoUserLoggedInException("User is not logged in");
+    }
+
+    public LoginResponse login(LoginRequest loginRequest){
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+            User user = userRepository.getUserByUsername(loginRequest.getUsername());
+            String token = tokenService.createToken(user);
+            LoginResponse loginResponse = new LoginResponse();
+            loginResponse.setToken(token);
+            return loginResponse;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

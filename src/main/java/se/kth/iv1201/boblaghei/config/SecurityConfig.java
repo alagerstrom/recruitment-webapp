@@ -1,16 +1,15 @@
 package se.kth.iv1201.boblaghei.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import se.kth.iv1201.boblaghei.rest.security.JWTAuthenticationFilter;
-import se.kth.iv1201.boblaghei.rest.security.JWTLoginFilter;
-import se.kth.iv1201.boblaghei.service.SecurityService;
+import se.kth.iv1201.boblaghei.rest.security.JWTTokenFilter;
 
 /**
  * Configuration of authorization by authentication via Spring Security.
@@ -19,7 +18,7 @@ import se.kth.iv1201.boblaghei.service.SecurityService;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    SecurityService securityService;
+    private JWTTokenFilter jwtTokenFilter;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -29,19 +28,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST,"/api/users/login").permitAll()
                 .antMatchers(HttpMethod.POST,"/api/users/register").permitAll()
-                .and().addFilterBefore(new JWTLoginFilter("/api/users/login", authenticationManager()), UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-                .authorizeRequests()
                 .antMatchers("/recruiter/**")
                 .access("hasRole('ROLE_RECRUITER')")
                 .antMatchers("/register").permitAll()
-                .antMatchers("/").permitAll()
-                .anyRequest()
-                .authenticated()
-                .and()
+                .anyRequest().authenticated()
+                .and().addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .formLogin()
                 .loginPage("/login").failureUrl("/login?error")
                 .permitAll()
+                .and().logout().logoutSuccessUrl("/login?logout").permitAll()
                 .and().exceptionHandling().accessDeniedPage("/forbidden");
     }
 

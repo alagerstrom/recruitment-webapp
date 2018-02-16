@@ -1,20 +1,17 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="fragments/layout :: page(~{::body})">
 <head>
     <title>Empty Title</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
 
-
 <script>
-    function deleteCookie(name) {
-        document.cookie = name + '=' + "";
-    }
-
     function logout() {
-        deleteCookie("Authorization");
-        window.location.replace("/");
+        const name = "Authorization";
+        document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        window.location.replace("/logout");
     }
     logout()
 </script>
