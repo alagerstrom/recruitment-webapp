@@ -1,4 +1,4 @@
-package se.kth.iv1201.boblaghei.rest.security;
+package se.kth.iv1201.boblaghei.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

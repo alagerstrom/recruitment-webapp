@@ -1,4 +1,4 @@
-package se.kth.iv1201.boblaghei.rest.util;
+package se.kth.iv1201.boblaghei.util;
 
 public class HttpPath {
     public static final String BASE_PATH = "/api";

@@ -8,7 +8,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import se.kth.iv1201.boblaghei.dto.LoginRequest;
 import se.kth.iv1201.boblaghei.dto.LoginResponse;
 import se.kth.iv1201.boblaghei.entity.Person;
@@ -16,7 +15,7 @@ import se.kth.iv1201.boblaghei.entity.User;
 import se.kth.iv1201.boblaghei.exception.NoUserLoggedInException;
 import se.kth.iv1201.boblaghei.repository.PersonRepository;
 import se.kth.iv1201.boblaghei.repository.UserRepository;
-import se.kth.iv1201.boblaghei.rest.security.TokenService;
+import se.kth.iv1201.boblaghei.security.TokenService;
 
 /**
  * Service containing business logic needed for utilizing Spring Security.
