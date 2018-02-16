@@ -6,12 +6,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static se.kth.iv1201.boblaghei.testUtility.driverSetup.setupBaseURI;
+import static se.kth.iv1201.boblaghei.testUtility.driverSetup.setupDriver;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -24,18 +25,10 @@ public class NavbarTest {
 
     private String base;
 
-    //TODO Remove this duplicated code by moving it out from specific tests and running the same code in all tests.
     @Before
     public void setup() {
-        String osName = System.getProperty("os.name");
-        if(osName.equals("Linux")) {
-            System.setProperty("webdriver.chrome.driver", "chromedriverLinux");
-        } else {
-            System.setProperty("webdriver.chrome.driver", "chromedriverMac");
-        }
-        driver = new ChromeDriver();
-        this.base = "http://localhost:" + port;
-        System.out.println(port);
+        driver = setupDriver();
+        base = setupBaseURI(port);
     }
 
     @Test
