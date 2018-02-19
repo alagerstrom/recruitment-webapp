@@ -71,7 +71,7 @@ public class SecurityService implements UserDetailsService {
      * @return The PersonDTO representing the currently logged in user, without password
      */
     public Person getLoggedInPerson() throws NoUserLoggedInException {
-
+        System.out.println("Getting logged in person...");
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof User) {
             return ((User) principal).getPerson();

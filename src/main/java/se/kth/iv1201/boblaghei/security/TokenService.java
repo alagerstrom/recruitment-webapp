@@ -32,8 +32,8 @@ public class TokenService {
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
-        UserDetails userDetails = userRepository.getUserByUsername(username);
-        return new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities());
+        User user = userRepository.getUserByUsername(username);
+        return new UsernamePasswordAuthenticationToken(user, user.getPassword(), user.getAuthorities());
     }
 
     public String createToken(User user) {

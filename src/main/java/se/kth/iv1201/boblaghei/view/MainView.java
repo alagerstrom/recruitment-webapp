@@ -28,7 +28,9 @@ public class MainView {
         try {
             Person person = securityService.getLoggedInPerson();
             model.addAttribute("person", person);
+            System.out.println(person);
         } catch (Exception ignored) {
+            System.out.println("No user logged in");
         }
         return "index";
     }
