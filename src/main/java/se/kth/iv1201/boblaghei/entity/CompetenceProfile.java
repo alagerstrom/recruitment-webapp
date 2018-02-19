@@ -1,5 +1,7 @@
 package se.kth.iv1201.boblaghei.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -17,6 +19,7 @@ public class CompetenceProfile {
     private double yearsOfExperience;
 
     @ManyToOne
+    @JsonIgnore
     private Application application;
 
     @ManyToOne
