@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import se.kth.iv1201.boblaghei.entity.Application;
 import se.kth.iv1201.boblaghei.exception.ResourceNotFoundException;
 import se.kth.iv1201.boblaghei.repository.ApplicationRepository;
-import se.kth.iv1201.boblaghei.repository.CompetenceProfileRepository;
 import se.kth.iv1201.boblaghei.dto.ApplicationSearchDTO;
 
 import javax.persistence.EntityManager;
@@ -24,9 +23,6 @@ public class ListApplicationService {
 
     @Autowired
     private ApplicationRepository applicationRepository;
-
-    @Autowired
-    private CompetenceProfileRepository competenceProfileRepository;
 
     @Autowired
     private EntityManager entityManager;

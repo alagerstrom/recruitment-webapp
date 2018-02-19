@@ -92,7 +92,7 @@
         </div>
     </div>
 </div>
-<script>
+<script th:inline="javascript">
 
     const application = {
         competenceProfiles: [],
@@ -159,9 +159,19 @@
         xhr.onreadystatechange = function() {
             if (this.readyState === 4) {
                 if (this.status === 200) {
-                    alert("Submitted")
+                    /*<![CDATA[*/
+
+                    var message = /*[[#{application_submit_success}]]*/ 'default';
+                    alert(message);
+
+                    /*]]>*/
                 }else{
-                    alert("Error")
+                    /*<![CDATA[*/
+
+                    var message = /*[[#{application_submit_fail}]]*/ 'default';
+                    alert(message);
+
+                    /*]]>*/
                 }
             }
         };

@@ -25,16 +25,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST,"/api/users/login").permitAll()
                 .antMatchers(HttpMethod.POST,"/api/users/register").permitAll()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/").permitAll()
                 .antMatchers("/recruiter/**")
                 .access("hasRole('ROLE_RECRUITER')")
                 .antMatchers("/register").permitAll()
                 .anyRequest().authenticated()
                 .and().addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
-                .formLogin()
-                .loginPage("/login").failureUrl("/login?error")
-                .permitAll()
-                .and().logout().logoutSuccessUrl("/login?logout").permitAll()
-                .and().exceptionHandling().accessDeniedPage("/forbidden");
+                .exceptionHandling().accessDeniedPage("/forbidden");
     }
 
 }
