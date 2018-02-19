@@ -30,11 +30,7 @@ public class UserResource {
     }
 
     @PostMapping(HttpPath.LOGIN_PATH)
-    public LoginResponse login(@RequestBody User user){
-        System.out.println(user);
-        LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setUsername(user.getUsername());
-        loginRequest.setPassword(user.getPassword());
-        return securityService.login(loginRequest);
+    public LoginResponse login(@RequestBody LoginRequest request){
+        return securityService.login(request);
     }
 }
