@@ -10,8 +10,7 @@ import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import static org.assertj.core.api.Assertions.*;
-import static se.kth.iv1201.boblaghei.testUtility.driverSetup.setupBaseURI;
-import static se.kth.iv1201.boblaghei.testUtility.driverSetup.setupDriver;
+import static se.kth.iv1201.boblaghei.testUtility.testUtility.*;
 
 
 @RunWith(SpringRunner.class)
@@ -39,10 +38,7 @@ public class LoginViewTest {
 
     @Test
     public void testLogin() {
-        driver.get(base + "/login");
-        driver.findElement(By.id("username")).sendKeys("admin");
-        driver.findElement(By.id("password")).sendKeys("admin");
-        driver.findElement(By.id("submitLogin")).click();
+        loginAdmin(driver, base);
         assertThat(driver.getCurrentUrl()).isEqualToIgnoringCase(base + "/");
     }
 
@@ -50,10 +46,7 @@ public class LoginViewTest {
     public void testLoginWrongCredentials() {
         String loginURL = base + "/login";
         String faultyLoginURL = loginURL + "?error";
-        driver.get(loginURL);
-        driver.findElement(By.id("username")).sendKeys("thisUNdoesnotexist");
-        driver.findElement(By.id("password")).sendKeys("thisPWdoesnotexist");
-        driver.findElement(By.id("submitLogin")).click();
+        loginFaultyCredentials(driver, base);
         assertThat(driver.getCurrentUrl()).isEqualToIgnoringCase(faultyLoginURL);
     }
 
