@@ -13,7 +13,7 @@
             <p th:if="${param.logout}" th:text="#{logged_out}">
 
             </p>
-            <form onsubmit="login()" method="post">
+            <form method="post" id="login_form">
 
                 <div class="form-group text-right">
                     <div th:text="#{not_registered}"></div>
@@ -57,7 +57,6 @@
                     document.cookie = "Authorization=" + loginResponse.token;
                     window.location.replace("/");
                 } else {
-                    alert("Wrong username or password");
                     console.log("Response status: " + xhttp.status);
                     console.log(xhttp.response);
                 }
@@ -66,8 +65,12 @@
         xhttp.open("POST", "/api/users/login", true);
         xhttp.setRequestHeader('Content-Type', 'application/json');
         xhttp.send(JSON.stringify(user));
+    }
 
-        return false;
+    document.getElementById("login_form").onsubmit = function (ev) {
+        console.log("Should submit");
+        ev.preventDefault();
+        login();
     }
 </script>
 
