@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.*;
 public class RegisterServiceTest {
 
     @Autowired
-    RegisterService registerService;
+    SecurityService securityService;
 
     @Autowired
     PersonRepository personRepository;
@@ -38,8 +38,8 @@ public class RegisterServiceTest {
                 new Person("hubert", "Nilsson",
                         "12345", "e@e.e", secondUser
                 );
-        registerService.register(firstRegistrant);
-        registerService.register(secondRegistrant);
+        securityService.register(firstRegistrant);
+        securityService.register(secondRegistrant);
     }
 
     @Test
@@ -49,7 +49,7 @@ public class RegisterServiceTest {
                 new Person("kalle", "kula",
                         "12345", "e@e.e", firstUser
                 );
-        registerService.register(firstRegistrant);
+        securityService.register(firstRegistrant);
         assertThat(userRepository.getUserByUsername(firstRegistrant.getUser().getUsername()).getUsername())
                 .isEqualTo(firstUser.getUsername());
     }

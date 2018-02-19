@@ -8,10 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 import se.kth.iv1201.boblaghei.dto.LoginRequest;
 import se.kth.iv1201.boblaghei.dto.LoginResponse;
 import se.kth.iv1201.boblaghei.entity.Person;
-import se.kth.iv1201.boblaghei.entity.User;
 import se.kth.iv1201.boblaghei.exception.DuplicateUsernameException;
 import se.kth.iv1201.boblaghei.util.HttpPath;
-import se.kth.iv1201.boblaghei.service.RegisterService;
 import se.kth.iv1201.boblaghei.service.SecurityService;
 
 @RestController
@@ -19,14 +17,11 @@ import se.kth.iv1201.boblaghei.service.SecurityService;
 public class UserResource {
 
     @Autowired
-    RegisterService registerService;
-
-    @Autowired
     SecurityService securityService;
 
     @PostMapping(HttpPath.REGISTER_PATH)
-    public void register(@RequestBody Person person) throws DuplicateUsernameException {
-        registerService.register(person);
+    public LoginResponse register(@RequestBody Person person) throws DuplicateUsernameException {
+        return securityService.register(person);
     }
 
     @PostMapping(HttpPath.LOGIN_PATH)

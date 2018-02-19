@@ -1,5 +1,6 @@
 package se.kth.iv1201.boblaghei.service;
 
+import groovy.util.logging.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -8,14 +9,21 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import se.kth.iv1201.boblaghei.dto.LoginRequest;
 import se.kth.iv1201.boblaghei.dto.LoginResponse;
 import se.kth.iv1201.boblaghei.entity.Person;
+import se.kth.iv1201.boblaghei.entity.Role;
 import se.kth.iv1201.boblaghei.entity.User;
+import se.kth.iv1201.boblaghei.exception.DuplicateUsernameException;
 import se.kth.iv1201.boblaghei.exception.NoUserLoggedInException;
 import se.kth.iv1201.boblaghei.repository.PersonRepository;
 import se.kth.iv1201.boblaghei.repository.UserRepository;
 import se.kth.iv1201.boblaghei.security.TokenService;
+import se.kth.iv1201.boblaghei.util.logger.SecurityLogger;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Service containing business logic needed for utilizing Spring Security.
@@ -35,13 +43,19 @@ public class SecurityService implements UserDetailsService {
     @Autowired
     TokenService tokenService;
 
+    @Autowired
+    SecurityLogger securityLogger;
+
+
+
+
 
     /**
      * @param username
      * @return
      * @throws UsernameNotFoundException
      */
-//    @Transactional(readOnly = true)
+    @Transactional(readOnly = true)
     @Override
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
         User user = userRepository.findOne(username);
@@ -72,11 +86,35 @@ public class SecurityService implements UserDetailsService {
             String token = tokenService.createToken(user);
             LoginResponse loginResponse = new LoginResponse();
             loginResponse.setToken(token);
+            loginResponse.setPerson(user.getPerson());
             return loginResponse;
         }catch (Exception e){
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * Registers a new person, both as a person as well as a user.
+     *
+     * @param person entity containing data needed for registration.
+     * @throws DuplicateUsernameException if a user is registered with an already existing username.
+     */
+    public LoginResponse register(Person person) throws DuplicateUsernameException {
+        if (userRepository.findOne(person.getUser().getUsername()) != null) {
+            securityLogger.log("Tried registering the username " + person.getUser().getUsername() + " that is already in use.");
+            throw new DuplicateUsernameException("Username is already in use, please choose another one.");
+        }
+        Set<Role> roles = new HashSet<>();
+        roles.add(Role.ROLE_APPLICANT);
+        person.getUser().setRoles(roles);
+        person.getUser().setEnabled(true);
+        person.getUser().setPerson(person);
+        personRepository.save(person);
+        LoginResponse loginResponse = new LoginResponse();
+        loginResponse.setPerson(person);
+        loginResponse.setToken(tokenService.createToken(person.getUser()));
+        return loginResponse;
     }
 
 }
