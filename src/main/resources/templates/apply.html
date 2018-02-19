@@ -152,13 +152,18 @@
     
     function sendApplication() {
         const jsonString = JSON.stringify(application);
-        let url = "/apply/submit-application";
+        let url = "/api/applications";
         const xhr = new XMLHttpRequest();
         xhr.open('POST', url, true);
         xhr.setRequestHeader("Content-type", "application/json");
         xhr.onreadystatechange = function() {
-            console.log(xhr.status);
-            alert(xhr.status)
+            if (this.readyState === 4) {
+                if (this.status === 200) {
+                    alert("Submitted")
+                }else{
+                    alert("Error")
+                }
+            }
         };
         xhr.send(jsonString)
     }
