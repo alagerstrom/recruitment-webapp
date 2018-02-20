@@ -1,5 +1,6 @@
 package se.kth.iv1201.boblaghei.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -25,6 +26,7 @@ public class Availability {
     private Date toDate;
 
     @ManyToOne
+    @JsonIgnore
     private Application application;
 
     public Availability() {

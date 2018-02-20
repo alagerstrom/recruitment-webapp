@@ -36,30 +36,4 @@ public class CreateApplicationView {
         model.addAttribute("competences", createApplicationService.listAllCompetences());
         return "apply";
     }
-
-    /**
-     * Invocated when a POST-request is sent to "/add_availability". Creates a new <code>AvailabilityDTO</code> that is
-     * added to the list availabilities.
-     *
-     * @param model responsible for making data available in the view
-     * @param availability entity that represents when the applicant is available
-     * @return return-value of applicationView method, see @applicationView
-     */
-
-    /**
-     * Invocated when a POST-request is sent to "/submit-application". Creates an application based on the data the user
-     * has added and saves this application to the database by using <code>CreateApplicationService</code>
-     *
-     * @return redirects the user to the index.html page
-     */
-    @PostMapping("/submit-application")
-    public String submitApplication(@RequestBody Application application) {
-        try {
-            createApplicationService.createApplicationForCurrentUser(application);
-        } catch (NoUserLoggedInException e) {
-            errorLogger.log(e.getMessage());
-            e.printStackTrace();
-        }
-        return "redirect:/";
-    }
 }

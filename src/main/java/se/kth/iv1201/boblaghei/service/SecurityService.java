@@ -1,6 +1,5 @@
 package se.kth.iv1201.boblaghei.service;
 
-import groovy.util.logging.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -71,7 +70,6 @@ public class SecurityService implements UserDetailsService {
      * @return The PersonDTO representing the currently logged in user, without password
      */
     public Person getLoggedInPerson() throws NoUserLoggedInException {
-        System.out.println("Getting logged in person...");
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof User) {
             return ((User) principal).getPerson();

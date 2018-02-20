@@ -9,6 +9,7 @@ import se.kth.iv1201.boblaghei.dto.LoginRequest;
 import se.kth.iv1201.boblaghei.dto.LoginResponse;
 import se.kth.iv1201.boblaghei.entity.Person;
 import se.kth.iv1201.boblaghei.exception.DuplicateUsernameException;
+import se.kth.iv1201.boblaghei.exception.LoginException;
 import se.kth.iv1201.boblaghei.util.HttpPath;
 import se.kth.iv1201.boblaghei.service.SecurityService;
 
@@ -25,7 +26,10 @@ public class UserResource {
     }
 
     @PostMapping(HttpPath.LOGIN_PATH)
-    public LoginResponse login(@RequestBody LoginRequest request){
-        return securityService.login(request);
+    public LoginResponse login(@RequestBody LoginRequest request) throws LoginException {
+        LoginResponse loginResponse = securityService.login(request);
+        if (loginResponse == null)
+            throw new LoginException("Wrong username or password");
+        return loginResponse;
     }
 }

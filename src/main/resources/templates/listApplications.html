@@ -36,7 +36,7 @@
             <form id="searchForm" th:action="@{/recruiter/applications}" method="post" th:object="${applicationSearchDto}" onsubmit="return validateForm()">
 
                 <div class="form-group">
-                    <label for="selectCompetence">Select competence</label>
+                    <label for="selectCompetence" th:text="#{select_competence}"></label>
                     <select id="selectCompetence" name="id" class="form-control" th:field="*{competence}">
                         <th:block th:each="competence : ${availableCompetences}">
                             <option
