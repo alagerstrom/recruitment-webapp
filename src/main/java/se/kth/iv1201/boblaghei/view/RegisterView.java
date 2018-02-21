@@ -13,6 +13,8 @@ import se.kth.iv1201.boblaghei.exception.DuplicateUsernameException;
 import se.kth.iv1201.boblaghei.service.SecurityService;
 import se.kth.iv1201.boblaghei.util.logger.ErrorLogger;
 
+import javax.validation.Valid;
+
 /**
  * Controller responsible for providing mappings used for registration of a new user.
  */
@@ -48,12 +50,12 @@ public class RegisterView {
      * @return the index.html page
      */
     @PostMapping("/register")
-    public String postRegistration(@ModelAttribute Person person, Model model) {
+    public String postRegistration(@ModelAttribute @Valid Person person, Model model) {
         System.out.println("I should register " + person);
         try {
             securityService.register(person);
         } catch (DuplicateKeyException | DuplicateUsernameException e) {
-            errorLogger.log(e.getMessage());
+            errorLogger.log(e.getMessage(), e);
             e.printStackTrace();
         }
         return "redirect:/";

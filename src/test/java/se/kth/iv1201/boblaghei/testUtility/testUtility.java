@@ -3,6 +3,8 @@ package se.kth.iv1201.boblaghei.testUtility;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class testUtility {
 
@@ -20,11 +22,24 @@ public class testUtility {
         return "http://localhost:" + port;
     }
 
-    public static void loginAdmin(WebDriver driver, String baseURI) {
+    public static void loginRecruiter(WebDriver driver, String baseURI) {
         driver.get(baseURI + "/login");
         driver.findElement(By.id("username")).sendKeys("admin");
         driver.findElement(By.id("password")).sendKeys("admin");
         driver.findElement(By.id("submitLogin")).click();
+        WebDriverWait wait = new WebDriverWait(driver, 2);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("search")));
+
+
+    }
+
+    public static void loginApplicant(WebDriver driver, String baseURI) {
+        driver.get(baseURI + "/login");
+        driver.findElement(By.id("username")).sendKeys("kalle");
+        driver.findElement(By.id("password")).sendKeys("kula");
+        driver.findElement(By.id("submitLogin")).click();
+        WebDriverWait wait = new WebDriverWait(driver, 2);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("yearsOfExperience")));
     }
 
     public static void loginFaultyCredentials(WebDriver driver, String baseURI) {
@@ -32,6 +47,6 @@ public class testUtility {
         driver.findElement(By.id("username")).sendKeys("thisUNdoesnotexist");
         driver.findElement(By.id("password")).sendKeys("thisPWdoesnotexist");
         driver.findElement(By.id("submitLogin")).click();
-
     }
+
 }

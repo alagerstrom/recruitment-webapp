@@ -57,4 +57,9 @@ public class ListApplicationsViewTest  {
                 .andExpect(model().attributeExists("singleApplication"))
                 .andExpect(view().name("singleApplication"));
     }
+
+    @Test
+    public void testGetApplicationAsPDF() {
+
+    }
 }
