@@ -1,6 +1,7 @@
 package se.kth.iv1201.boblaghei.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -15,20 +16,25 @@ public class Person {
 
     @Column(nullable = false)
     @Size(min = 2)
+    @NotNull
     private String firstName;
 
     @Size(min = 2)
     @Column(nullable = false)
+    @NotNull
     private String lastName;
 
     @Column(nullable = false)
+    @NotNull
     private String personalNumber;
 
     @Column(nullable = false)
+    @NotNull
     @Size(min = 4)
     private String email;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "person")
+    @NotNull
     private User user;
 
     public Person() {
