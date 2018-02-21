@@ -13,6 +13,7 @@
 - Template - [KLART]
 - Standalone client - Ska göras
 - PDF documents - [KLART]
+- JSON Web Token, kan vi få poäng för det?
 - Other requirements
   - Availability kan vi lösa med AWS, eller med replication
   - Responstid kan lösas
