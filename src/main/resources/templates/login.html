@@ -54,7 +54,7 @@
                 if (this.status === 200) {
                     const loginResponse = JSON.parse(xhttp.responseText);
                     // console.log(loginResponse.token);
-                    document.cookie = "Authorization=" + loginResponse.token;
+                    document.cookie = "Authorization=" + loginResponse.token + "; Path=/";
                     window.location.replace("/");
                 } else {
                     /*<![CDATA[*/

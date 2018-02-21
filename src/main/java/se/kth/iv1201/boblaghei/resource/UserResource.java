@@ -13,6 +13,8 @@ import se.kth.iv1201.boblaghei.exception.LoginException;
 import se.kth.iv1201.boblaghei.util.HttpPath;
 import se.kth.iv1201.boblaghei.service.SecurityService;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(HttpPath.USERS_PATH)
 public class UserResource {
@@ -21,15 +23,13 @@ public class UserResource {
     SecurityService securityService;
 
     @PostMapping(HttpPath.REGISTER_PATH)
-    public LoginResponse register(@RequestBody Person person) throws DuplicateUsernameException {
+    public LoginResponse register(@RequestBody @Valid Person person) throws DuplicateUsernameException {
         return securityService.register(person);
     }
 
     @PostMapping(HttpPath.LOGIN_PATH)
-    public LoginResponse login(@RequestBody LoginRequest request) throws LoginException {
+    public LoginResponse login(@RequestBody @Valid LoginRequest request) throws LoginException {
         LoginResponse loginResponse = securityService.login(request);
-        if (loginResponse == null)
-            throw new LoginException("Wrong username or password");
         return loginResponse;
     }
 }

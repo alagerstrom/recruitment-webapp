@@ -31,7 +31,7 @@ public class ListApplicationService {
      * findApplication finds applications matching the parameters stated in the <code>ApplicationSearchDTO</code> and
      * returns these applications in a list.
      * @param dto holds search criterias based on what the user has requested.
-     * @return a list of <code>ApplicationDTO</code> containing the matching applications.
+     * @return a list of <code>Application</code> containing the matching applications.
      */
 
     @SuppressWarnings("unchecked")
@@ -69,7 +69,7 @@ public class ListApplicationService {
     /**
      * Finds an application given the applications id.
      * @param id the id of the application.
-     * @return the application with the given id in the form of a <code>ApplicationDTO</code>.
+     * @return the application with the given id in the form of a <code>Application</code>.
      * @throws ResourceNotFoundException if there is no application with the given id.
      */
 

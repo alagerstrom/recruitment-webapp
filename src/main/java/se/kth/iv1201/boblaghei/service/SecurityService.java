@@ -15,6 +15,7 @@ import se.kth.iv1201.boblaghei.entity.Person;
 import se.kth.iv1201.boblaghei.entity.Role;
 import se.kth.iv1201.boblaghei.entity.User;
 import se.kth.iv1201.boblaghei.exception.DuplicateUsernameException;
+import se.kth.iv1201.boblaghei.exception.LoginException;
 import se.kth.iv1201.boblaghei.exception.NoUserLoggedInException;
 import se.kth.iv1201.boblaghei.repository.PersonRepository;
 import se.kth.iv1201.boblaghei.repository.UserRepository;
@@ -45,14 +46,11 @@ public class SecurityService implements UserDetailsService {
     @Autowired
     SecurityLogger securityLogger;
 
-
-
-
-
     /**
-     * @param username
-     * @return
-     * @throws UsernameNotFoundException
+     * Loads a user given a username.
+     * @param username the username that the user one wants to load has.
+     * @return an instance of UserDetails, which contains core user information, such as username, password, roles etc.
+     * @throws UsernameNotFoundException thrown if no user with that username exists.
      */
     @Transactional(readOnly = true)
     @Override
@@ -64,10 +62,9 @@ public class SecurityService implements UserDetailsService {
     }
 
     /**
-     * getLoggedInPerson() is used to get information about the currently logged in person
-     * The password in the UserDTO will be empty.
-     *
-     * @return The PersonDTO representing the currently logged in user, without password
+     * getLoggedInPerson() is used to get information about the currently logged in person.
+     * @return The Person representing the currently logged in user, without password
+     * @throws NoUserLoggedInException if no user is logged on, thus no person is logged on
      */
     public Person getLoggedInPerson() throws NoUserLoggedInException {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -77,7 +74,12 @@ public class SecurityService implements UserDetailsService {
         throw new NoUserLoggedInException("User is not logged in");
     }
 
-    public LoginResponse login(LoginRequest loginRequest){
+    /**
+     * Logs in a user, performs authentication and sets the token in the <code>LoginResponse</code>
+     * @param loginRequest LoginRequest that contains username and password
+     * @return Loginresponse that contains a person and a token
+     */
+    public LoginResponse login(LoginRequest loginRequest) throws LoginException {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
             User user = userRepository.getUserByUsername(loginRequest.getUsername());
@@ -86,10 +88,9 @@ public class SecurityService implements UserDetailsService {
             loginResponse.setToken(token);
             loginResponse.setPerson(user.getPerson());
             return loginResponse;
-        }catch (Exception e){
-            e.printStackTrace();
+        } catch (Exception e){
+            throw new LoginException("Wrong username or password");
         }
-        return null;
     }
 
     /**

@@ -1,0 +1,14 @@
+* Testing
+
+Testing should be done throughout the project. Tests should be written as soon as the code it is testing is written. We should test all code that we implement ourself, and the various outcomes of the code
+should be tested. Code that Spring or Hibernate provides is not to be tested, but trusted.
+
+All trivial unit-testing is done using Spring-test, and it is configured to run the tests in container, thus no mocking is used, with the exception of using a MockMcv which functions as the
+ main entry point for server-side Spring MVC test, and allows us to send HTTP-requests to the controllers.
+
+UI-testing is also done using Spring-test paired with Selenium. These tests utilize a ChromeDriver to run chrome, and they are supposed to test that filling in various fields and submitting results in the
+correct result, or perhaps that pressing a button results in the correct URI-redirect.
+
+** Continous Integration
+
+Jenkins automatically runs all tests every time a new commit is pushed.

@@ -13,6 +13,10 @@ public class ErrorLogger {
     private final Logger logger = LoggerFactory.getLogger("errorLogger");
 
     public void log(String logMsg) {
-        logger.info(logMsg);
+        logger.error(logMsg);
+    }
+
+    public void log(String logMsg, Exception e) {
+        logger.error(logMsg, e);
     }
 }

@@ -36,12 +36,4 @@ public class CreateApplicationViewTest {
                 .andExpect(model().attributeExists("competences"))
                 .andExpect(view().name("apply"));
     }
-
-//TODO add test when method is refactored with JS.
-//    @Test
-//    public void testPostSubmitApplication() throws Exception {
-//        this.mockMvc.perform(post("/apply/submit-application"))
-//                .andExpect(status().is3xxRedirection())
-//                .andExpect(redirectedUrl("/"));
-//    }
 }

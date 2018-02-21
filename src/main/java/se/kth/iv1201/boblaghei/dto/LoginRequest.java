@@ -1,7 +1,14 @@
 package se.kth.iv1201.boblaghei.dto;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class LoginRequest {
+
+    @NotNull
     private String username;
+
+    @NotNull
     private String password;
 
     public String getUsername() {
