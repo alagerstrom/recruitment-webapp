@@ -77,7 +77,7 @@ public class PdfGenerator {
         table.addHeaderCell(new Cell().add(new Paragraph("Years of experience").setFont(headerFont).setFontSize(12)));
 
         application.getCompetenceProfiles().forEach(profile -> {
-            table.addCell(new Cell().add(new Paragraph(profile.getCompetence().getName()).setFontSize(10)));
+            table.addCell(new Cell().add(new Paragraph(profile.getCompetence().getTranslation("en")).setFontSize(10)));
             table.addCell(new Cell().add(new Paragraph(Double.toString(profile.getYearsOfExperience())).setFontSize(10)));
         });
 

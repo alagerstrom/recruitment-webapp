@@ -1,6 +1,7 @@
 package se.kth.iv1201.boblaghei.dto;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import se.kth.iv1201.boblaghei.entity.Competence;
 
 import java.util.Date;
 
