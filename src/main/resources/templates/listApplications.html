@@ -41,7 +41,7 @@
                         <th:block th:each="competence : ${availableCompetences}">
                             <option
                                     th:value="${competence.getName()}"
-                                    th:text="${competence.getName()}">
+                                    th:text="${competence.getTranslation(#locale)}">
                             </option>
                         </th:block>
                     </select>

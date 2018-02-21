@@ -56,15 +56,15 @@ public class DataLoader implements ApplicationRunner {
         personRepository.save(person3);
 
         // Statuses
-        Status status = new Status(Constants.STATUS_UNHANDLED);
+        Status status = new Status(Constants.STATUS_UNHANDLED).addTranslation("de", "Unbehandelt");
         statusRepository.save(status);
 
 
         // Competences
-        Competence competence1 = new Competence("Ballongförsäljare");
-        Competence competence2 = new Competence("Maskinoperatör");
-        Competence competence3 = new Competence("Biljettförsälare");
-        Competence competence4= new Competence("Reparatör");
+        Competence competence1 = new Competence("Balloon seller").addTranslation("de","Ballonverkäufer");
+        Competence competence2 = new Competence("Machine operator").addTranslation("de", "Maschinenbediener");
+        Competence competence3 = new Competence("Ticket seller").addTranslation("de", "Ticketverkäufer");
+        Competence competence4= new Competence("Technician").addTranslation("de", "Techniker");
         competenceRepository.save(competence1);
         competenceRepository.save(competence2);
         competenceRepository.save(competence3);

@@ -52,7 +52,6 @@ public class ListApplicationsView  {
      */
     @PostMapping
     public String search(Model model, @ModelAttribute ApplicationSearchDTO dto) {
-        System.out.println(dto);
         List<Application> applications = listApplicationService.findApplications(dto);
         model.addAttribute("listOfApplications", applications);
         return applicationView(model);

@@ -20,7 +20,7 @@
                     <th:block th:each="competence : ${competences}">
                         <option
                                 th:value="${competence.getId()}"
-                                th:text="${competence.getName()}">
+                                th:text="${competence.getTranslation(#locale)}">
                         </option>
                     </th:block>
                 </select>
@@ -152,6 +152,7 @@
     
     function sendApplication() {
         const jsonString = JSON.stringify(application);
+        console.log("Sending " + jsonString);
         let url = "/api/applications";
         const xhr = new XMLHttpRequest();
         xhr.open('POST', url, true);

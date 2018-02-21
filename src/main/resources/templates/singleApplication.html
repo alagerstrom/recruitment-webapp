@@ -24,7 +24,7 @@
                 <td th:text="${singleApplication.getPerson().getFirstName()}"></td>
                 <td th:text="${singleApplication.getPerson().getLastName()}"></td>
                 <td th:text="${singleApplication.getCreated()}"></td>
-                <td th:text="${singleApplication.getStatus().getName().toLowerCase()}"></td>
+                <td th:text="${singleApplication.getStatus().getTranslation(#locale)}"></td>
             </tr>
             </tbody>
         </table>
@@ -44,7 +44,7 @@
             <tbody>
             <th:block th:each="compProfile : ${singleApplication.getCompetenceProfiles()}">
                 <tr>
-                    <td th:text="${compProfile.getCompetence().getName()}"></td>
+                    <td th:text="${compProfile.getCompetence().getTranslation(#locale)}"></td>
                     <td th:text="${compProfile.getYearsOfExperience()}"></td>
                 </tr>
             </th:block>
