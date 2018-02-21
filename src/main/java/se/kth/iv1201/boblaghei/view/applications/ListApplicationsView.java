@@ -13,6 +13,7 @@ import se.kth.iv1201.boblaghei.service.CreateApplicationService;
 import se.kth.iv1201.boblaghei.service.ListApplicationService;
 import se.kth.iv1201.boblaghei.dto.ApplicationSearchDTO;
 
+import javax.validation.Valid;
 import java.io.ByteArrayInputStream;
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class ListApplicationsView  {
      * @return the return value from the applicationView method, see @applicationView.
      */
     @PostMapping
-    public String search(Model model, @ModelAttribute ApplicationSearchDTO dto) {
+    public String search(Model model, @Valid @ModelAttribute ApplicationSearchDTO dto) {
         List<Application> applications = listApplicationService.findApplications(dto);
         model.addAttribute("listOfApplications", applications);
         return applicationView(model);

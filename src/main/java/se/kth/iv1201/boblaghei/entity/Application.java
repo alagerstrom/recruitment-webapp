@@ -1,6 +1,7 @@
 package se.kth.iv1201.boblaghei.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;

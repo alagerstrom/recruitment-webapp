@@ -10,6 +10,7 @@ import se.kth.iv1201.boblaghei.service.CreateApplicationService;
 import se.kth.iv1201.boblaghei.service.ListApplicationService;
 import se.kth.iv1201.boblaghei.dto.ApplicationSearchDTO;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -35,7 +36,7 @@ public class ApplicationResource {
     }
 
     @PostMapping
-    public Application createApplication(@RequestBody Application application) throws NoUserLoggedInException {
+    public Application createApplication(@Valid @RequestBody Application application) throws NoUserLoggedInException {
         return createApplicationService.createApplicationForCurrentUser(application);
     }
 }
