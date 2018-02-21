@@ -1,4 +1,4 @@
-FROM library/openjdk
+FROM selenium/standalone-chrome
 
 WORKDIR /app
 
