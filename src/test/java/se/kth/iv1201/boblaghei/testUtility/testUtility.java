@@ -3,6 +3,7 @@ package se.kth.iv1201.boblaghei.testUtility;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -15,7 +16,9 @@ public class testUtility {
         } else {
             System.setProperty("webdriver.chrome.driver", "chromedriverMac");
         }
-        return new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("headless");
+        return new ChromeDriver(options);
     }
 
     public static String setupBaseURI(int port) {
