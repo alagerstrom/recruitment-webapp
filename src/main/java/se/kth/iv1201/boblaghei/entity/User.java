@@ -17,6 +17,7 @@ import java.util.Set;
 public class User implements UserDetails {
 
     @Id
+    @Size(min=4)
     private String username;
 
     @Column(nullable = false)

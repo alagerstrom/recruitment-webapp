@@ -103,7 +103,12 @@
         console.log("Validating comp prof");
         const yearsOfExperienceField = document.getElementById('yearsOfExperience');
         if (yearsOfExperienceField.value === "" || isNaN(yearsOfExperienceField.value)) {
-            alert("Years of experience must be set");
+            /*<![CDATA[*/
+
+            var message = /*[[#{years_of_experience_must_be_set}]]*/ 'default';
+            alert(message);
+
+            /*]]>*/
             return
         }
 
@@ -132,11 +137,21 @@
         const toDateInput = document.getElementById('toDate');
 
         if(!fromDateInput.value || !toDateInput.value) {
-            alert("you need to set from and to dates");
+            /*<![CDATA[*/
+
+            var message = /*[[#{from_and_to_dates}]]*/ 'default';
+            alert(message);
+
+            /*]]>*/
             return
         }
         if (fromDateInput.value > toDateInput.value) {
-            alert("From date can not be after to date");
+            /*<![CDATA[*/
+
+            var message = /*[[#{from_before_after}]]*/ 'default';
+            alert(message);
+
+            /*]]>*/
             return
         }
 
@@ -182,13 +197,26 @@
     function updateAllCompetencesDiv(profile) {
         const compProfDiv = document.getElementById('allCompetences');
         const prevHtml = compProfDiv.innerHTML;
-        compProfDiv.innerHTML = prevHtml + `<div>You selected ${profile.competence.name} with ${profile.yearsOfExperience} years of experience</div>`;
+        /*<![CDATA[*/
+
+        var you_selected = /*[[#{you_selected}]]*/ 'default';
+        var with_string = /*[[#{with_string}]]*/ 'default';
+        var years_of_experience = /*[[#{years_of_experience}]]*/ 'default';
+
+        /*]]>*/
+        compProfDiv.innerHTML = prevHtml + `<div>${you_selected} ${profile.competence.name} ${with_string} ${profile.yearsOfExperience} ${years_of_experience.toLowerCase()}</div>`;
     }
 
     function updateAllAvailabilitiesDiv(ava) {
         const allAvailabilitiesDiv = document.getElementById('allAvailabilities');
         const prevHtml = allAvailabilitiesDiv.innerHTML;
-        allAvailabilitiesDiv.innerHTML = prevHtml + `<div>You are available from ${ava.fromDate} until ${ava.toDate}</div>`
+        /*<![CDATA[*/
+
+        var you_are_available = /*[[#{you_are_available}]]*/ 'default';
+        var until = /*[[#{until}]]*/ 'default';
+
+        /*]]>*/
+        allAvailabilitiesDiv.innerHTML = prevHtml + `<div>${you_are_available} ${ava.fromDate} ${until} ${ava.toDate}</div>`
     }
 </script>
 </body>
