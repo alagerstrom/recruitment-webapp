@@ -1,6 +1,7 @@
 package se.kth.iv1201.boblaghei.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 /**
  *  O/R Mapping of the table Person in the database.
@@ -13,8 +14,10 @@ public class Person {
     private long id;
 
     @Column(nullable = false)
+    @Size(min = 2)
     private String firstName;
 
+    @Size(min = 2)
     @Column(nullable = false)
     private String lastName;
 
@@ -22,6 +25,7 @@ public class Person {
     private String personalNumber;
 
     @Column(nullable = false)
+    @Size(min = 4)
     private String email;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "person")
