@@ -9,9 +9,6 @@ EXPOSE 5000
 ENV NAME WebappEnv
 
 USER root
-#RUN apt-get update
-#RUN apt-get upgrade -y
-#RUN apt-get install default-jdk maven openssh-server -y
 RUN mvn clean
 RUN mvn package
 RUN mkdir -p /var/log/boblaghei
