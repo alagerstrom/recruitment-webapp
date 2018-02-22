@@ -61,7 +61,7 @@ public class CreateApplicationService {
      * <p>
      * Used to get all the competences currently available in the database.
      *
-     * @return A List of CompetenceDTO representing all the available competences.
+     * @return A Set of <code>Competence</code> representing all the available competences.
      */
 
     @Transactional
@@ -72,24 +72,31 @@ public class CreateApplicationService {
     }
 
     /**
+     * Generates a pdf for the application with the given id
+     * @param applicationId the id of the application
+     * @return A ByteArrayInputStream that will contain the pdf.
+     */
+    @Transactional
+    public ByteArrayInputStream generatePdfFor(long applicationId) {
+        Application application = applicationRepository.findOne(applicationId);
+        if (application == null)
+            throw new ResourceNotFoundException("Application with id " + applicationId + " does not exist");
+        return PdfGenerator.generateApplicationPdf(application);
+    }
+
+    /**
      * Will check if the database contains the status 'unhandled',
      * and insert it otherwise.
      *
      * @return The status 'unhandled'
      */
-    private Status getUnhandledStatus() {
+    @Transactional
+    public Status getUnhandledStatus() {
         Status status = statusRepository.getByName(Constants.STATUS_UNHANDLED);
         if (status == null) {
             status = new Status(Constants.STATUS_UNHANDLED);
             statusRepository.save(status);
         }
         return status;
-    }
-
-    public ByteArrayInputStream generatePdfFor(long applicationId) {
-        Application application = applicationRepository.findOne(applicationId);
-        if (application == null)
-            throw new ResourceNotFoundException("Application with id " + applicationId + " does noe exist");
-        return PdfGenerator.generateApplicationPdf(application);
     }
 }
