@@ -13,13 +13,13 @@ pipeline {
         }
         stage('Docker build'){
             steps{
-                sh 'docker build -t webapp .'
+                sh 'docker build -t app .'
             }
         }
         stage('Restart docker container'){
             steps{
                 sh 'docker stop $(docker ps -a -q)'
-                sh 'docker run -d -p 8000:5000 webapp'
+                sh 'docker run -d -p 8000:5000 app'
             }
         }
     }
