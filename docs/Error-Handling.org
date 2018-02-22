@@ -1,0 +1,26 @@
+* Error Handling
+
+There are various errors that can occur in this application. These are the following :
+
+*** Form-validation errors
+*** Navigation errors
+*** Internal errors
+
+** Form-validation error
+
+Form-validation errors occur when form-validation fails, because of user inputting invalid data. An example of this is inputting a string where an integer is required. We also include things such as trying
+to register with an username that already exists in this category.
+
+We have form-validation both in front-end, in the form of JavaScript, as well as back-end, invalid data is caught in the service layer, an exception is thrown to the view layer where a suitable message is
+shown to the user. 
+
+** Navigation error
+
+A navigation error occur when a user tries to navigate through the system in an unwanted way, for example if a user enters the URI for listing applications, when not being an applicant and thus not being able
+to list applications. All navigation errors are handled by showing the generic error-page. This is also how internal errors are handled, and the reasoning behind this is to not allow an illminded-user to test
+what URIs that are in fact valid and existing, and what URIs that are not. This way there is no easy way of telling what URIs that are part of the website and who are not.
+
+** Internal error
+
+An internal error is an error that is not "expected" and thus not handled directly. An example of this would be if the database crashed which then resulted in all database-calls resulting in undefined behaviour.
+All internal errors will result in the generic error-page being shown, which states that an error has occured.

@@ -20,7 +20,6 @@ import se.kth.iv1201.boblaghei.exception.NoUserLoggedInException;
 import se.kth.iv1201.boblaghei.repository.PersonRepository;
 import se.kth.iv1201.boblaghei.repository.UserRepository;
 import se.kth.iv1201.boblaghei.security.TokenService;
-import se.kth.iv1201.boblaghei.util.logger.ErrorLogger;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -42,9 +41,6 @@ public class SecurityService implements UserDetailsService {
 
     @Autowired
     TokenService tokenService;
-
-    @Autowired
-    ErrorLogger errorLogger;
 
     /**
      * Loads a user given a username.
@@ -90,7 +86,6 @@ public class SecurityService implements UserDetailsService {
             loginResponse.setPerson(user.getPerson());
             return loginResponse;
         } catch (Exception e){
-            errorLogger.log(e.getMessage(), e);
             throw new LoginException("Wrong username or password");
         }
     }
@@ -104,9 +99,7 @@ public class SecurityService implements UserDetailsService {
     @Transactional
     public LoginResponse register(Person person) throws DuplicateUsernameException {
         if (userRepository.findOne(person.getUser().getUsername()) != null) {
-            String errorMsg = "Username " + person.getUser().getUsername() + " is already in use, please choose another one.";
-            errorLogger.log(errorMsg);
-            throw new DuplicateUsernameException(errorMsg);
+            throw new DuplicateUsernameException("Username " + person.getUser().getUsername() + " is already in use, please choose another one.");
         }
         Set<Role> roles = new HashSet<>();
         roles.add(Role.ROLE_APPLICANT);
