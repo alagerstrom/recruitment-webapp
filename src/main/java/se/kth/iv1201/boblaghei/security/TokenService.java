@@ -8,8 +8,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import se.kth.iv1201.boblaghei.entity.User;
+import se.kth.iv1201.boblaghei.exception.InvalidTokenException;
 import se.kth.iv1201.boblaghei.repository.UserRepository;
-import se.kth.iv1201.boblaghei.util.logger.ErrorLogger;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -23,9 +23,6 @@ public class TokenService {
 
     @Autowired
     UserRepository userRepository;
-
-    @Autowired
-    ErrorLogger errorLogger;
 
     public static final int EXPIRATION_TIME = 3600 * 1000 * 24;
     public static final String SECRET = "sdagfoowaegh0293tu0298ofiqh09f2q09fse98yre89rge80gwe89gwe98ygwe0y823rour132ojbfwqjlnhiouasdfklblawjfdblfsc";
@@ -70,8 +67,7 @@ public class TokenService {
             Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token);
             return true;
         } catch (JwtException | IllegalArgumentException e) {
-            errorLogger.log("Invalid token", e);
-            throw new RuntimeException("Invalid token");
+            throw new InvalidTokenException("Invalid token");
 
         }
     }

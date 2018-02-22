@@ -79,14 +79,9 @@ public class ListApplicationsView  {
 
     @GetMapping(value = "/{id}/pdf", produces = MediaType.APPLICATION_PDF_VALUE)
     public ResponseEntity<InputStreamResource> getApplicationAsPDF(@PathVariable("id") long applicationId){
-        try {
-            ByteArrayInputStream bis = createApplicationService.generatePdfFor(applicationId);
-            HttpHeaders httpHeaders = new HttpHeaders();
-            httpHeaders.add("Content-disposition", "inline: filename=application.pdf");
-            return ResponseEntity.ok().headers(httpHeaders).contentType(MediaType.APPLICATION_PDF).body(new InputStreamResource(bis));
-        } catch (ResourceNotFoundException e) {
-            errorLogger.log(e.getMessage(), e);
-        }
-        return null;
+        ByteArrayInputStream bis = createApplicationService.generatePdfFor(applicationId);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("Content-disposition", "inline: filename=application.pdf");
+        return ResponseEntity.ok().headers(httpHeaders).contentType(MediaType.APPLICATION_PDF).body(new InputStreamResource(bis));
     }
 }
