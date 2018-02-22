@@ -12,11 +12,12 @@ public class ErrorLogger {
 
     private final Logger logger = LoggerFactory.getLogger("errorLogger");
 
-    public void log(String logMsg) {
-        logger.error(logMsg);
+
+    public void logWarn(String logMsg, Exception e) {
+        logger.warn(logMsg, e);
     }
 
-    public void log(String logMsg, Exception e) {
+    public void logError(String logMsg, Exception e) {
         logger.error(logMsg, e);
     }
 }

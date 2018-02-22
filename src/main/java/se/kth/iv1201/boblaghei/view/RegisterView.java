@@ -24,9 +24,6 @@ public class RegisterView {
     @Autowired
     SecurityService securityService;
 
-    @Autowired
-    ErrorLogger errorLogger;
-
     /**
      * Invocated on a GET-request to "/register". Loads the register view which enables a person to register on the website.
      *
@@ -49,15 +46,12 @@ public class RegisterView {
      * @param model  responsible for making data available in the view
      * @return the index.html page
      */
+/*
     @PostMapping("/register")
-    public String postRegistration(@ModelAttribute @Valid Person person, Model model) {
+    public String postRegistration(@ModelAttribute @Valid Person person, Model model) throws DuplicateUsernameException {
         System.out.println("I should register " + person);
-        try {
             securityService.register(person);
-        } catch (DuplicateKeyException | DuplicateUsernameException e) {
-            errorLogger.log(e.getMessage(), e);
-            e.printStackTrace();
-        }
         return "redirect:/";
     }
+    */
 }
