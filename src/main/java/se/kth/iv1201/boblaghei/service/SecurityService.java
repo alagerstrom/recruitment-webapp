@@ -20,7 +20,7 @@ import se.kth.iv1201.boblaghei.exception.NoUserLoggedInException;
 import se.kth.iv1201.boblaghei.repository.PersonRepository;
 import se.kth.iv1201.boblaghei.repository.UserRepository;
 import se.kth.iv1201.boblaghei.security.TokenService;
-import se.kth.iv1201.boblaghei.util.logger.SecurityLogger;
+import se.kth.iv1201.boblaghei.util.logger.ErrorLogger;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -44,7 +44,7 @@ public class SecurityService implements UserDetailsService {
     TokenService tokenService;
 
     @Autowired
-    SecurityLogger securityLogger;
+    ErrorLogger errorLogger;
 
     /**
      * Loads a user given a username.
@@ -79,6 +79,7 @@ public class SecurityService implements UserDetailsService {
      * @param loginRequest LoginRequest that contains username and password
      * @return Loginresponse that contains a person and a token
      */
+    @Transactional
     public LoginResponse login(LoginRequest loginRequest) throws LoginException {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
@@ -89,6 +90,7 @@ public class SecurityService implements UserDetailsService {
             loginResponse.setPerson(user.getPerson());
             return loginResponse;
         } catch (Exception e){
+            errorLogger.log(e.getMessage(), e);
             throw new LoginException("Wrong username or password");
         }
     }
@@ -99,10 +101,12 @@ public class SecurityService implements UserDetailsService {
      * @param person entity containing data needed for registration.
      * @throws DuplicateUsernameException if a user is registered with an already existing username.
      */
+    @Transactional
     public LoginResponse register(Person person) throws DuplicateUsernameException {
         if (userRepository.findOne(person.getUser().getUsername()) != null) {
-            securityLogger.log("Tried registering the username " + person.getUser().getUsername() + " that is already in use.");
-            throw new DuplicateUsernameException("Username is already in use, please choose another one.");
+            String errorMsg = "Username " + person.getUser().getUsername() + " is already in use, please choose another one.";
+            errorLogger.log(errorMsg);
+            throw new DuplicateUsernameException(errorMsg);
         }
         Set<Role> roles = new HashSet<>();
         roles.add(Role.ROLE_APPLICANT);

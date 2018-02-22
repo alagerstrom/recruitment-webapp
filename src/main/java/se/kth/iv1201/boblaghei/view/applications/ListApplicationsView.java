@@ -9,9 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import se.kth.iv1201.boblaghei.entity.Application;
+import se.kth.iv1201.boblaghei.exception.ResourceNotFoundException;
 import se.kth.iv1201.boblaghei.service.CreateApplicationService;
 import se.kth.iv1201.boblaghei.service.ListApplicationService;
 import se.kth.iv1201.boblaghei.dto.ApplicationSearchDTO;
+import se.kth.iv1201.boblaghei.util.logger.ErrorLogger;
 
 import javax.validation.Valid;
 import java.io.ByteArrayInputStream;
@@ -29,6 +31,9 @@ public class ListApplicationsView  {
 
     @Autowired
     private ListApplicationService listApplicationService;
+
+    @Autowired
+    ErrorLogger errorLogger;
 
     /**
      * Invocated when a GET request is sent to "/recruiter/applications". Loads all competences from the database as well
@@ -74,9 +79,14 @@ public class ListApplicationsView  {
 
     @GetMapping(value = "/{id}/pdf", produces = MediaType.APPLICATION_PDF_VALUE)
     public ResponseEntity<InputStreamResource> getApplicationAsPDF(@PathVariable("id") long applicationId){
-        ByteArrayInputStream bis = createApplicationService.generatePdfFor(applicationId);
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Content-disposition", "inline: filename=application.pdf");
-        return ResponseEntity.ok().headers(httpHeaders).contentType(MediaType.APPLICATION_PDF).body(new InputStreamResource(bis));
+        try {
+            ByteArrayInputStream bis = createApplicationService.generatePdfFor(applicationId);
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.add("Content-disposition", "inline: filename=application.pdf");
+            return ResponseEntity.ok().headers(httpHeaders).contentType(MediaType.APPLICATION_PDF).body(new InputStreamResource(bis));
+        } catch (ResourceNotFoundException e) {
+            errorLogger.log(e.getMessage(), e);
+        }
+        return null;
     }
 }
