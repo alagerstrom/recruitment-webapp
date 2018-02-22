@@ -37,14 +37,4 @@ public class RegisterViewTest {
                 .andExpect(model().attributeExists("person"))
                 .andExpect(view().name("register"));
     }
-
-    @Test
-    public void testPostRegistration() throws Exception {
-        User user = new User("testUN", "testPW", true);
-        Person person = new Person("test","test","123456789","test@test.test", user);
-
-        this.mockMvc.perform(post("/register").flashAttr("person", person))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/"));
-    }
 }
