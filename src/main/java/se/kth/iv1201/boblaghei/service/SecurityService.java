@@ -75,7 +75,7 @@ public class SecurityService implements UserDetailsService {
      * @param loginRequest LoginRequest that contains username and password
      * @return Loginresponse that contains a person and a token
      */
-    @Transactional
+    @Transactional(rollbackFor = LoginException.class)
     public LoginResponse login(LoginRequest loginRequest) throws LoginException {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));

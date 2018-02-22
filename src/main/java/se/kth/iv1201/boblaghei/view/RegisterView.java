@@ -38,20 +38,4 @@ public class RegisterView {
         model.addAttribute("person", person);
         return "register";
     }
-
-    /**
-     * Invocated on a POST-request to "/register". Tries to register the entered data
-     *
-     * @param person contains the data to be registered
-     * @param model  responsible for making data available in the view
-     * @return the index.html page
-     */
-/*
-    @PostMapping("/register")
-    public String postRegistration(@ModelAttribute @Valid Person person, Model model) throws DuplicateUsernameException {
-        System.out.println("I should register " + person);
-            securityService.register(person);
-        return "redirect:/";
-    }
-    */
 }
