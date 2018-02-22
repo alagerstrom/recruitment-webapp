@@ -23,7 +23,19 @@
             <tr>
                 <td th:text="${singleApplication.getPerson().getFirstName()}"></td>
                 <td th:text="${singleApplication.getPerson().getLastName()}"></td>
-                <td th:text="${singleApplication.getCreated()}"></td>
+                <td th:id="createdDate"></td>
+                <script th:inline="javascript">
+                    /*<![CDATA[*/
+
+                    var created = /*[[${singleApplication.getCreated()}]]*/ 'default';
+                    var locale = /*[[${#locale}]]*/ 'default';
+
+                    /*]]>*/
+
+                    var td = document.getElementById('createdDate');
+                    var text = document.createTextNode(formatDateBasedOnLocale(locale, created));
+                    td.appendChild(text);
+                </script>
                 <td th:text="${singleApplication.getStatus().getTranslation(#locale)}"></td>
             </tr>
             </tbody>
@@ -65,8 +77,25 @@
             <tbody>
             <th:block th:each="avalability : ${singleApplication.getAvailabilities()}">
                 <tr>
-                    <td th:text="${avalability.getFromDate()}"></td>
-                    <td th:text="${avalability.getToDate()}"></td>
+                    <td th:id="${'from' + avalability.getId()}"></td>
+                    <td th:id="${'to' + avalability.getId()}"></td>
+                    <script th:inline="javascript">
+                        /*<![CDATA[*/
+
+                        var id = /*[[${avalability.getId()}]]*/ 'default';
+                        var fromDate = /*[[${avalability.getFromDate()}]]*/ 'default';
+                        var toDate = /*[[${avalability.getToDate()}]]*/ 'default';
+                        var locale = /*[[${#locale}]]*/ 'default';
+
+                        /*]]>*/
+
+                        var fromTd = document.getElementById('from' + id);
+                        var toTd = document.getElementById('to' + id);
+                        var fromText = document.createTextNode(formatDateBasedOnLocale(locale, fromDate));
+                        var toText = document.createTextNode(formatDateBasedOnLocale(locale, toDate));
+                        fromTd.appendChild(fromText);
+                        toTd.appendChild(toText);
+                    </script>
                 </tr>
             </th:block>
             </tbody>

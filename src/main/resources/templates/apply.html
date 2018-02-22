@@ -214,9 +214,13 @@
 
         var you_are_available = /*[[#{you_are_available}]]*/ 'default';
         var until = /*[[#{until}]]*/ 'default';
+        var locale = /*[[${#locale}]]*/ 'default';
 
         /*]]>*/
-        allAvailabilitiesDiv.innerHTML = prevHtml + `<div>${you_are_available} ${ava.fromDate} ${until} ${ava.toDate}</div>`
+
+        var formattedFromDate = formatDateBasedOnLocale(locale, ava.fromDate);
+        var formattedToDate = formatDateBasedOnLocale(locale, ava.toDate);
+        allAvailabilitiesDiv.innerHTML = prevHtml + `<div>${you_are_available} ${formattedFromDate} ${until} ${formattedToDate}</div>`
     }
 </script>
 </body>

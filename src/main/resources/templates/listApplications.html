@@ -23,7 +23,20 @@
                     <tr>
                         <td scope="row" th:text="${app.getPerson().getFirstName()}"></td>
                         <td th:text="${app.getPerson().getLastName()}"></td>
-                        <td th:text="${app.getCreated()}"></td>
+                        <td th:id="${app.getId()}"></td>
+                        <script th:inline="javascript">
+                            /*<![CDATA[*/
+
+                            var id = /*[[${app.getId()}]]*/ 'default';
+                            var created = /*[[${app.getCreated()}]]*/ 'default';
+                            var locale = /*[[${#locale}]]*/ 'default';
+
+                            /*]]>*/
+
+                            var td = document.getElementById(id);
+                            var text = document.createTextNode(formatDateBasedOnLocale(locale, created));
+                            td.appendChild(text);
+                        </script>
                         <td><a th:text="#{view}" th:href="@{/recruiter/applications/{path}(path=${app.id})}"></a></td>
                         <td><a th:text="#{download_pdf}" th:href="@{/recruiter/applications/{id}/pdf (id=${app.id})}"></a></td>
                     </tr>
