@@ -1,0 +1,26 @@
+* Database migration Strategy
+
+** Valid accounts
+
+Completely valid accounts are just migrated over.
+
+** Invalid accounts that are kept
+
+These account are not 100% valid, but enough for us to still be able to accept them, by possibly generating some credentials. If it is the case that these accounts do not have things such as first
+and last name we will ask them to log on the website with the provided credentials and fill in the missing information. If the missing information is not updated/filled in within 30 days the data will be
+removed from the database and they will have to create new accounts to use the service. 
+
+*** Valid unique email-adress and valid unique ssn
+
+All users in the old database that has a valid unique email adress can be contacted via email and is therefore kept. If they have an invalid username and/or password according to the demands of the 
+new system, a valid username and/or password will be generated for this user and emailed to them. 
+
+*** Valid duplicate email-adress and valid unique ssn 
+
+If several users have registered with a unique ssds and valid email-adress, but the same email address, we can send letters to them containing their new generated username and/or password.
+
+
+** No (valid) SSN
+
+All users that has not filled in a valid ssn will be removed from the database, their application is useless to us anyway if we can not identify them, and therefore they are going to have to create a new
+account on the website if they are interested in using our service. 

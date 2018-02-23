@@ -1,1 +1,11 @@
 * Logging
+
+All exceptions that are thrown are logged. Logging is done on different levels depending on the severity of the exception, the current levels used are WARN, ERROR and FATAL.
+There are three different files that logs are written to. general, security and error. 
+
+In the general log everything that is logged by the application is stored, all exceptions, all database calls, everything that is done by Spring or Hibernate is put into the general log, therefore it 
+contains a lot of information, but it is not so easy to read and localize specific errors.
+
+In the security log all exceptions that have to do with security is logged, for example exceptions that has to do with authentication and tokens are logged here.
+
+In the error log all errors that does not have to do specificially with security are logged, these can for example be when a application that does not exists is requested.
