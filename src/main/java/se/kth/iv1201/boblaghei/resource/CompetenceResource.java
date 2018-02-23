@@ -10,6 +10,14 @@ import se.kth.iv1201.boblaghei.service.CreateApplicationService;
 
 import java.util.Set;
 
+/**
+ * CompetenceResource
+ *
+ * Defines the mapping of the REST resource /api/competences
+ *
+ * To list all competences, send a GET to /api/competences
+ * The response will be a JSON representation of a list of Competences
+ */
 @RestController
 @RequestMapping(HttpPath.COMPETENCES_PATH)
 public class CompetenceResource {

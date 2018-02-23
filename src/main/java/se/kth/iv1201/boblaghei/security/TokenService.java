@@ -29,6 +29,13 @@ public class TokenService {
     public static final String TOKEN_PREFIX = "Bearer";
     public static final String AUTHORIZATION = "Authorization";
 
+    /**
+     * Used to get Authentication from a token.
+     *
+     * @param token The token to extract the authentication from.
+     *
+     * @return the Authentication extracted from the token.
+     */
     public Authentication getAuthentication(String token) {
         String username = Jwts.parser()
                 .setSigningKey(SECRET)
@@ -39,6 +46,13 @@ public class TokenService {
         return new UsernamePasswordAuthenticationToken(user, user.getPassword(), user.getAuthorities());
     }
 
+    /**
+     * Creates a new token for a registered User.
+     *
+     * @param user the user to create a token for.
+     *
+     * @return a JWT token, valid for the specified user.
+     */
     public String createToken(User user) {
         return Jwts.builder()
                 .setSubject(user.getUsername())
@@ -48,6 +62,13 @@ public class TokenService {
                 .compact();
     }
 
+    /**
+     * Method that extracts the token from a HTTP request
+     *
+     * @param request the request to extract the token from.
+     *
+     * @return the JWT token present in the request.
+     */
     public String resolveToken(HttpServletRequest request) {
         String token = request.getHeader(AUTHORIZATION);
         if (token == null && request.getCookies() != null) {
@@ -60,6 +81,13 @@ public class TokenService {
         return token.replace(TOKEN_PREFIX, "");
     }
 
+    /**
+     * Checks if a token is valid.
+     *
+     * @param token The token to check
+     *
+     * @return true if the token is valid.
+     */
     public boolean isValidToken(String token) {
         if (token.isEmpty())
             return false;

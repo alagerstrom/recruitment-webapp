@@ -63,7 +63,6 @@ public class CreateApplicationService {
      *
      * @return A Set of <code>Competence</code> representing all the available competences.
      */
-
     @Transactional
     public Set<Competence> listAllCompetences() {
         Set<Competence> listOfCompetences = new HashSet<>();

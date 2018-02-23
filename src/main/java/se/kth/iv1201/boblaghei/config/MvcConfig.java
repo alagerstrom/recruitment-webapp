@@ -12,7 +12,8 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import java.util.Locale;
 
 /**
- * Substitutes view-controllers for classes with no need for any special mappings.
+ * Substitutes view-controllers for classes with no need for any special mappings,
+ * and add locale change interceptor to registry.
  */
 @Configuration
 public class MvcConfig extends WebMvcConfigurerAdapter {
@@ -30,6 +31,11 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         registry.addViewController("/sign_out").setViewName("logout");
     }
 
+    /**
+     * Bean used by Spring to resolve locale
+     *
+     * @return A LocaleResolver bean
+     */
     @Bean
     public LocaleResolver localeResolver() {
         SessionLocaleResolver sessionLocaleResolver = new SessionLocaleResolver();
@@ -37,6 +43,12 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         return sessionLocaleResolver;
     }
 
+    /**
+     * Interceptor used by Spring to allow changing locale.
+     * A request that has parameter lang will be interpreted as a locale change.
+     *
+     * @return A LocaleChangeInterceptor bean, that uses parameter 'lang'
+     */
     @Bean
     public LocaleChangeInterceptor localeChangeInterceptor() {
         LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
@@ -44,6 +56,11 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         return localeChangeInterceptor;
     }
 
+    /**
+     * Add an localeChangeInterceptor bean to the registry
+     *
+     * @param registry The registry to use
+     */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localeChangeInterceptor());

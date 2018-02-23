@@ -13,6 +13,19 @@ import se.kth.iv1201.boblaghei.dto.ApplicationSearchDTO;
 import javax.validation.Valid;
 import java.util.List;
 
+/**
+ * ApplicationResource
+ *
+ * Defines the mapping of the REST resource /api/applications
+ *
+ * To get a list of all applications, send GET to /api/applications,
+ * the response will be a JSON representation of a list of applications.
+ *
+ * To get a specific application, send a GET to /api/applications/{id}
+ *
+ * To insert a new application, send a POST to /api/applications,
+ * with the new Application in the body, represented as JSON
+ */
 @RestController
 @RequestMapping(HttpPath.APPLICATIONS_PATH)
 public class ApplicationResource {

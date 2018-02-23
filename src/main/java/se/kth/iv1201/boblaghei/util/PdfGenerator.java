@@ -16,9 +16,20 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+/**
+ * PdfGenerator
+ *
+ * Used to generate PDF representations of Applications
+ */
 public class PdfGenerator {
 
-
+    /**
+     * Used to generate a PDF for an Application
+     *
+     * @param application The Application to generate a PDF for
+     *
+     * @return A ByteArrayInputStream representing the PDF
+     */
     public static ByteArrayInputStream generateApplicationPdf(Application application) {
 
         try {

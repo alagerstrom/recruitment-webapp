@@ -6,6 +6,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Translation
+ *
+ * Entity class that represents a string translated to a specific locale.
+ * A translation has one locale, for example 'de', and a value that represents the translation of a word to that language.
+ */
 @Entity
 public class Translation {
 

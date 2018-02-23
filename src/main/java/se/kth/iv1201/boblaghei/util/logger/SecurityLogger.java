@@ -15,14 +15,32 @@ public class SecurityLogger {
     private final Logger logger = LoggerFactory.getLogger("securityLogger");
     private final Marker marker = MarkerFactory.getMarker("FATAL");
 
+    /**
+     * Used to log warning
+     *
+     * @param logMsg The message to log
+     * @param e The exception to log
+     */
     public void logWarn(String logMsg, Exception e) {
         logger.warn(logMsg, e);
     }
 
+    /**
+     * Used to log errors
+     *
+     * @param logMsg The message to log
+     * @param e The exception to log
+     */
     public void logError(String logMsg, Exception e) {
         logger.error(logMsg, e);
     }
 
+    /**
+     * Used to log fatal errors
+     *
+     * @param logMsg The message to log
+     * @param e The exception to log
+     */
     public void logFatal(String logMsg, Exception e) {
         logger.error(marker + " " + logMsg, e);
     }

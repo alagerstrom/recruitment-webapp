@@ -24,11 +24,11 @@ public class Person {
     @NotNull
     private String lastName;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     @NotNull
     private String personalNumber;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     @NotNull
     @Size(min = 4)
     private String email;

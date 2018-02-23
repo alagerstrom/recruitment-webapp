@@ -24,7 +24,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/recruiter/applications")
-public class ListApplicationsView  {
+public class ListApplicationsView {
 
     @Autowired
     private CreateApplicationService createApplicationService;
@@ -38,6 +38,7 @@ public class ListApplicationsView  {
     /**
      * Invocated when a GET request is sent to "/recruiter/applications". Loads all competences from the database as well
      * as the competences that the user has chosen for search.
+     *
      * @param model is responsible for making data available in the view.
      * @return the listApplications.html page
      */
@@ -52,8 +53,9 @@ public class ListApplicationsView  {
      * Invocated when a POST request is sent to "/recruiter/applications". Takes parameters from the search fields and
      * builds an <code>ApplicationSearchDTO</code> that is used in <code>findApplications</code> to return all applications
      * matching the search parameters. These are then loaded into the model and the view is loaded.
+     *
      * @param model is responsible for making data available in the view.
-     * @param dto contains the search criteria
+     * @param dto   contains the search criteria
      * @return the return value from the applicationView method, see @applicationView.
      */
     @PostMapping
@@ -66,8 +68,9 @@ public class ListApplicationsView  {
     /**
      * Invocated when a GET-request is sent to "/recruiter/applications/id". Responsible for loading a single application
      * view
+     *
      * @param model responsible for making data available in the view
-     * @param id the id of the application to show
+     * @param id    the id of the application to show
      * @return the singleApplication.html page
      */
     @GetMapping("/{id}")
@@ -77,8 +80,15 @@ public class ListApplicationsView  {
         return "singleApplication";
     }
 
+    /**
+     * Mapping used to create a PDF for an application
+     *
+     * @param applicationId The id of the application to create a PDF for
+     * @return A HTTP response with application PDF header, and the PDF as raw data in the
+     * response body
+     */
     @GetMapping(value = "/{id}/pdf", produces = MediaType.APPLICATION_PDF_VALUE)
-    public ResponseEntity<InputStreamResource> getApplicationAsPDF(@PathVariable("id") long applicationId){
+    public ResponseEntity<InputStreamResource> getApplicationAsPDF(@PathVariable("id") long applicationId) {
         ByteArrayInputStream bis = createApplicationService.generatePdfFor(applicationId);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Content-disposition", "inline: filename=application.pdf");

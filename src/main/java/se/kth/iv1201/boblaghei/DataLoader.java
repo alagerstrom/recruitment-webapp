@@ -11,6 +11,9 @@ import se.kth.iv1201.boblaghei.util.Constants;
 import java.util.Arrays;
 import java.util.Date;
 
+/**
+ * DataLoader to load test data to the database
+ */
 @Component
 public class DataLoader implements ApplicationRunner {
 
