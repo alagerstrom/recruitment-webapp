@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="fragments/layout :: page(~{::body})">
+<body>
+
+<div class="container">
+    <div class="row">
+        <a class="btn btn-primary" th:text="#{back}" th:href="@{/recruiter/applications}"></a>
+    </div>
+    <div class="row justify-content-center">
+        <h2 th:text="#{application}"></h2>
+    </div>
+    <div class="row justify-content-center">
+        <table class="table">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col" th:text="#{first_name}"></th>
+                <th scope="col" th:text="#{last_name}"></th>
+                <th scope="col" th:text="#{created}"></th>
+                <th scope="col" th:text="#{status}"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td th:text="${singleApplication.getPerson().getFirstName()}"></td>
+                <td th:text="${singleApplication.getPerson().getLastName()}"></td>
+                <td th:id="createdDate"></td>
+                <script th:inline="javascript">
+                    /*<![CDATA[*/
+
+                    var created = /*[[${singleApplication.getCreated()}]]*/ 'default';
+                    var locale = /*[[${#locale}]]*/ 'default';
+
+                    /*]]>*/
+
+                    var td = document.getElementById('createdDate');
+                    var text = document.createTextNode(formatDateBasedOnLocale(locale, created));
+                    td.appendChild(text);
+                </script>
+                <td th:text="${singleApplication.getStatus().getTranslation(#locale)}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row justify-content-center">
+        <h2 th:text="#{competences}"></h2>
+    </div>
+
+    <div class="row justify-content-center">
+        <table class="table">
+            <thead class="thead-light">
+            <th scope="col" th:text="#{competence}"></th>
+            <th scope="col" th:text="#{years_of_experience}"></th>
+            </thead>
+
+            <tbody>
+            <th:block th:each="compProfile : ${singleApplication.getCompetenceProfiles()}">
+                <tr>
+                    <td th:text="${compProfile.getCompetence().getTranslation(#locale)}"></td>
+                    <td th:text="${compProfile.getYearsOfExperience()}"></td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row justify-content-center">
+        <h2 th:text="#{availability}"></h2>
+    </div>
+
+    <div class="row justify-content-center">
+        <table class="table">
+            <thead class="thead-light">
+            <th scope="col" th:text="#{from}"></th>
+            <th scope="col" th:text="#{to}"></th>
+            </thead>
+            <tbody>
+            <th:block th:each="avalability : ${singleApplication.getAvailabilities()}">
+                <tr>
+                    <td th:id="${'from' + avalability.getId()}"></td>
+                    <td th:id="${'to' + avalability.getId()}"></td>
+                    <script th:inline="javascript">
+                        /*<![CDATA[*/
+
+                        var id = /*[[${avalability.getId()}]]*/ 'default';
+                        var fromDate = /*[[${avalability.getFromDate()}]]*/ 'default';
+                        var toDate = /*[[${avalability.getToDate()}]]*/ 'default';
+                        var locale = /*[[${#locale}]]*/ 'default';
+
+                        /*]]>*/
+
+                        var fromTd = document.getElementById('from' + id);
+                        var toTd = document.getElementById('to' + id);
+                        var fromText = document.createTextNode(formatDateBasedOnLocale(locale, fromDate));
+                        var toText = document.createTextNode(formatDateBasedOnLocale(locale, toDate));
+                        fromTd.appendChild(fromText);
+                        toTd.appendChild(toText);
+                    </script>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container"></div>
+</div>
+
+</body>
+</html>

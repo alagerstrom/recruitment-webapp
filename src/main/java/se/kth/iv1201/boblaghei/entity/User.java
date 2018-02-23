@@ -1,24 +1,40 @@
 package se.kth.iv1201.boblaghei.entity;
 
-import se.kth.iv1201.boblaghei.dto.UserDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
- *  O/R Mapping of the table User in the database.
+ * O/R Mapping of the table User in the database.
  */
 @Entity
-public class User {
+public class User implements UserDetails {
 
     @Id
+    @Size(min=4)
     private String username;
 
     @Column(nullable = false)
+    @Size(min=4)
     private String password;
 
     @Column(nullable = false)
     private boolean enabled;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles = new HashSet<>();
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "person_id")
+    @JsonIgnore
+    private Person person;
 
     public User() {
     }
@@ -29,6 +45,7 @@ public class User {
         this.enabled = enabled;
     }
 
+    @Override
     public String getUsername() {
         return username;
     }
@@ -37,6 +54,7 @@ public class User {
         this.username = username;
     }
 
+    @Override
     public String getPassword() {
         return password;
     }
@@ -45,12 +63,49 @@ public class User {
         this.password = password;
     }
 
+    @Override
     public boolean isEnabled() {
         return enabled;
     }
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
     }
 
     @Override
@@ -60,21 +115,5 @@ public class User {
                 ", password='" + password + '\'' +
                 ", enabled=" + enabled +
                 '}';
-    }
-
-    /**
-     * Returns the <code>User</code> as a <code>UserDTO</code> without including password.
-     * @return UserDTO representation excluding password.
-     */
-    public UserDTO getDTO() {
-        return new UserDTO(getUsername(), "", isEnabled());
-    }
-
-    /**
-     * Currently only used for testing purposes, not to be used in production code.
-     * @return complete UserDTO representation of User.
-     */
-    public UserDTO getDTOWithPassword() {
-        return new UserDTO(getUsername(), getPassword(), isEnabled());
     }
 }

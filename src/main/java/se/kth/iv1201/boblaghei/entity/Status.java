@@ -1,8 +1,8 @@
 package se.kth.iv1201.boblaghei.entity;
 
-import se.kth.iv1201.boblaghei.dto.StatusDTO;
-
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * O/R Mapping of the table Status in the database.
@@ -17,10 +17,14 @@ public class Status {
     @Column(nullable = false, unique = true)
     private String name;
 
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Translation> translations = new HashSet<>();
+
     public Status() {
     }
 
     public Status(String name) {
+        addTranslation(Translation.DEFAULT_LOCALE, name);
         this.name = name;
     }
 
@@ -42,13 +46,31 @@ public class Status {
 
     @Override
     public String toString() {
-        return "Status{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+        return name;
     }
 
-    public StatusDTO getDTO() {
-        return new StatusDTO(id, getName());
+    public Set<Translation> getTranslations() {
+        return translations;
     }
+
+    public void setTranslations(Set<Translation> translations) {
+        this.translations = translations;
+    }
+
+    public Status addTranslation(String locale, String value) {
+        translations.add(new Translation(locale, value));
+        return this;
+    }
+
+    public String getTranslation(String locale) {
+        for (Translation translation : translations)
+            if (translation.getLocale().equals(locale))
+                return translation.getValue();
+        for (Translation translation : translations)
+            if (translation.getLocale().equals(Translation.DEFAULT_LOCALE))
+                return translation.getValue();
+        return "N/A";
+    }
+
+
 }

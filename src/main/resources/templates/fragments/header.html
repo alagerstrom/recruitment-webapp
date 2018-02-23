@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Empty Title</title>
+    <title></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
@@ -9,8 +9,8 @@
 <div th:fragment="header">
     <div th:replace="fragments/menu :: menu"></div>
     <div class="jumbotron text-center">
-        <h1>Recruitment</h1>
-        <p>Get a nice job</p>
+        <h1 th:text="#{headline}"></h1>
+        <p th:text="#{greeting}"></p>
     </div>
 </div>
 

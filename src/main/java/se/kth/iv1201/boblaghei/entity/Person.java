@@ -1,14 +1,12 @@
 package se.kth.iv1201.boblaghei.entity;
 
-import se.kth.iv1201.boblaghei.dto.PersonDTO;
-
 import javax.persistence.*;
-import java.util.Set;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *  O/R Mapping of the table Person in the database.
  */
-
 @Entity
 public class Person {
 
@@ -17,18 +15,26 @@ public class Person {
     private long id;
 
     @Column(nullable = false)
+    @Size(min = 2)
+    @NotNull
     private String firstName;
 
+    @Size(min = 2)
     @Column(nullable = false)
+    @NotNull
     private String lastName;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
+    @NotNull
     private String personalNumber;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
+    @NotNull
+    @Size(min = 4)
     private String email;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "person")
+    @NotNull
     private User user;
 
     public Person() {
@@ -99,10 +105,5 @@ public class Person {
                 ", email='" + email + '\'' +
                 ", user=" + user +
                 '}';
-    }
-
-    public PersonDTO getDTO() {
-        return new PersonDTO(id, getFirstName(), getLastName(), getPersonalNumber(),
-                getEmail(), getUser().getDTO());
     }
 }

@@ -1,44 +1,83 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head"></head>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      th:replace="fragments/layout :: page(~{::body})">
 <body>
 
-<div th:replace="fragments/header :: header"></div>
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <h1>Sign in</h1>
-            <p th:if="${param.error}">
-                Invalid username and password.
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <h1 th:text="#{sign_in}"></h1>
+            <p th:if="${param.error}" th:text="#{invalid_credentials}">
+
             </p>
-            <p th:if="${param.logout}">
-                You have been logged out.
+            <p th:if="${param.logout}" th:text="#{logged_out}">
+
             </p>
-            <form th:action="@{/login}" method="post">
+            <form method="post" id="login_form">
 
                 <div class="form-group text-right">
-                    Not registered? <a th:href="@{/register}">Register</a>
+                    <div th:text="#{not_registered}"></div>
+                    <a th:href="@{/register}" th:text="#{register}"></a>
                 </div>
 
                 <div class="form-group">
-                    <label for="username">Username:</label>
-                    <input class="form-control" id="username" placeholder="Username" type="text" name="username"/>
+                    <label for="username" th:text="#{username}"></label>
+                    <input class="form-control" id="username" th:placeholder="#{username_placeholder}" type="text" name="username"/>
                 </div>
 
                 <div class="form-group">
-                    <label for="password">Password:</label>
-                    <input class="form-control" id="password" placeholder="Password" type="password" name="password"/>
+                    <label for="password" th:text="#{password}"></label>
+                    <input class="form-control" id="password" th:placeholder="#{password_placeholder}" type="password" name="password"/>
                 </div>
 
                 <div class="form-group text-right">
-                    <input class="btn btn-primary" type="submit" value="Sign In"/>
+                    <input class="btn btn-primary" id="submitLogin" type="submit" th:value="#{sign_in}"/>
                 </div>
             </form>
         </div>
     </div>
 
 </div>
-<div th:replace="fragments/footer :: footer"></div>
+
+<script th:inline="javascript">
+
+    function login() {
+
+        var user = {
+            username: document.getElementById("username").value,
+            password: document.getElementById("password").value,
+        };
+
+        const xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState === 4) {
+                if (this.status === 200) {
+                    const loginResponse = JSON.parse(xhttp.responseText);
+                    // console.log(loginResponse.token);
+                    document.cookie = "Authorization=" + loginResponse.token + "; Path=/";
+                    window.location.replace("/");
+                } else {
+                    /*<![CDATA[*/
+
+                    var message = /*[[#{wrong_password}]]*/ 'default';
+                    alert(message);
+
+                    /*]]>*/
+                }
+            }
+        };
+        xhttp.open("POST", "/api/users/login", true);
+        xhttp.setRequestHeader('Content-Type', 'application/json');
+        xhttp.send(JSON.stringify(user));
+    }
+
+    document.getElementById("login_form").onsubmit = function (ev) {
+        console.log("Should submit");
+        ev.preventDefault();
+        login();
+    }
+</script>
 
 </body>
 </html>
+

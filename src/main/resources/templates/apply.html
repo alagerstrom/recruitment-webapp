@@ -1,125 +1,227 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head"></head>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="fragments/layout :: page(~{::body})">
 <body>
 
-<div th:replace="fragments/header :: header"></div>
-
-
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <h1>Create Application</h1>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h1 th:text="#{create_application}"/>
 
-            <h2>Competences</h2>
+            <h2 th:text="#{competences}"/>
 
-            <form th:action="@{/apply/add-competence}" method="post">
-                <div class="form-group">
-                    <th:block th:each="competenceProfile : ${selectedCompetences}">
-                        <div class="bg-success text-white">
-                            <p th:text="${'Competence ' + competenceProfile.getCompetence().getName() + ' with ' + competenceProfile.getYearsOfExperience() + ' years of experience'}"></p>
-                        </div>
+            <div id="allCompetences">
+                <!--Add new competences here-->
+            </div>
+
+            <div class="form-group">
+                <label for="selectCompetence" th:text="#{select_competence}"/>
+                <select id="selectCompetence" name="id" class="form-control">
+                    <th:block th:each="competence : ${competences}">
+                        <option
+                                th:value="${competence.getId()}"
+                                th:text="${competence.getTranslation(#locale)}">
+                        </option>
                     </th:block>
-                </div>
+                </select>
 
-                <div class="form-group">
-
-                    <label for="selectCompetence">Select competence</label>
-                    <select id="selectCompetence" name="id" class="form-control">
-                        <th:block th:each="competence : ${availableCompetences}">
-                            <option
-                                    th:value="${competence.getId()}"
-                                    th:text="${competence.getName()}">
-                            </option>
-                        </th:block>
-                    </select>
-
-                </div>
+            </div>
 
 
-                <div class="row">
-                    <div class="col-md-8">
-                        <div class="form-group">
-                            <label for="yearsOfExperience">Years of experience</label>
-                            <input id="yearsOfExperience" class="form-control" placeholder="Enter years of experience"
-                                   type="text"
-                                   name="yearsOfExperience"/>
-                            <small id="yearsOfExperienceHelp" class="form-text text-muted">
-                                How long experience do you have with that competence?
-                            </small>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label for="yearsOfExperience" th:text="#{years_of_experience}"/>
+                        <input id="yearsOfExperience" class="form-control"
+                               th:placeholder="#{years_of_experience_placeholder}"
+                               type="text"
+                               name="yearsOfExperience"/>
+                        <small id="yearsOfExperienceHelp" class="form-text text-muted"
+                               th:text="#{years_of_experience_help}">
+                        </small>
 
-
-                        </div>
 
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group text-right">
-                            <!--<small id="submitHint" class="form-text text-muted">Click to add</small>-->
-                            <label for="addCompetenceButton">Click to add</label>
-                            <input id="addCompetenceButton" class="btn btn-primary" type="submit"
-                                   value="Add competence"/>
-                        </div>
 
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group text-right">
+                        <!--<small id="submitHint" class="form-text text-muted">Click to add</small>-->
+                        <label for="addCompetenceButton" th:text="#{add_competence_button_text}"/>
+                        <input id="addCompetenceButton" class="btn btn-primary" type="button" th:value="#{add_competence}" onclick="addCompetenceProfile()"/>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <h2 th:text="#{available}"/>
+
+            <div id="allAvailabilities">
+                <!--Add new availabilities here-->
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="fromDate" th:text="#{available_from}"/>
+                        <input id="fromDate" class="form-control" type="date" name="from"/>
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="toDate" th:text="#{available_to}"/>
+                        <input id="toDate" class="form-control" type="date" name="to"/>
                     </div>
                 </div>
-
-
-            </form>
-
-
-            <h2>Available</h2>
-
-            <form th:action="@{/apply/add-availability}" method="post">
-                <div class="form-group">
-                    <th:block th:each="availability : ${availabilities}">
-                        <div class="bg-success text-white">
-                            <p th:text="${'Available from ' + availability.getFrom() + ' to ' + availability.getTo()} "></p>
-                        </div>
-                    </th:block>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="from">Available from</label>
-                            <input id="from" class="form-control" type="date" name="from"/>
-                        </div>
-
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="to">Available to</label>
-                            <input id="to" class="form-control" type="date" name="to"/>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group text-right">
-                            <!--<small id="addAvailabilityHint" class="form-text text-muted">Click to add</small>-->
-                            <label for="addAvaiabilityButton">Click to add</label>
-                            <input id="addAvaiabilityButton" class="btn btn-primary" type="submit"
-                                   value="Add availability"/>
-                        </div>
+                <div class="col-md-4">
+                    <div class="form-group text-right">
+                        <!--<small id="addAvailabilityHint" class="form-text text-muted">Click to add</small>-->
+                        <label for="addAvailabilityButton" th:text="#{add_availability_button_text}"/>
+                        <input id="addAvailabilityButton" class="btn btn-primary" type="button" th:value="#{add_availability}" onclick="addAvailability()"/>
                     </div>
                 </div>
+            </div>
 
 
-            </form>
-
-            <form th:action="@{/apply/submit-application}" method="post">
-                <div class="form-group text-right">
-                    <small id="submitApplicationHint" class="form-text text-muted">All done?</small>
-                    <input class="btn btn-primary" type="submit" value="Submit application"/>
-                </div>
-            </form>
-
-
+            <div class="form-group text-right">
+                <small id="submitApplicationHint" class="form-text text-muted" th:text="#{all_done}"/>
+                <input class="btn btn-primary" type="button" th:value="#{submit_application}" onclick="sendApplication()"/>
+            </div>
         </div>
     </div>
-
 </div>
+<script th:inline="javascript">
 
-<div th:replace="fragments/footer :: footer"></div>
+    const application = {
+        competenceProfiles: [],
+        availabilities: [],
+    };
 
+    function addCompetenceProfile() {
+        console.log("Validating comp prof");
+        const yearsOfExperienceField = document.getElementById('yearsOfExperience');
+        if (yearsOfExperienceField.value === "" || isNaN(yearsOfExperienceField.value)) {
+            /*<![CDATA[*/
 
+            var message = /*[[#{years_of_experience_must_be_set}]]*/ 'default';
+            alert(message);
+
+            /*]]>*/
+            return
+        }
+
+        const competenceSelector = document.getElementById('selectCompetence');
+
+        const selectedCompetence = competenceSelector.options[competenceSelector.selectedIndex];
+        const selectedYearsOfExperience = yearsOfExperienceField.value;
+
+        const newCompProfile = {
+            competence: {
+                id: selectedCompetence.value,
+                name: selectedCompetence.text
+            },
+
+            yearsOfExperience: selectedYearsOfExperience
+        };
+
+        application.competenceProfiles.push(newCompProfile);
+        updateAllCompetencesDiv(newCompProfile);
+        console.log(application)
+    }
+
+    function addAvailability() {
+        console.log("Adding avalability");
+        const fromDateInput = document.getElementById('fromDate');
+        const toDateInput = document.getElementById('toDate');
+
+        if(!fromDateInput.value || !toDateInput.value) {
+            /*<![CDATA[*/
+
+            var message = /*[[#{from_and_to_dates}]]*/ 'default';
+            alert(message);
+
+            /*]]>*/
+            return
+        }
+        if (fromDateInput.value > toDateInput.value) {
+            /*<![CDATA[*/
+
+            var message = /*[[#{from_before_after}]]*/ 'default';
+            alert(message);
+
+            /*]]>*/
+            return
+        }
+
+        const newAvailability = {
+            fromDate : fromDateInput.value,
+            toDate: toDateInput.value
+        };
+
+        application.availabilities.push(newAvailability);
+        updateAllAvailabilitiesDiv(newAvailability);
+        console.log(application)
+    }
+    
+    function sendApplication() {
+        const jsonString = JSON.stringify(application);
+        console.log("Sending " + jsonString);
+        let url = "/api/applications";
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader("Content-type", "application/json");
+        xhr.onreadystatechange = function() {
+            if (this.readyState === 4) {
+                if (this.status === 200) {
+                    /*<![CDATA[*/
+
+                    var message = /*[[#{application_submit_success}]]*/ 'default';
+                    alert(message);
+
+                    /*]]>*/
+                }else{
+                    /*<![CDATA[*/
+
+                    var message = /*[[#{application_submit_fail}]]*/ 'default';
+                    alert(message);
+
+                    /*]]>*/
+                }
+            }
+        };
+        xhr.send(jsonString)
+    }
+
+    function updateAllCompetencesDiv(profile) {
+        const compProfDiv = document.getElementById('allCompetences');
+        const prevHtml = compProfDiv.innerHTML;
+        /*<![CDATA[*/
+
+        var you_selected = /*[[#{you_selected}]]*/ 'default';
+        var with_string = /*[[#{with_string}]]*/ 'default';
+        var years_of_experience = /*[[#{years_of_experience}]]*/ 'default';
+
+        /*]]>*/
+        compProfDiv.innerHTML = prevHtml + `<div>${you_selected} ${profile.competence.name} ${with_string} ${profile.yearsOfExperience} ${years_of_experience.toLowerCase()}</div>`;
+    }
+
+    function updateAllAvailabilitiesDiv(ava) {
+        const allAvailabilitiesDiv = document.getElementById('allAvailabilities');
+        const prevHtml = allAvailabilitiesDiv.innerHTML;
+        /*<![CDATA[*/
+
+        var you_are_available = /*[[#{you_are_available}]]*/ 'default';
+        var until = /*[[#{until}]]*/ 'default';
+        var locale = /*[[${#locale}]]*/ 'default';
+
+        /*]]>*/
+
+        var formattedFromDate = formatDateBasedOnLocale(locale, ava.fromDate);
+        var formattedToDate = formatDateBasedOnLocale(locale, ava.toDate);
+        allAvailabilitiesDiv.innerHTML = prevHtml + `<div>${you_are_available} ${formattedFromDate} ${until} ${formattedToDate}</div>`
+    }
+</script>
 </body>
 </html>

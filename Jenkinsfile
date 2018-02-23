@@ -1,26 +1,31 @@
 pipeline {
     agent any
     stages{
-        stage('Clean') {
-            steps {
-                sh "pwd"
-                sh "mvn clean"
-                sh "ls"
-            }
-        }
-        stage('Build'){
-            steps {
-                sh "mvn compile"
-            }
-        }
-        stage('Test'){
+        stage('Maven clean'){
             steps{
-                sh "mvn test"
+                sh 'mvn clean'
             }
         }
-        stage('Package'){
+        stage('Maven test'){
             steps{
-                sh "mvn package"
+                sh 'mvn test'
+            }
+        }
+        stage('Maven package'){
+            steps{
+                sh 'mvn package'
+            }
+        }
+        stage('Docker build'){
+            steps{
+                sh 'docker build -t app .'
+            }
+        }
+        stage('Restart docker container'){
+            steps{
+                sh 'docker kill app || true'
+                sh 'docker rm app || true'
+                sh 'docker run -p 8000:5000 --name=app -d app'
             }
         }
     }

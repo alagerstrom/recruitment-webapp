@@ -1,11 +1,12 @@
 package se.kth.iv1201.boblaghei.entity;
 
-import se.kth.iv1201.boblaghei.dto.CompetenceProfileDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 /**
- *  O/R Mapping of the table CompetenceProfile in the database.
+ * O/R Mapping of the table CompetenceProfile in the database.
  */
 @Entity
 public class CompetenceProfile {
@@ -18,6 +19,7 @@ public class CompetenceProfile {
     private double yearsOfExperience;
 
     @ManyToOne
+    @JsonIgnore
     private Application application;
 
     @ManyToOne
@@ -74,8 +76,20 @@ public class CompetenceProfile {
                 '}';
     }
 
-    public CompetenceProfileDTO getDTO() {
-        return new CompetenceProfileDTO(id, getYearsOfExperience(),
-                getApplication().getDTO(), getCompetence().getDTO());
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CompetenceProfile that = (CompetenceProfile) o;
+        return id == that.id &&
+                Double.compare(that.yearsOfExperience, yearsOfExperience) == 0 &&
+                Objects.equals(application, that.application) &&
+                Objects.equals(competence, that.competence);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, yearsOfExperience, application, competence);
     }
 }

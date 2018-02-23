@@ -1,21 +1,18 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head"></head>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      th:replace="fragments/layout :: page(~{::body})">
 <body>
-
-<div th:replace="fragments/header :: header"> </div>
-
-
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-3 text-center">
-            <h2>Welcome</h2>
-            <p th:text="${'Welcome ' + personDTO.getFirstName() + ' ' + personDTO.getLastName()}"></p>
-        </div>
-    </div>
-</div>
-
-<div th:replace="fragments/footer :: footer"></div>
-
+<script sec:authorize="isAnonymous()">
+    window.location.replace("/login");
+</script>
+<th:block sec:authorize="isAuthenticated()">
+    <script sec:authorize="hasRole('ROLE_RECRUITER')">
+        window.location.replace("/recruiter/applications");
+    </script>
+    <script sec:authorize="hasRole('ROLE_APPLICANT')">
+        window.location.replace("/apply");
+    </script>
+</th:block>
 </body>
 </html>

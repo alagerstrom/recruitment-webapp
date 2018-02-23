@@ -1,133 +1,125 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head"></head>
+<!--suppress CheckTagEmptyBody -->
+<html xmlns:th="http://www.thymeleaf.org" th:replace="fragments/layout :: page(~{::body})">
 <body>
 
-<div th:replace="fragments/header :: header"></div>
-
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <h1>List applications</h1>
-            <h2 th:if="${listOfApplications}">Search result</h2>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h1 th:text="#{list_applications}"></h1>
+            <h2 id="searchResultHeader" th:if="${listOfApplications}" th:text="#{search_result}"></h2>
 
-            <table class="table" th:if="${listOfApplications}" th:object="${listOfApplications}">
+            <table id="searchResultTable" class="table" th:if="${listOfApplications}" th:object="${listOfApplications}">
                 <thead>
                 <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Created</th>
+                    <th th:text="#{first_name}"></th>
+                    <th th:text="#{last_name}"></th>
+                    <th th:text="#{created}"></th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody>
-                <th:block th:each="application : ${listOfApplications}">
+                <th:block th:each="app : ${listOfApplications}">
                     <tr>
-                        <td scope="row" th:text="${application.getPerson().getFirstName()}"></td>
-                        <td th:text="${application.getPerson().getLastName()}"></td>
-                        <td th:text="${application.getCreated()}"></td>
-                        <td><a th:href="@{/recruiter/applications/{path}(path=${application.id})}">View</a></td>
+                        <td scope="row" th:text="${app.getPerson().getFirstName()}"></td>
+                        <td th:text="${app.getPerson().getLastName()}"></td>
+                        <td th:id="${app.getId()}"></td>
+                        <script th:inline="javascript">
+                            /*<![CDATA[*/
+
+                            var id = /*[[${app.getId()}]]*/ 'default';
+                            var created = /*[[${app.getCreated()}]]*/ 'default';
+                            var locale = /*[[${#locale}]]*/ 'default';
+
+                            /*]]>*/
+
+                            var td = document.getElementById(id);
+                            var text = document.createTextNode(formatDateBasedOnLocale(locale, created));
+                            td.appendChild(text);
+                        </script>
+                        <td><a th:text="#{view}" th:href="@{/recruiter/applications/{path}(path=${app.id})}"></a></td>
+                        <td><a th:text="#{download_pdf}" th:href="@{/recruiter/applications/{id}/pdf (id=${app.id})}"></a></td>
                     </tr>
                 </th:block>
                 </tbody>
             </table>
 
-            <h2>Search terms</h2>
+            <h2 th:text="#{search_terms}"></h2>
 
-            <form th:action="@{/recruiter/applications/add-competence}" method="post">
-                <div class="form-group">
-                    <th:block th:each="competenceProfile : ${selectedCompetences}">
-                        <div class="bg-success text-white">
-                            <p th:text="${'Competence ' + competenceProfile.getCompetence().getName() + ' with at least ' + competenceProfile.getYearsOfExperience() + ' years of experience'}"></p>
-                        </div>
-                    </th:block>
-                </div>
+            <form id="searchForm" th:action="@{/recruiter/applications}" method="post" th:object="${applicationSearchDto}" onsubmit="return validateForm()">
 
                 <div class="form-group">
-                    <label for="selectCompetence">Select competence</label>
-                    <select id="selectCompetence" name="id" class="form-control">
+                    <label for="selectCompetence" th:text="#{select_competence}"></label>
+                    <select id="selectCompetence" name="id" class="form-control" th:field="*{competence}">
                         <th:block th:each="competence : ${availableCompetences}">
                             <option
-                                    th:value="${competence.getId()}"
-                                    th:text="${competence.getName()}">
+                                    th:value="${competence.getName()}"
+                                    th:text="${competence.getTranslation(#locale)}">
                             </option>
                         </th:block>
                     </select>
                 </div>
 
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-6">
                         <div class="form-group">
-                            <label for="yearsOfExperience">Years of experience</label>
-                            <input id="yearsOfExperience" class="form-control" placeholder="Enter years of experience"
-                                   type="text"
-                                   name="yearsOfExperience"/>
-                        </div>
-
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group text-right">
-                            <!--<small id="submitHint" class="form-text text-muted">Click to add</small>-->
-                            <label for="addCompetenceButton">Click to add</label>
-                            <input id="addCompetenceButton" class="btn btn-primary" type="submit"
-                                   value="Add competence"/>
-                        </div>
-
-                    </div>
-                </div>
-
-            </form>
-
-            <form th:action="@{/recruiter/applications}" method="post">
-
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-                            <label for="firstName">First name</label>
-                            <input class="form-control" placeholder="First name" id="firstName" type="text"
-                                   name="firstName"/>
+                            <label th:text="#{first_name}" for="firstName"></label>
+                            <input class="form-control" th:placeholder="#{first_name}" id="firstName" type="text"
+                                   name="firstName" th:field="*{applicantFirstname}"/>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col-md-6">
                         <div class="form-group">
-                            <label for="lastName">Last name</label>
-                            <input class="form-control" placeholder="Last name" id="lastName" type="text"
-                                   name="lastName"/>
+                            <label for="lastName" th:text="#{last_name}"></label>
+                            <input class="form-control" th:placeholder="#{last_name}" id="lastName" type="text"
+                                   name="lastName" th:field="*{applicantLastname}"/>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="created">Created</label>
+                    <label for="created" th:text="#{created}"></label>
                     <input class="form-control" placeholder="Application created" id="created" type="date"
-                           name="created"/>
+                           name="created" th:field="*{applicationCreated}"/>
                 </div>
 
                 <div class="row">
-                    <div class="col">
+                    <div class="col-md-6">
                         <div class="form-group">
-                            <label for="from">Available from</label>
-                            <input class="form-control" id="from" type="date" name="from"/>
+                            <label for="fromDate" th:text="#{available_from}"></label>
+                            <input class="form-control" id="fromDate" type="date" th:field="*{availableFrom}"/>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col-md-6">
                         <div class="form-group">
-                            <label for="to">Available to</label>
-                            <input class="form-control" id="to" type="date" name="to"/>
+                            <label for="toDate" th:text="#{available_to}"></label>
+                            <input class="form-control" id="toDate" type="date" th:field="*{availableTo}"/>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group text-right">
-                    <input class="btn btn-primary" id="search" type="submit" value="Search"/>
+                    <input class="btn btn-primary" id="search" type="submit" th:value="#{search}"/>
                 </div>
             </form>
 
         </div>
     </div>
-
 </div>
-<div th:replace="fragments/footer :: footer"></div>
+<script type="text/javascript">
 
+    function validateForm() {
+        const form = document.getElementById('searchForm');
+        const fromDate = form.fromDate.value;
+        const toDate = form.toDate.value;
+        if (fromDate && toDate) {
+            if (fromDate >= toDate) {
+                alert("From date can not be after to date");
+                return fromDate <= toDate;
+            }
+        }
+        return true
+    }
+</script>
 </body>
 </html>

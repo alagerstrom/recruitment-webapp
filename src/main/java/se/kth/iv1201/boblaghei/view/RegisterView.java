@@ -7,46 +7,35 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import se.kth.iv1201.boblaghei.dto.PersonDTO;
-import se.kth.iv1201.boblaghei.dto.UserDTO;
-import se.kth.iv1201.boblaghei.exception.NoUserLoggedInException;
-import se.kth.iv1201.boblaghei.service.RegisterService;
+import se.kth.iv1201.boblaghei.entity.Person;
+import se.kth.iv1201.boblaghei.entity.User;
 import se.kth.iv1201.boblaghei.exception.DuplicateUsernameException;
+import se.kth.iv1201.boblaghei.service.SecurityService;
 import se.kth.iv1201.boblaghei.util.logger.ErrorLogger;
 
+import javax.validation.Valid;
+
+/**
+ * Controller responsible for providing mappings used for registration of a new user.
+ */
 @Controller
 public class RegisterView {
 
     @Autowired
-    RegisterService registerService;
+    SecurityService securityService;
 
-    @Autowired
-    ErrorLogger errorLogger;
-
+    /**
+     * Invocated on a GET-request to "/register". Loads the register view which enables a person to register on the website.
+     *
+     * @param model responsible for making data available in the view
+     * @return the register.html page
+     */
     @GetMapping("/register")
-    public String getRegisterView(Model model){
-        UserDTO user = new UserDTO();
-        PersonDTO person = new PersonDTO();
+    public String getRegisterView(Model model) {
+        User user = new User();
+        Person person = new Person();
         person.setUser(user);
         model.addAttribute("person", person);
         return "register";
-    }
-
-    @PostMapping("/register")
-    public String postRegistration(@ModelAttribute PersonDTO person, Model model){
-        System.out.println("I should register " + person);
-        try{
-            registerService.register(person);
-        } catch (DuplicateKeyException | DuplicateUsernameException e) {
-            errorLogger.log(e.getMessage());
-            e.printStackTrace();
-        }
-        return "redirect:/";
-    }
-
-    @GetMapping("/listRoles")
-    public String getListRolesView(Model model) throws NoUserLoggedInException {
-        model.addAttribute("listOfRoles", registerService.getRolesOfLoggedInPerson());
-        return "listRoles";
     }
 }
