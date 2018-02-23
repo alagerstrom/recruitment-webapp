@@ -13,6 +13,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+/**
+ * Filter used to extract JWT token from all requests.
+ */
 @Component
 public class JWTTokenFilter extends GenericFilterBean {
 

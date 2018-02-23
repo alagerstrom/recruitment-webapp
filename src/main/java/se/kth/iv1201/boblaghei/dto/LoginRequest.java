@@ -3,6 +3,9 @@ package se.kth.iv1201.boblaghei.dto;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+/**
+ * A dto class that represents a request to log in.
+ */
 public class LoginRequest {
 
     @NotNull
