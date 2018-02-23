@@ -25,7 +25,7 @@ pipeline {
             steps{
                 sh 'docker kill app || true'
                 sh 'docker rm app || true'
-                sh 'docker run --net=\"host\" --name=app -d app'
+                sh 'docker run -p 8000:5000 --name=app -d app'
             }
         }
     }
