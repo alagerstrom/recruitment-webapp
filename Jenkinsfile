@@ -23,8 +23,9 @@ pipeline {
         }
         stage('Restart docker container'){
             steps{
-                sh 'docker stop $(docker ps -a -q)'
-                sh 'docker run -d -p 8000:5000 app'
+                sh 'docker kill app || true'
+                sh 'docker rm app || true'
+                sh 'docker run --net="host" --name=app -d -p 8000:5000 app'
             }
         }
     }
